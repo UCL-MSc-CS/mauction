@@ -136,6 +136,9 @@
   // This uses a function defined in utilities.php
   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
   
+  mysqli_close($connection);
+  
+  
   $item_id = "516";
   $title = "Different title";
   $description = "Very short description.";
