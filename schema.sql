@@ -28,8 +28,15 @@ PRIMARY KEY (sellerID)
 
 CREATE TABLE `auctions` (
 saleItemID INT NOT NULL AUTO_INCREMENT,
-sellerID INT NOT NULL,
-PRIMARY KEY (saleItemID)
+sellerID INT NOT NULL, startDate DATE NOT NULL,
+startTime TIME NOT NULL, category VARCHAR(100) NOT NULL,
+description VARCHAR(300) NOT NULL, reservePrice DECIMAL NOT NULL,
+endTime TIME NOT NULL, endDate DATE NOT NULL, 
+finalPrice DECIMAL NOT NULL, commission DECIMAL NOT NULL, 
+delivery VARCHAR(20) NOT NULL, outcome VARCHAR(30) NOT NULL,
+condition VARCHAR(30) NOT NULL, itemPhoto BINARY LARGE OBJECT NOT NULL,
+PRIMARY KEY (saleItemID),
+FOREIGN KEY (sellerID) REFERENCES sellers
 );
 
 CREATE TABLE `bids` (
@@ -40,7 +47,7 @@ PRIMARY KEY (bidID)
 );
 
 INSERT INTO `buyers` (userName, email, address, firstName, lastName, password)
-VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "CA, USA", "Caroline", "Crandell", SHA("password"));
+VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "CA, USA", "Caroline", "Crandell", SHA("password"));                                                                                        
 
 INSERT INTO `buyers` (userName, email, address, firstName, lastName, password)
 VALUES ("erinuclkwon", "wei.quan.20@ucl.ac.uk", "Birmingham, UK", "Wei", "Quan", SHA("1234"));
