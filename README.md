@@ -17,9 +17,7 @@ Mauction is organized into the following files:
 
 * *images folder* - stores all of the images for this README file.
 
-![ER Diagram](images/ERDiagram.pdf)
-
-* *ER Diagram* - this file contains the initial ER Diagram.
+* <div src="images/ERDiagram.pdf" target="_blank">This browser does not support PDFs. Please view our ER Diagram in a new tab <a href="images/ERDiagram.pdf">here</a>.</div>
 
 **Step-by-Step on how to run the application**
 
