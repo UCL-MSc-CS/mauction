@@ -34,9 +34,8 @@ description VARCHAR(300) NOT NULL, reservePrice DECIMAL NOT NULL,
 endTime TIME NOT NULL, endDate DATE NOT NULL, 
 finalPrice DECIMAL NOT NULL, commission DECIMAL NOT NULL, 
 delivery VARCHAR(20) NOT NULL, outcome VARCHAR(30) NOT NULL,
-condition VARCHAR(30) NOT NULL, 
-PRIMARY KEY (saleItemID),
-FOREIGN KEY (sellerID) REFERENCES sellers) 
+cond VARCHAR(30) NOT NULL, 
+PRIMARY KEY (saleItemID))
 ENGINE = InnoDB;                
 
 CREATE TABLE `bids` (
@@ -58,8 +57,8 @@ VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "London, UK", "Matthew", 
 INSERT INTO `sellers` (userName, email, address, firstName, lastName, password)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "London, UK", "Arianna", "Bourke", SHA("1234"));
 
-INSERT INTO `auctions` (sellerID, startDate, startTime, category, description, reservePrice, endTime, endDate, finalPrice, commission, delivery, outcome, cond)
-VALUES ('1','01-01-20','00:00:00','video games','EPIC fortnite skins','10000.00','12:00:00','10-10-20','10000.00','1','post','still bidding','new');
+INSERT INTO `auctions` (saleItemID, sellerID, startDate, startTime, category, description, reservePrice, endTime, endDate, finalPrice, commission, delivery, outcome, cond)
+VALUES ('1','1','01-01-20','00:00:00','video games','EPIC fortnite skins','10000.00','12:00:00','10-10-20','10000.00','1','post','still bidding','new');
 
 INSERT INTO `bids` (buyerID, saleItemID)
 VALUES (1,1);
