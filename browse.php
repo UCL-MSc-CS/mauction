@@ -55,6 +55,8 @@
 
 </div>
 
+
+<!-- this is the search bar part -->
 <?php
   // Retrieve these from the URL
   if (!isset($_GET['keyword'])) {
@@ -106,11 +108,28 @@
      retrieved from the query -->
 
 <?php
-  // Demonstration of what listings will look like using dummy data.
-  $item_id = "87021";
-  $title = "Dummy title";
-  $description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget rutrum ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus feugiat, ipsum vel egestas elementum, sem mi vestibulum eros, et facilisis dui nisi eget metus. In non elit felis. Ut lacus sem, pulvinar ultricies pretium sed, viverra ac sapien. Vivamus condimentum aliquam rutrum. Phasellus iaculis faucibus pellentesque. Sed sem urna, maximus vitae cursus id, malesuada nec lectus. Vestibulum scelerisque vulputate elit ut laoreet. Praesent vitae orci sed metus varius posuere sagittis non mi.";
-  $current_price = 30;
+  // Demonstration of what listings will look like using dummy data. MATT: I tried to establish a connection and display a real auction listing from the database here 29/10/20
+	
+  $servername = 'localhost'
+  $username = 'root'            // Should set up a root password but idk how lol
+  $password = ''
+  $database = 'auction_db'   //might be mAuction or mauction for you guys
+
+  //tries to create connection:
+  $connection = mysqli_connect($servername,$username,$password,$database)
+    or die('Error connecting to MySQL server.' . mysql_error());
+
+  $query = "SELECT description, reservePrice, endTime FROM auctions"
+  $result = mysqli_query($connection,$query) or die('Error making select users query' mysql_error());
+
+  $row = mysqli_fetch_array($result)    //fetches the first row, stores the result in $row
+
+  //$item_id = "87021";
+  $item_id = $row['saleItemID'];
+  $title = "EPIC fortnite skins";
+  $description = "what kids apparently spend their money on these days";
+  //$current_price = 30;
+  $current_price = $row['reservePrice']
   $num_bids = 1;
   $end_date = new DateTime('2020-09-16T11:00:00');
   
