@@ -58,7 +58,7 @@ VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "London, UK", "Matthew", 
 INSERT INTO `sellers` (userName, email, address, firstName, lastName, password)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "London, UK", "Arianna", "Bourke", SHA("1234"));
 
-INSERT INTO `auctions` (sellerID)
+INSERT INTO `auctions` (sellerID, startDate, startTime, category, description, reservePrice, endTime, endDate, finalPrice, commission, delivery, outcome, cond)
 VALUES ('1','01-01-20','00:00:00','video games','EPIC fortnite skins','10000.00','12:00:00','10-10-20','10000.00','1','post','still bidding','new');
 
 INSERT INTO `bids` (buyerID, saleItemID)
