@@ -20,11 +20,11 @@ Mauction is organized into the following files:
 * <div>This browser does not support PDFs. Please view our ER Diagram <a href="images/ERDiagram.pdf" target="_blank">here</a>.</div>
 
 **Step-by-Step on how to run the application**
-
+<a href="localhost:8888/mauction/browse.php">
 ```js
-<a href="localhost:8888/mauction/browse.php">localhost:8888/mauction/browse.php</a>
+localhost:8888/mauction/browse.php
 ```
-
+</a>
 * On the homepage, the user is prompted to sign up or login.
 
 **Technologies Used** 
