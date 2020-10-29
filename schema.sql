@@ -11,8 +11,8 @@ registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
 password VARCHAR(40),
-PRIMARY KEY (buyerID)
-);
+PRIMARY KEY (buyerID))
+ENGINE = InnoDB;
 
 CREATE TABLE `sellers` (
 sellerID INT NOT NULL AUTO_INCREMENT,
@@ -23,8 +23,8 @@ registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
 password VARCHAR(40),
-PRIMARY KEY (sellerID)
-);
+PRIMARY KEY (sellerID))
+ENGINE = InnoDB;
 
 CREATE TABLE `auctions` (
 saleItemID INT NOT NULL AUTO_INCREMENT,
@@ -36,15 +36,15 @@ finalPrice DECIMAL NOT NULL, commission DECIMAL NOT NULL,
 delivery VARCHAR(20) NOT NULL, outcome VARCHAR(30) NOT NULL,
 condition VARCHAR(30) NOT NULL, itemPhoto BINARY LARGE OBJECT NOT NULL,
 PRIMARY KEY (saleItemID),
-FOREIGN KEY (sellerID) REFERENCES sellers
-);
+FOREIGN KEY (sellerID) REFERENCES sellers) 
+ENGINE = InnoDB;
 
 CREATE TABLE `bids` (
 bidID INT NOT NULL AUTO_INCREMENT,
 buyerID INT NOT NULL,
 saleItemID INT NOT NULL,
-PRIMARY KEY (bidID)
-);
+PRIMARY KEY (bidID))
+ENGINE = InnoDB;
 
 INSERT INTO `buyers` (userName, email, address, firstName, lastName, password)
 VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "CA, USA", "Caroline", "Crandell", SHA("password"));                                                                                        
