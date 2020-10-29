@@ -34,10 +34,10 @@ description VARCHAR(300) NOT NULL, reservePrice DECIMAL NOT NULL,
 endTime TIME NOT NULL, endDate DATE NOT NULL, 
 finalPrice DECIMAL NOT NULL, commission DECIMAL NOT NULL, 
 delivery VARCHAR(20) NOT NULL, outcome VARCHAR(30) NOT NULL,
-condition VARCHAR(30) NOT NULL, itemPhoto BINARY LARGE OBJECT NOT NULL,
+condition VARCHAR(30) NOT NULL, 
 PRIMARY KEY (saleItemID),
 FOREIGN KEY (sellerID) REFERENCES sellers) 
-ENGINE = InnoDB;
+ENGINE = InnoDB;                
 
 CREATE TABLE `bids` (
 bidID INT NOT NULL AUTO_INCREMENT,
@@ -59,7 +59,7 @@ INSERT INTO `sellers` (userName, email, address, firstName, lastName, password)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "London, UK", "Arianna", "Bourke", SHA("1234"));
 
 INSERT INTO `auctions` (sellerID)
-VALUES (1);
+VALUES ('1','01-01-20','00:00:00','video games','EPIC fortnite skins','10000.00','12:00:00','10-10-20','10000.00','1','post','still bidding','new');
 
 INSERT INTO `bids` (buyerID, saleItemID)
 VALUES (1,1);
