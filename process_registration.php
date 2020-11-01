@@ -5,6 +5,8 @@
 // options.
 // Ari: 31/10/20 -- added connection and POST variable assignment and INSERT into users database
 // TO DO: password security, check user input, add ability to choose buyer/seller 
+// change connection to function
+// *** this version only works with modified database tables (without extra columns that still need to be added)***
 
 ?>
 
