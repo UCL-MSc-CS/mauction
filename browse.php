@@ -112,9 +112,7 @@ include 'connection.php';
 <?php
 
 $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions";
-// $result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
-// echo $result;
-// echo "Hello there";
+$result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
 // $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
   // Demonstration of what listings will look like using dummy data.
