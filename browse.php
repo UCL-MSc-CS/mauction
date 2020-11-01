@@ -113,17 +113,17 @@ include 'connection.php';
 
 $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions";
 $result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
-// $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
+$row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
   // Demonstration of what listings will look like using dummy data.
-  // $item_id = $row['userID'];
+  $item_id = $row['userID'];
   // $title = $row['itemName'];
   // $description = $row['description'];
   // $current_price = $row['startPrice'];
   // $num_bids = $row['commission'];
   // $end_date = $row['endDate'];
   
-  $item_id = "Hello";
+  // $item_id = "Hello";
   $title = "It's me";
   $description = "Can you";
   $current_price = "hear me";
