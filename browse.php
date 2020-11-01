@@ -1,7 +1,6 @@
 <?php
 include 'connection.php';
 $conn = OpenCon();
-echo "New connection"
 ?>
 <!-- https://www.cloudways.com/blog/connect-mysql-with-php/#createdatabase -->
 <?php include_once("header.php")?>
