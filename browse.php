@@ -119,12 +119,19 @@ $result = mysqli_query($connection,$query) or die('Error making select users que
 $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
   // Demonstration of what listings will look like using dummy data.
-  $item_id = $row['userID'];
-  $title = $row['itemName'];
-  $description = $row['description'];
-  $current_price = $row['startPrice'];
-  $num_bids = $row['commission'];
-  $end_date = $row['endDate'];
+  // $item_id = $row['userID'];
+  // $title = $row['itemName'];
+  // $description = $row['description'];
+  // $current_price = $row['startPrice'];
+  // $num_bids = $row['commission'];
+  // $end_date = $row['endDate'];
+  
+  $item_id = "$row['userID']";
+  $title = "$row['itemName']";
+  $description = "$row['description']";
+  $current_price = "$row['startPrice']";
+  $num_bids = "$row['commission']";
+  $end_date = "$row['endDate']";
   
   // This uses a function defined in utilities.php
   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
