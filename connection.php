@@ -11,10 +11,10 @@ $success = mysqli_real_connect(
 <?php
 $dbconfig = parse_ini_file(".env");
 
-$servername = $dbconfig["$host"];
-$username = $dbconfig["$user"];
-$password = $dbconfig["$password"];
-$database = $dbconfig["$db"];
+$servername = $dbconfig["host"];
+$username = $dbconfig["user"];
+$password = $dbconfig["password"];
+$database = $dbconfig["db"];
 
 // Create connection
 $connection = mysqli_connect($servername,$username,$password,$database) 
