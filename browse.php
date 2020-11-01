@@ -117,18 +117,18 @@ $row = mysqli_fetch_array($result); //fetches the first row, stores the result i
 
   // Demonstration of what listings will look like using dummy data.
   $item_id = $row['userID'];
-  // $title = $row['itemName'];
-  // $description = $row['description'];
-  // $current_price = $row['startPrice'];
-  // $num_bids = $row['commission'];
-  // $end_date = $row['endDate'];
+  $title = $row['itemName'];
+  $description = $row['description'];
+  $current_price = $row['startPrice'];
+  $num_bids = $row['commission'];
+  $end_date = $row['endDate'];
   
   // $item_id = "Hello";
-  $title = "It's me";
-  $description = "Can you";
-  $current_price = "hear me";
-  $num_bids = "Adele";
-  $end_date = "2015";
+  // $title = "It's me";
+  // $description = "Can you";
+  // $current_price = "hear me";
+  // $num_bids = "Adele";
+  // $end_date = "2015";
   
   // This uses a function defined in utilities.php
   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
