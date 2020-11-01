@@ -9,10 +9,10 @@ $success = mysqli_real_connect(
 ); -->
 
 <?php
-$servername = $_ENV["$host"];
-$username = $_ENV["$user"];
-$password = $_ENV["$password"];
-$db = $_ENV["$db"];
+$servername = 'localhost';
+$username = 'root';
+$password = 'root';
+$db = 'mauction';
 // Create connection
 $conn = mysqli_connect($servername, $username, $password,$db);
 // Check connection
