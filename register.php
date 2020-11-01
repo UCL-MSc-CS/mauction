@@ -1,6 +1,6 @@
-// Ari 31/10/20: modified form and submit button. Added connection (change to Caroline's function)
+<!-- // Ari 31/10/20: modified form and submit button. Added connection (change to Caroline's function)
 // This version only works with modified database tables
-// TO DO: add additional fields. Conceal password. 
+// TO DO: add additional fields. Conceal password.  -->
 
 <?php include 'connection.php'; ?>
 

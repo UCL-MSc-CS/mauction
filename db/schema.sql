@@ -1,5 +1,5 @@
--- DROP DATABASE IF EXISTS mauction;
--- CREATE DATABASE mauction;
+DROP DATABASE IF EXISTS mauction;
+CREATE DATABASE mauction;
 USE mauction;
 
 -- things to finalise: put in itemPhoto attribute when ready, multivalued attributes, separate buyer and seller entitites? 
@@ -13,11 +13,11 @@ CREATE TABLE `users` (
 userID INT NOT NULL AUTO_INCREMENT,
 userName VARCHAR(45) NOT NULL,
 email VARCHAR(45) NOT NULL,              -- removed addresses as attribute (may put it as separate entity)
-registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+-- registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
 password VARCHAR(40) NOT NULL,
-status VARCHAR(20) NOT NULL,
+-- status VARCHAR(20) NOT NULL,
 PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
