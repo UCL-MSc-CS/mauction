@@ -1,3 +1,10 @@
+<?php
+include 'db_connection.php';
+$conn = OpenCon();
+echo "Connected Successfully";
+CloseCon($conn);
+?>
+<!-- https://www.cloudways.com/blog/connect-mysql-with-php/#createdatabase -->
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
 
