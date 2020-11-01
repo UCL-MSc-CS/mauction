@@ -114,7 +114,8 @@ $conn = OpenCon();
 
 $query = "SELECT * FROM auctions";
 $result = mysqli_query($conn,$query) or die('Error making select users query' .mysql_error());
-
+echo $result
+echo "Hello there"
 $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
   // Demonstration of what listings will look like using dummy data.
