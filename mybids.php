@@ -11,7 +11,8 @@
   // This can be started after browse.php is working with a database.
   // Feel free to extract out useful functions from browse.php and put them in
   // the shared "utilities.php" where they can be shared by multiple files.
-  
+
+  // Matt 01/11: This is going to be a pretty standard make connection -> pull data from query -> print it out -> close connection script
   
   // TODO: Check user's credentials (cookie/session).
   
