@@ -9,10 +9,11 @@ $success = mysqli_real_connect(
 ); -->
 
 <?php
-$servername = 'localhost';
-$username = 'root';
-$password = 'root';
-$database = 'mauction';
+$servername = $_ENV["$host"];
+$username = $_ENV["$user"];
+$password = $_ENV["$password"];
+$database = $_ENV["$db"];
+
 // Create connection
 $connection = mysqli_connect($servername,$username,$password,$database) 
     or die('Error connecting to MySQL server.' . mysql_error());
