@@ -11,14 +11,11 @@ $success = mysqli_real_connect(
 <?php
 $servername = 'localhost';
 $username = 'root';
-$password = 'root';
-$db = 'mauction';
+$password = '';
+$database = 'mauction';
 // Create connection
-$conn = mysqli_connect($servername, $username, $password,$db);
-// Check connection
-if (!$conn) {
-   die("Connection failed: " . mysqli_connect_error());
-}
+$connection = mysqli_connect($servername,$username,$password,$database)
+    or die('Error connecting to MySQL server.' . mysql_error());
 ?>
 
 <!-- https://www.cloudways.com/blog/connect-mysql-with-php/#createdatabase -->
