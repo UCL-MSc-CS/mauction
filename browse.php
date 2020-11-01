@@ -116,7 +116,7 @@ $query = "SELECT userID, itemName, description, startPrice, commission, endDate 
 $result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
 // echo $result;
 // echo "Hello there";
-$row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
+// $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
   // Demonstration of what listings will look like using dummy data.
   // $item_id = $row['userID'];
