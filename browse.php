@@ -1,8 +1,6 @@
 <?php
 include 'connection.php';
 $conn = OpenCon();
-echo "Connected Successfully";
-CloseCon($conn);
 ?>
 <!-- https://www.cloudways.com/blog/connect-mysql-with-php/#createdatabase -->
 <?php include_once("header.php")?>
@@ -115,7 +113,7 @@ CloseCon($conn);
 <?php
 
 $query = "SELECT * FROM auctions";
-$result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
+$result = mysqli_query($conn,$query) or die('Error making select users query' .mysql_error());
 
 $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
