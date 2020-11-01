@@ -10,11 +10,11 @@ $success = mysqli_real_connect(
 <?php
 function OpenCon()
  {
- $dbhost = "localhost";
- $dbuser = "root";
- $dbpass = "root";
- $db = "mauction";
- $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+ $host = $_ENV["$host"];
+ $user = $_ENV["$user"];
+ $password = $_ENV["$password"];
+ $db = $_ENV["$db"];
+ $conn = new mysqli($host, $user, $password,$db) or die("Connect failed: %s\n". $conn -> error);
  
  return $conn;
  }
