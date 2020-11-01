@@ -112,22 +112,22 @@ $conn = OpenCon();
 
 <?php
 
-$query = "SELECT * FROM auctions";
-$result = mysqli_query($conn,$query) or die('Error making select users query' .mysql_error());
-echo $result;
-echo "Hello there";
-$row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
+// $query = "SELECT * FROM auctions";
+// $result = mysqli_query($conn,$query) or die('Error making select users query' .mysql_error());
+// echo $result;
+// echo "Hello there";
+// $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
 
-  // Demonstration of what listings will look like using dummy data.
-  $item_id = $row['userID'];
-  $title = $row['itemName'];
-  $description = $row['description'];
-  $current_price = $row['startPrice'];
-  $num_bids = $row['commission'];
-  $end_date = $row['endDate'];
+//   // Demonstration of what listings will look like using dummy data.
+//   $item_id = $row['userID'];
+//   $title = $row['itemName'];
+//   $description = $row['description'];
+//   $current_price = $row['startPrice'];
+//   $num_bids = $row['commission'];
+//   $end_date = $row['endDate'];
   
-  // This uses a function defined in utilities.php
-  print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+//   // This uses a function defined in utilities.php
+//   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
   
   $item_id = "516";
   $title = "Different title";
