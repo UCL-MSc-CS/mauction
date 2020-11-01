@@ -113,7 +113,7 @@ $connection = OpenCon();
 <?php
 
 $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions";
-$result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
+// $result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
 // echo $result;
 // echo "Hello there";
 // $row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
