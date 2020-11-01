@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS mauction;
-CREATE DATABASE mauction;
+-- DROP DATABASE IF EXISTS mauction;
+-- CREATE DATABASE mauction;
 USE mauction;
 
 -- things to finalise: put in itemPhoto attribute when ready, multivalued attributes, separate buyer and seller entitites? 
