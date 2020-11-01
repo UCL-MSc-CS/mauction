@@ -1,9 +1,12 @@
+// connects to database
+// change to Carolines function
+
 <?php
 
 $servername = 'localhost';
-  $username = 'root';            // Should set up a root password but idk how lol
+  $username = 'root';            
   $password = '';
-  $database = 'mauction';   //change to whatever your db name is
+  $database = 'mauction';   
 
   //tries to create connection:
   $connection = mysqli_connect($servername,$username,$password,$database)
