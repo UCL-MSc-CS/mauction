@@ -1,5 +1,6 @@
 <?php
 include 'connection.php';
+include 'create_auction.php';                   
 ?>
 
 <?php include_once("header.php")?>
@@ -21,6 +22,9 @@ include 'connection.php';
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
 
+$auctionTitle = $_POST['auctionTitle'];
+$startPrice = $_POST['auctionStartPrice];
+            
 if (!isset($_POST['auctionTitle'])) {
             echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
           
@@ -30,7 +34,7 @@ if (!is_numeric($_POST['auctionStartPrice'])) {
 /* TODO #3: If everything looks good, make the appropriate call to insert
             data into the database. */
 
-
+$query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice');  //how do i send this query to the database? using mysqli_query?
 
 // If all is successful, let user know.
 echo('<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>');
