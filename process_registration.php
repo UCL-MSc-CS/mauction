@@ -3,6 +3,8 @@
 // TODO: Extract $_POST variables, check they're OK, and attempt to create
 // an account. Notify user of success/failure and redirect/give navigation 
 // options.
+// Ari: 31/10/20 -- added connection and POST variable assignment and INSERT into users database
+// TO DO: password security, check user input, add ability to choose buyer/seller 
 
 ?>
 
