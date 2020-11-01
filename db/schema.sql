@@ -1,18 +1,18 @@
--- DROP DATABASE IF EXISTS mauction;
--- CREATE DATABASE mauction;
+DROP DATABASE IF EXISTS mauction;
+CREATE DATABASE mauction;
 USE mauction;
 
---things to finalise: put in itemPhoto attribute when ready, multivalued attributes, separate buyer and seller entitites? 
+-- things to finalise: put in itemPhoto attribute when ready, multivalued attributes, separate buyer and seller entitites? 
 
-CREATE DOMAIN MORE_THAN_ZERO AS REAL CHECK
-(value > 0);
+-- CREATE DOMAIN MORE_THAN_ZERO AS REAL CHECK
+-- (value > 0);
 
---Should create a domain to stop people creating startDates in the past. 
+-- Should create a domain to stop people creating startDates in the past. 
 
-CREATE TABLE 'users' (
+CREATE TABLE `users` (
 userID INT NOT NULL AUTO_INCREMENT,
 userName VARCHAR(45) NOT NULL,
-email VARCHAR(45) NOT NULL,              --removed addresses as attribute (may put it as separate entity)
+email VARCHAR(45) NOT NULL,              -- removed addresses as attribute (may put it as separate entity)
 registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
@@ -21,7 +21,7 @@ status VARCHAR(20) NOT NULL,
 PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
-CREATE TABLE 'addresses' (
+CREATE TABLE `addresses` (
 userName VARCHAR (45) NOT NULL, 
 country VARCHAR (45) NOT NULL, 
 principality VARCHAR (45) NULL,
@@ -38,13 +38,13 @@ itemName VARCHAR(200) NOT NULL,
 userID INT NOT NULL, 
 startDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 category VARCHAR(100) NOT NULL,
-startPrice DECIMAL NOT NULL
+startPrice DECIMAL NOT NULL,
 description VARCHAR(300) NOT NULL, 
 reservePrice DECIMAL NULL,
 endTime TIME NOT NULL, 
 endDate DATE NOT NULL, 
-finalPrice DECIMAL NOT NULL, 
-commission DECIMAL NOT NULL,               --commission is a fixed value, no dependance on finalPrice yet
+finalPrice DECIMAL NULL, 
+commission DECIMAL NOT NULL,               -- commission is a fixed value, no dependance on finalPrice yet
 delivery VARCHAR(20) NOT NULL, 
 outcome VARCHAR(30) NOT NULL,
 cond VARCHAR(30) NOT NULL, 
@@ -56,7 +56,8 @@ bidID INT NOT NULL AUTO_INCREMENT,
 userID INT NOT NULL,
 bidTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 saleItemID INT NOT NULL,
-bidAmount DECIMAL NOT NULL MORE_THAN_ZERO,    --THIS LINE MIGHT THROW ERRORS 
+-- bidAmount DECIMAL NOT NULL MORE_THAN_ZERO,    -- THIS LINE MIGHT THROW ERRORS 
+bidAmount DECIMAL NOT NULL,
 PRIMARY KEY (bidID))
 ENGINE = InnoDB;
 
@@ -73,7 +74,7 @@ INSERT INTO `users` (userName, email, firstName, lastName, password, status)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", SHA("1234"), 'buyer');
 
              -- have to edit this insert with new attributes. 
-INSERT INTO `auctions` (itemName, userID, startDate, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
+INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
 VALUES ("Vaccine", 1, "Health", 1000000, "COVID-19 Cure", 10000000, '12:00:00','10-10-21', 20, "Post", "Bidding", "New");
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
