@@ -59,11 +59,12 @@ include 'connection.php';
   </div>
 </form>
 </div> <!-- end search specs bar -->
-
+<?= console_log("hello"); ?>
 
 </div>
 
 <?php
+if (isset($_POST['submit'])) {
   // Retrieve these from the URL
   if (!isset($_GET['keyword'])) {
     // TODO: Define behavior if a keyword has not been specified.
@@ -93,7 +94,7 @@ include 'connection.php';
   else {
     $curr_page = $_GET['page'];
   }
-
+}
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
      decide on appropriate default value/default query to make. */
