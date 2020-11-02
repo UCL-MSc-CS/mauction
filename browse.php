@@ -33,7 +33,8 @@ include 'connection.php';
       <div class="form-group">
         <label for="cat" class="sr-only">Search within:</label>
         <select class="form-control" id="cat">
-          <option selected value="all">All categories</option>                 
+          <option selected value="none">----------</option>
+          <option value="all">All categories</option>                 
           <!-- Matt 01/11: This is where we can add our own category names -->
           <option value="fill">Fill me in</option>                             
           <option value="with">with options</option>
@@ -45,7 +46,8 @@ include 'connection.php';
       <div class="form-inline">
         <label class="mx-2" for="order_by">Sort by:</label>
         <select class="form-control" id="order_by">
-          <option selected value="pricelow">Price (low to high)</option>
+          <option selected value="none">----------</option>
+          <option value="pricelow">Price (low to high)</option>
           <option value="pricehigh">Price (high to low)</option>
           <option value="date">Soonest expiry</option>
         </select>
