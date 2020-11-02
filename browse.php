@@ -9,51 +9,6 @@ include 'connection.php';
 
 <h2 class="my-3">Browse listings</h2>
 
-<?php
-if (isset($_GET['search'])) {
-  // Retrieve these from the URL
-  if (isset($_GET['keyword']) == "") {
-    // TODO: Define behavior if a keyword has not been specified.
-    echo "No search result!";
-  }
-  else {
-    $keyword = $_GET['keyword'];
-  }
-
-  if (isset($_GET['cat']) == "none") {
-    // TODO: Define behavior if a category has not been specified.
-    echo "Category";
-  }
-  else {
-    $category = $_GET['cat'];
-  }
-  
-  if (isset($_GET['order_by']) == "none") {
-    // TODO: Define behavior if an order_by value has not been specified.
-    echo "Order By";
-  }
-  else {
-    $ordering = $_GET['order_by'];
-  }
-  
-  if (!isset($_GET['page'])) {
-    $curr_page = 1;
-  }
-  else {
-    $curr_page = $_GET['page'];
-  }
-}
-  /* TODO: Use above values to construct a query. Use this query to 
-     retrieve data from the database. (If there is no form data entered,
-     decide on appropriate default value/default query to make. */
-  
-  /* For the purposes of pagination, it would also be helpful to know the
-     total number of results that satisfy the above query */
-  $num_results = 96; // TODO: Calculate me for real
-  $results_per_page = 10;
-  $max_page = ceil($num_results / $results_per_page);
-?>
-
 <div id="searchSpecs">  
 <!-- Matt 01/11: I think this part just sets up the search bar appearance -->
 <!-- When this form is submitted, this PHP page is what processes it.
@@ -106,6 +61,54 @@ if (isset($_GET['search'])) {
 </div> <!-- end search specs bar -->
 
 </div>
+
+<?php
+if (isset($_GET['search'])) {
+    $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
+    $cat = mysqli_real_escape_string($connection, $_GET['cat']);
+	  $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+  // Retrieve these from the URL
+  if (isset($keyword) == "") {
+    // TODO: Define behavior if a keyword has not been specified.
+    echo "No search result!";
+  }
+  else {
+    $keyword = $_GET['keyword'];
+  }
+
+  if (isset($cat) == "none") {
+    // TODO: Define behavior if a category has not been specified.
+    echo "Category";
+  }
+  else {
+    $category = $_GET['cat'];
+  }
+  
+  if (isset($order_by) == "none") {
+    // TODO: Define behavior if an order_by value has not been specified.
+    echo "Order By";
+  }
+  else {
+    $ordering = $_GET['order_by'];
+  }
+  
+  if (!isset($_GET['page'])) {
+    $curr_page = 1;
+  }
+  else {
+    $curr_page = $_GET['page'];
+  }
+}
+  /* TODO: Use above values to construct a query. Use this query to 
+     retrieve data from the database. (If there is no form data entered,
+     decide on appropriate default value/default query to make. */
+  
+  /* For the purposes of pagination, it would also be helpful to know the
+     total number of results that satisfy the above query */
+  $num_results = 96; // TODO: Calculate me for real
+  $results_per_page = 10;
+  $max_page = ceil($num_results / $results_per_page);
+?>
 
 <div class="container mt-5">
 
