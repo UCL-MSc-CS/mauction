@@ -9,7 +9,19 @@ include 'connection.php';
 
 <h2 class="my-3">Browse listings</h2>
 
-<div id="searchSpecs">                                                           //Matt 01/11: I think this part just sets up the search bar appearance
+<div id="searchSpecs">  
+<?php
+  if (isset($_GET['submit'])) {
+    $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
+    echo $keyword;
+  
+        // $query = "INSERT INTO users (username, firstName, lastName, email, password) 
+        //           VALUES ('$username', '$firstName', '$lastName', '$email', '$password')";
+        // if (!mysqli_query($connection, $query)) {
+        //   die('Error: ' . mysqli_error($connection));
+            }
+?>
+<!-- Matt 01/11: I think this part just sets up the search bar appearance -->
 <!-- When this form is submitted, this PHP page is what processes it.
      Search/sort specs are passed to this page through parameters in the URL
      (GET method of passing data to a page). -->
@@ -32,7 +44,8 @@ include 'connection.php';
       <div class="form-group">
         <label for="cat" class="sr-only">Search within:</label>
         <select class="form-control" id="cat">
-          <option selected value="all">All categories</option>                 //Matt 01/11: This is where we can add our own category names
+          <option selected value="all">All categories</option>                 
+          <!-- Matt 01/11: This is where we can add our own category names -->
           <option value="fill">Fill me in</option>                             
           <option value="with">with options</option>
           <option value="populated">populated from a database?</option>
@@ -50,7 +63,7 @@ include 'connection.php';
       </div>
     </div>
     <div class="col-md-1 px-0">
-      <button type="submit" class="btn btn-primary">Search</button>
+      <button type="submit" name="submit" class="btn btn-primary">Search</button>
     </div>
   </div>
 </form>

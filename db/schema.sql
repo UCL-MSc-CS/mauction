@@ -13,23 +13,24 @@ CREATE TABLE `users` (
 userID INT NOT NULL AUTO_INCREMENT,
 userName VARCHAR(45) NOT NULL,
 email VARCHAR(45) NOT NULL,              -- removed addresses as attribute (may put it as separate entity)
--- registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
-password VARCHAR(40) NOT NULL,
--- status VARCHAR(20) NOT NULL,
-PRIMARY KEY (userID))
-ENGINE = InnoDB;
-
-CREATE TABLE `addresses` (
-userName VARCHAR (45) NOT NULL, 
 country VARCHAR (45) NOT NULL, 
 principality VARCHAR (45) NULL,
 city VARCHAR (45) NULL, 
-addressLine1 VARCHAR (80) NOT NULL,
+addressLine1 VARCHAR (80) NULL,
 addressLine2 VARCHAR (80) NULL,
-postcode VARCHAR (20) NOT NULL, 
-PRIMARY KEY (userName))
+postcode VARCHAR (20) NULL, 
+password VARCHAR(40) NOT NULL,
+status VARCHAR(20) NOT NULL,
+PRIMARY KEY (userID))
+ENGINE = InnoDB;
+
+CREATE TABLE `photos` (
+saleItemID INT NOT NULL,
+photo VARCHAR(200) NULL,
+PRIMARY KEY (saleItemID))
 ENGINE = InnoDB;
 
 CREATE TABLE `auctions` (
@@ -61,17 +62,17 @@ bidAmount DECIMAL NOT NULL,
 PRIMARY KEY (bidID))
 ENGINE = InnoDB;
 
-INSERT INTO `users` (userName, email, firstName, lastName, password, status)
-VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "Caroline", "Crandell", SHA("password"), 'buyer');
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "Caroline", "Crandell", "USA", SHA("password"), 'buyer');
 
-INSERT INTO `users` (userName, email, firstName, lastName, password, status)
-VALUES ("erinuclkwon", "wei.quan.20@ucl.ac.uk", "Wei", "Quan", SHA("1234"), 'seller');
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+VALUES ("erinuclkwon", "wei.quan.20@ucl.ac.uk", "Wei", "Quan", "UK", SHA("1234"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, password, status)
-VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "Matthew", "Shorvon", SHA("password"), 'seller');
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "Matthew", "Shorvon", "UK", SHA("password"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, password, status)
-VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", SHA("1234"), 'buyer');
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", SHA("1234"), 'buyer');
 
              -- have to edit this insert with new attributes. 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
