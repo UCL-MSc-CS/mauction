@@ -65,23 +65,25 @@ include 'connection.php';
 <?php
 if (isset($_GET['search'])) {
   // Retrieve these from the URL
-  if (!isset($_GET['keyword'])) {
+  if (isset($_GET['keyword']) == "") {
     // TODO: Define behavior if a keyword has not been specified.
-    echo "keyword";
+    echo "No search result!";
   }
   else {
     $keyword = $_GET['keyword'];
   }
 
-  if (!isset($_GET['cat'])) {
+  if (isset($_GET['cat']) == "----------") {
     // TODO: Define behavior if a category has not been specified.
+    echo "Category";
   }
   else {
     $category = $_GET['cat'];
   }
   
-  if (!isset($_GET['order_by'])) {
+  if (isset($_GET['order_by']) == "----------") {
     // TODO: Define behavior if an order_by value has not been specified.
+    echo "Order By";
   }
   else {
     $ordering = $_GET['order_by'];
