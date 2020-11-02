@@ -12,7 +12,7 @@ include 'connection.php';
 <!-- When this form is submitted, this PHP page is what processes it.
      Search/sort specs are passed to this page through parameters in the URL
      (GET method of passing data to a page). -->
-<form method="get" action="index.php">
+<form method="get" action="browse.php">
   <div class="row">
     <div class="col-md-5 pr-0">
       <div class="form-group">
@@ -65,7 +65,7 @@ if (isset($_GET['search'])) {
     $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
     $cat = mysqli_real_escape_string($connection, $_GET['cat']);
     $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
-    echo "$cat";
+    echo $cat;
   // Retrieve these from the URL
   if (!isset($keyword)) {
     // TODO: Define behavior if a keyword has not been specified.
@@ -97,6 +97,10 @@ if (isset($_GET['search'])) {
   else {
     $curr_page = $_GET['page'];
   }
+  $query = "SELECT * FROM auctions WHERE itemName  = '$keyword'";
+      if (!mysqli_query($connection, $query)) {
+        die('Error: ' . mysqli_error($connection));
+		      }
 }
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
