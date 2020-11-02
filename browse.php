@@ -68,7 +68,7 @@ if (isset($_GET['search'])) {
     $cat = mysqli_real_escape_string($connection, $_GET['cat']);
 	  $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
   // Retrieve these from the URL
-  if (isset($keyword) == "") {
+  if (!isset($keyword)) {
     // TODO: Define behavior if a keyword has not been specified.
     echo "No search result!";
   }
@@ -76,7 +76,7 @@ if (isset($_GET['search'])) {
     $keyword = $_GET['keyword'];
   }
 
-  if (isset($cat) == "none") {
+  if (!isset($cat) == "none") {
     // TODO: Define behavior if a category has not been specified.
     echo "Category";
   }
@@ -84,7 +84,7 @@ if (isset($_GET['search'])) {
     $category = $_GET['cat'];
   }
   
-  if (isset($order_by) == "none") {
+  if (!isset($order_by) == "none") {
     // TODO: Define behavior if an order_by value has not been specified.
     echo "Order By";
   }
