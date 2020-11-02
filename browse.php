@@ -54,7 +54,7 @@ include 'connection.php';
       </div>
     </div>
     <div class="col-md-1 px-0">
-      <button type="submit" name="submit" class="btn btn-primary">Search</button>
+      <button type="submit" name="search" class="btn btn-primary">Search</button>
     </div>
   </div>
 </form>
@@ -63,11 +63,11 @@ include 'connection.php';
 </div>
 
 <?php
-if (isset($_GET['submit'])) {
-  echo "keyword";
+if (isset($_GET['search'])) {
   // Retrieve these from the URL
   if (!isset($_GET['keyword'])) {
     // TODO: Define behavior if a keyword has not been specified.
+    echo "keyword";
   }
   else {
     $keyword = $_GET['keyword'];
