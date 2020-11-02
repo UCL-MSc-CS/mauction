@@ -1,7 +1,6 @@
 <?php
 include 'connection.php';
 ?>
-<!-- https://www.cloudways.com/blog/connect-mysql-with-php/#createdatabase -->
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
 
@@ -10,11 +9,10 @@ include 'connection.php';
 <h2 class="my-3">Browse listings</h2>
 
 <div id="searchSpecs">  
-<!-- Matt 01/11: I think this part just sets up the search bar appearance -->
 <!-- When this form is submitted, this PHP page is what processes it.
      Search/sort specs are passed to this page through parameters in the URL
      (GET method of passing data to a page). -->
-<form method="get" action="browse.php">
+<form method="get" action="index.php">
   <div class="row">
     <div class="col-md-5 pr-0">
       <div class="form-group">
