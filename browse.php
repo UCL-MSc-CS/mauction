@@ -63,7 +63,7 @@ include 'connection.php';
 </div>
 
 <?php
-if (isset($_POST['submit'])) {
+if (isset($_GET['submit'])) {
   echo "keyword";
   // Retrieve these from the URL
   if (!isset($_GET['keyword'])) {
