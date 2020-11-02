@@ -10,17 +10,6 @@ include 'connection.php';
 <h2 class="my-3">Browse listings</h2>
 
 <div id="searchSpecs">  
-<?php
-  if (isset($_GET['submit'])) {
-    $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
-    echo $keyword;
-  
-        // $query = "INSERT INTO users (username, firstName, lastName, email, password) 
-        //           VALUES ('$username', '$firstName', '$lastName', '$email', '$password')";
-        // if (!mysqli_query($connection, $query)) {
-        //   die('Error: ' . mysqli_error($connection));
-            } 
-?>
 <!-- Matt 01/11: I think this part just sets up the search bar appearance -->
 <!-- When this form is submitted, this PHP page is what processes it.
      Search/sort specs are passed to this page through parameters in the URL
@@ -76,6 +65,7 @@ include 'connection.php';
   // Retrieve these from the URL
   if (!isset($_GET['keyword'])) {
     // TODO: Define behavior if a keyword has not been specified.
+    echo "keyword";
   }
   else {
     $keyword = $_GET['keyword'];
