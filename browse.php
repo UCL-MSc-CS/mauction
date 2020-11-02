@@ -64,7 +64,8 @@ include 'connection.php';
 if (isset($_GET['search'])) {
     $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
     $cat = mysqli_real_escape_string($connection, $_GET['cat']);
-	  $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+    $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+    echo $cat;
   // Retrieve these from the URL
   if (!isset($keyword)) {
     // TODO: Define behavior if a keyword has not been specified.
