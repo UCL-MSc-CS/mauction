@@ -59,16 +59,15 @@ include 'connection.php';
   </div>
 </form>
 </div> <!-- end search specs bar -->
-<?= console_log("hello"); ?>
 
 </div>
 
 <?php
 if (isset($_POST['submit'])) {
+  echo "keyword";
   // Retrieve these from the URL
   if (!isset($_GET['keyword'])) {
     // TODO: Define behavior if a keyword has not been specified.
-    echo "keyword";
   }
   else {
     $keyword = $_GET['keyword'];
