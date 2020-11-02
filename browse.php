@@ -11,15 +11,15 @@ include 'connection.php';
 
 <div id="searchSpecs">  
 <?php
-  if (isset($_GET['submit'])) {
-    $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
-    echo $keyword;
+  // if (isset($_GET['submit'])) {
+    // $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
+    // echo $keyword;
   
         // $query = "INSERT INTO users (username, firstName, lastName, email, password) 
         //           VALUES ('$username', '$firstName', '$lastName', '$email', '$password')";
         // if (!mysqli_query($connection, $query)) {
         //   die('Error: ' . mysqli_error($connection));
-            }
+            // }
 ?>
 <!-- Matt 01/11: I think this part just sets up the search bar appearance -->
 <!-- When this form is submitted, this PHP page is what processes it.
