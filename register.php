@@ -1,3 +1,6 @@
+// Added additional fields
+// TODO: add password confirmation. Make it look better?!
+
 <?php include 'connection.php'; ?>
 
 <?php include_once("header.php")?>
