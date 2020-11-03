@@ -1,45 +1,58 @@
 <?php
 
-// TODO: Extract $_POST variables, check they're OK, and attempt to create
-// an account. Notify user of success/failure and redirect/give navigation 
-// options.
-// Ari: 31/10/20 -- added connection and POST variable assignment and INSERT into users database
-// TO DO: password security, check user input, add ability to choose buyer/seller 
-// change connection to function
-// *** this version only works with modified database tables (without extra columns that still need to be added)***
+// Ari: Added post variables and insert query for additional fields. Added password hashing. 
+// TODO: error messages still not quite right. Add password confirmation to compare to original password entered
 
 ?>
 
 <?php
-  include 'database_con.php';
+  include 'connection.php'?>
+
+<?php include_once("header.php")?>
+<?php  
   
   
 
   if (isset($_POST['submit'])) {
+	$accountType = mysqli_real_escape_string($connection, $_POST['accountType']);
 	$username = mysqli_real_escape_string($connection, $_POST['username']);
     $firstName = mysqli_real_escape_string($connection, $_POST['firstName']);
 	$lastName = mysqli_real_escape_string($connection, $_POST['lastName']);
 	$email = mysqli_real_escape_string($connection, $_POST['email']);
 	$password = mysqli_real_escape_string($connection, $_POST['password']);
+	
+	$passhash = password_hash($password, PASSWORD_DEFAULT);
+	
+	$addressLine1 = mysqli_real_escape_string($connection, $_POST['addressLine1']);
+	$addressLine2 = mysqli_real_escape_string($connection, $_POST['addressLine2']);
+	$city = mysqli_real_escape_string($connection, $_POST['city']);
+	$principality = mysqli_real_escape_string($connection, $_POST['principality']);
+	$country = mysqli_real_escape_string($connection, $_POST['country']);
+	$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
 
-	// if (!isset($username) || $username == '' || !isset($firstName) || $firstName == '' 
-		// || !isset($lastName) || $lastName == '' || !isset($email) || $email == '' || !isset($password) || $password == '') {
-	// $error = "Please fill in your name and a message";
-	// header("Location: test.php?error=" . urlencode($error));
+	
+	// if ($username == '' || $firstName == '' || $lastName == '' || $email == '' || $password == '') {
+	// $error = "You have left one of the fields empty!";
+	// echo $error;
+	// header("Location: index.php?error=" . urlencode($error));
 	// exit();
      // }
-	    // }
+	    
      // else {
 
-      $query = "INSERT INTO users (username, firstName, lastName, email, password) 
-                VALUES ('$username', '$firstName', '$lastName', '$email', '$password')";
+      $query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
+	  addressLine2, city, principality, country, postcode) 
+                VALUES ('$accountType', '$username', '$firstName', '$lastName', '$email', '$passhash', '$addressLine1', 
+				'$addressLine2', '$city', '$principality', '$country', '$postcode')";
       if (!mysqli_query($connection, $query)) {
         die('Error: ' . mysqli_error($connection));
 		      }
-			  
-	// else {
-	// header('Location: test.php');
-	// exit();
-// }
- }
+	 }
+  	 
+	else {
+	header('Location: index.php');
+	exit();
+}
+ 
 ?>
+<?php include_once("footer.php")?>
