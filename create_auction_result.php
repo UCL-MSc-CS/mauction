@@ -22,8 +22,8 @@ include 'create_auction.php';
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
 
-$auctionTitle = $_POST['auctionTitle'];
-$startPrice = $_POST['auctionStartPrice];
+// $auctionTitle = $_POST['auctionTitle'];
+// $startPrice = $_POST['auctionStartPrice];
             
 if (!isset($_POST['auctionTitle'])) {
             echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
