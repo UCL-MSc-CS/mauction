@@ -32,12 +32,12 @@ if (!is_numeric($_POST['auctionStartPrice'])) {
             echo "Wrong input format for auction starting price. Please input a number.";}  //Why is this not appearing as the right colour? 
 
 /* TODO #3: If everything looks good, make the appropriate call to insert
-            data into the database. */
+            data into the database.  If all is successful, let user know. */
 
-$query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice');  //how do i send this query to the database? using mysqli_query?
+$query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice'); 
 
-// If all is successful, let user know.
-echo('<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>');
+else (
+echo('<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>'));
 
 
 ?>
