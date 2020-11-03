@@ -18,7 +18,7 @@ $success = mysqli_real_connect(
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "mauction";
 
 // Create connection
