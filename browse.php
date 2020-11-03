@@ -3,7 +3,6 @@ include 'connection.php';
 ?>
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
-
 <div class="container">
 
 <h2 class="my-3">Browse listings</h2>
@@ -52,7 +51,7 @@ include 'connection.php';
       </div>
     </div>
     <div class="col-md-1 px-0">
-      <button type="submit" name="search" class="btn btn-primary">Search</button>
+      <button type="submit" name="search" class="btn btn-primary" onclick="checkFields()">Search</button>
     </div>
   </div>
 </form>
@@ -65,9 +64,8 @@ if (isset($_GET['search'])) {
     $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
     $cat = mysqli_real_escape_string($connection, $_GET['cat']);
     $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
-    echo $cat;
   // Retrieve these from the URL
-  if (!isset($keyword)) {
+  if (isset($keyword)) {
     // TODO: Define behavior if a keyword has not been specified.
     echo "No search result!";
   }
@@ -75,7 +73,7 @@ if (isset($_GET['search'])) {
     $keyword = $_GET['keyword'];
   }
 
-  if (!isset($cat) == "none") {
+  if (isset($cat) == "pricelow") {
     // TODO: Define behavior if a category has not been specified.
     echo "Category";
   }
@@ -83,7 +81,7 @@ if (isset($_GET['search'])) {
     $category = $_GET['cat'];
   }
   
-  if (!isset($order_by) == "none") {
+  if (isset($order_by) == "none") {
     // TODO: Define behavior if an order_by value has not been specified.
     echo "Order By";
   }
@@ -119,41 +117,24 @@ if (isset($_GET['search'])) {
 
 <ul class="list-group">
 
-<!-- TODO: Use a while loop to print a list item for each auction listing
-     retrieved from the query -->
-
 <?php
-
+// TODO: Use a while loop to print a list item for each auction listing retrieved from the query
 $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions";
 $result = mysqli_query($connection,$query) or die('Error making select users query' .mysql_error());
-$row = mysqli_fetch_array($result); //fetches the first row, stores the result in $row
+$queryRes = mysqli_num_rows($result);
 
-  // Demonstration of what listings will look like using dummy data.
+if ($queryRes > 0) {
+  while ($row = mysqli_fetch_assoc($result)) {
   $item_id = $row['userID'];
   $title = $row['itemName'];
   $description = $row['description'];
   $current_price = $row['startPrice'];
   $num_bids = $row['commission'];
   $end_date = $row['endDate'];
-  
-  // $item_id = "Hello";
-  // $title = "It's me";
-  // $description = "Can you";
-  // $current_price = "hear me";
-  // $num_bids = "Adele";
-  // $end_date = "2015";
-  
-  // This uses a function defined in utilities.php
+    // This uses a function defined in utilities.php
   print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
-  
-  $item_id = "516";
-  $title = "Different title";
-  $description = "Very short description.";
-  $current_price = 13.50;
-  $num_bids = 3;
-  $end_date = new DateTime('2020-11-02T00:00:00');
-  
-  print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+  }
+}
 ?>
 
 </ul>
