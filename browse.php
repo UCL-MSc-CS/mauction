@@ -4,101 +4,45 @@ include 'connection.php';
 <?php include_once("header.php")?>
 <?php require("utilities.php")?>
 <div class="container">
-
-<h2 class="my-3">Browse listings</h2>
-
-<div id="searchSpecs">  
-<!-- When this form is submitted, this PHP page is what processes it.
-     Search/sort specs are passed to this page through parameters in the URL
-     (GET method of passing data to a page). -->
-<form method="get" action="browse.php">
-  <div class="row">
-    <div class="col-md-5 pr-0">
-      <div class="form-group">
-        <label for="keyword" class="sr-only">Search keyword:</label>
-	    <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text bg-transparent pr-0 text-muted">
-              <i class="fa fa-search"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control border-left-0" id="keyword" placeholder="Search for anything">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 pr-0">
-      <div class="form-group">
-        <label for="cat" class="sr-only">Search within:</label>
-        <select class="form-control" id="cat">
-          <option selected value="none">----------</option>
-          <option value="all">All categories</option>                 
-          <!-- Matt 01/11: This is where we can add our own category names -->
-          <option value="fill">Fill me in</option>                             
-          <option value="with">with options</option>
-          <option value="populated">populated from a database?</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-3 pr-0">
-      <div class="form-inline">
-        <label class="mx-2" for="order_by">Sort by:</label>
-        <select class="form-control" id="order_by">
-          <option selected value="none">----------</option>
-          <option value="pricelow">Price (low to high)</option>
-          <option value="pricehigh">Price (high to low)</option>
-          <option value="date">Soonest expiry</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-1 px-0">
-      <button type="submit" name="search" class="btn btn-primary" onclick="checkFields()">Search</button>
-    </div>
-  </div>
-</form>
-</div> <!-- end search specs bar -->
-
-</div>
-
 <?php
-if (isset($_GET['search'])) {
-    $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
-    $cat = mysqli_real_escape_string($connection, $_GET['cat']);
-    $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+if (isset($_POST['search'])) {
+    $keyword = mysqli_real_escape_string($connection, $_POST['keyword']);
+    $cat = mysqli_real_escape_string($connection, $_POST['cat']);
+    $order_by = mysqli_real_escape_string($connection, $_POST['order_by']);
+    echo $keyword;
+    echo $cat;
+    echo $order_by;
   // Retrieve these from the URL
   if (isset($keyword)) {
     // TODO: Define behavior if a keyword has not been specified.
-    echo "No search result!";
+    echo $keyword;
   }
   else {
-    $keyword = $_GET['keyword'];
+    $keyword = $_POST['keyword'];
   }
 
   if (isset($cat) == "pricelow") {
     // TODO: Define behavior if a category has not been specified.
-    echo "Category";
+    echo "WHAT";
   }
   else {
-    $category = $_GET['cat'];
+    $category = $_POST['cat'];
   }
   
-  if (isset($order_by) == "none") {
+  if (isset($order_by) == "ljhl") {
     // TODO: Define behavior if an order_by value has not been specified.
-    echo "Order By";
+    echo "HI";
   }
   else {
-    $ordering = $_GET['order_by'];
+    $ordering = $_POST['order_by'];
   }
   
-  if (!isset($_GET['page'])) {
+  if (!isset($_POST['page'])) {
     $curr_page = 1;
   }
   else {
-    $curr_page = $_GET['page'];
+    $curr_page = $_POST['page'];
   }
-  $query = "SELECT * FROM auctions WHERE itemName  = '$keyword'";
-      if (!mysqli_query($connection, $query)) {
-        die('Error: ' . mysqli_error($connection));
-		      }
 }
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
@@ -110,6 +54,59 @@ if (isset($_GET['search'])) {
   $results_per_page = 10;
   $max_page = ceil($num_results / $results_per_page);
 ?>
+<h2 class="my-3">Browse listings</h2>
+
+<div id="searchSpecs">  
+<!-- When this form is submitted, this PHP page is what processes it.
+     Search/sort specs are passed to this page through parameters in the URL
+     (GET method of passing data to a page). -->
+<form method="post">
+  <div class="row">
+    <div class="col-md-5 pr-0">
+      <div class="form-group">
+        <label for="keyword" class="sr-only">Search keyword:</label>
+	    <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-transparent pr-0 text-muted">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control border-left-0" id="keyword" name="keyword" placeholder="Search for anything">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 pr-0">
+      <div class="form-group">
+        <label for="cat" class="sr-only">Search within:</label>
+        <select class="form-control" id="cat" name="cat">
+          <option selected value="none">--Category--</option>
+          <option value="all">All categories</option>                 
+          <!-- Matt 01/11: This is where we can add our own category names -->
+          <option value="fill">Health</option>                             
+          <option value="with">Mental Wellbeing</option>
+          <option value="populated">Home Decor</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 pr-0">
+      <div class="form-inline">
+        <label class="mx-2" for="order_by" name="order_by">Sort by:</label>
+        <select class="form-control" id="order_by">
+          <option selected value="none">--Sort By--</option>
+          <option value="pricelow">Price (low to high)</option>
+          <option value="pricehigh">Price (high to low)</option>
+          <option value="date">Soonest expiry</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-1 px-0">
+      <button type="submit" name="search" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>
+</div> <!-- end search specs bar -->
+
+</div>
 
 <div class="container mt-5">
 
