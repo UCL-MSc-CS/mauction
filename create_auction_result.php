@@ -21,10 +21,7 @@ include 'connection.php';
             $POST['auctionDetails'], etc. Perform checking on the data to
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
-	// if (isset($_POST["submit"])) {
             
-            //$print = "Went into this statement!";
-	    //echo $print
 if (isset($_POST['submit'])) {
             $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
@@ -33,20 +30,23 @@ if (isset($_POST['submit'])) {
             $reservePrice = mysqli_real_escape_string($connection, $_POST['auctionReservePrice']);
             $endDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
             
-            echo $auctionTitle ;
             
-            if (empty($auctionTitle)) {
+            if (empty($auctionTitle) || ) {
                         echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
-          
-            elseif (!is_numeric($_POST['auctionStartPrice'])) {
-                        echo "Wrong input format for auction starting price. Please input a number.";}  //Why is this not appearing as the right colour? 
+	    elseif (empty($category)) {
+		    echo "Please select a category";}
+ 	    elseif (empty($startPrice)) {
+		    echo "Please provide a starting price";}
+	    elseif (empty($endDate)) {
+		    echo "Please provide an endDate";}
+	
 
 /* TODO #3: If everything looks good, make the appropriate call to insert
             data into the database.  If all is successful, let user know. */
 
             else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
-                        $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
+                        $query = "INSERT INTO auctions (itemName, startPrice, category, description) VALUES('$auctionTitle','$startPrice','$category','$description')"; 
             } }
 ?>
 
