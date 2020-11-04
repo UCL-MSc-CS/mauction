@@ -24,11 +24,11 @@ include 'create_auction.php';
  if (isset($_POST['submit'])) {
             
             $print = "Went into this statement!";
-	echo $print;
-	header("Location: index.php?error=" . urlencode($print));
-	exit();
+	    echo $print;
+	    header("Location: index.php?error=" . urlencode($print));
+	    exit();
              
-            $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
+            /* $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
             $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
             $startPrice = mysqli_real_escape_string($connection, $_POST['auctionStartPrice']);
@@ -46,15 +46,11 @@ include 'create_auction.php';
 /* TODO #3: If everything looks good, make the appropriate call to insert
             data into the database.  If all is successful, let user know. */
 
-            else {
+            /* else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
                         $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
-            }
+            } */
 }
-
-
-
-
 ?>
 
 </div>
