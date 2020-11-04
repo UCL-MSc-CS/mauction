@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
             $endDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
             
             
-            if (empty($auctionTitle) || ) {
+            if (empty($auctionTitle)) {
                         echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
 	    elseif (empty($category)) {
 		    echo "Please select a category";}
