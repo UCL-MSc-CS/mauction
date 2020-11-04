@@ -1,6 +1,3 @@
-<?php
-include 'create_auction.php';                   
-?>
 
 <?php
 include 'connection.php';
