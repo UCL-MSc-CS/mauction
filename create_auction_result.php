@@ -29,7 +29,7 @@ include 'create_auction.php';
             $reservePrice = $_POST['auctionReservePrice'];
             $endDate = $_POST['auctionEndDate'];
             
-            
+            echo $auctionTitle ;
             
             if ($auctionTitle = '') {
                         echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
