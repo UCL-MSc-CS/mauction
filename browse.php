@@ -13,13 +13,15 @@ include 'connection.php';
     if ($keyword == "") {
       // TODO: Define behavior if a keyword has not been specified.
       $keyworderror = "Please enter a search keyword.";
-    } if ($cat == "none") {
+    }
+    if ($cat == "none") {
       // TODO: Define behavior if a category has not been specified.
       $caterror = "Please enter a search category.";
-    } if ($order_by == "none") {
+    }
+    if ($order_by == "none") {
       // TODO: Define behavior if an order_by value has not been specified.
       $order_byerror = "Please enter a search sort by.";
-    } 
+    }
 
     if (!isset($_POST['page'])) {
       $curr_page = 1;
@@ -30,12 +32,6 @@ include 'connection.php';
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
      decide on appropriate default value/default query to make. */
-
-  /* For the purposes of pagination, it would also be helpful to know the
-     total number of results that satisfy the above query */
-  $num_results = 96; // TODO: Calculate me for real
-  $results_per_page = 10;
-  $max_page = ceil($num_results / $results_per_page);
   ?>
   <h2 class="my-3">Browse listings</h2>
 
@@ -69,7 +65,7 @@ include 'connection.php';
           <div class="form-group">
             <label for="cat" class="sr-only">Search within:</label>
             <select class="form-control" id="cat" name="cat">
-              <option selected value="none">--Category--</option>
+              <option selected value="none">Category</option>
               <option value="All Categories">All Categories</option>
               <!-- Matt 01/11: This is where we can add our own category names -->
               <option value="Health">Health</option>
@@ -89,7 +85,7 @@ include 'connection.php';
           <div class="form-inline">
             <label for="order_by" class="sr-only">Sort by:</label>
             <select class="form-control" id="order_by" name="order_by">
-              <option selected value="none">--Sort By--</option>
+              <option selected value="none">Sort By</option>
               <option value="Price (low to high)">Price (low to high)</option>
               <option value="Price (high to low)">Price (high to low)</option>
               <option value="Soonest expiry">Soonest expiry</option>
@@ -119,13 +115,49 @@ include 'connection.php';
   <ul class="list-group">
 
     <?php
-    searchKey($connection, $keyword);
+    searchKey($connection, $keyword, $cat, $order_by);
     // TODO: Use a while loop to print a list item for each auction listing retrieved from the query
-    function searchKey($connection, $keyword) {
+    function searchKey($connection, $keyword, $cat, $order_by)
+    {
       if ($keyword == "") {
-        $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions";
+        $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions ORDER BY itemName ASC";
         $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
         $queryRes = mysqli_num_rows($result);
+        while ($row = mysqli_fetch_assoc($result)) {
+          $item_id = $row['userID'];
+          $title = $row['itemName'];
+          $description = $row['description'];
+          $current_price = $row['startPrice'];
+          $num_bids = $row['commission'];
+          $end_date = $row['endDate'];
+          // This uses a function defined in utilities.php
+          print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+        }
+        /* For the purposes of pagination, it would also be helpful to know the
+              total number of results that satisfy the above query */
+        $num_results = $queryRes; // TODO: Calculate me for real
+        $results_per_page = 2;
+        $max_page = ceil($num_results / $results_per_page);
+      } else {
+        if ($cat == "All Categories") {
+          $querycat = "";
+        } else {
+          $querycat = " AND category = '$cat'";
+        }
+        if ($order_by == "Price (low to high)") {
+          $queryorder = " ORDER BY startPrice ASC";
+        } elseif ($order_by == "Price (high to low)") {
+          $queryorder = " ORDER BY startPrice DESC";
+        } else {
+          $queryorder = " ORDER BY endDate DESC";
+        }
+
+        $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
+        $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+        $queryRes = mysqli_num_rows($result);
+        if ($queryRes == 0) {
+          echo ('<div class="error" style="color: red">Sorry, no results.</div>');
+        } else {
           while ($row = mysqli_fetch_assoc($result)) {
             $item_id = $row['userID'];
             $title = $row['itemName'];
@@ -136,27 +168,14 @@ include 'connection.php';
             // This uses a function defined in utilities.php
             print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
           }
-      } else {
-    $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE itemName LIKE '%$keyword%'";
-    $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
-    $queryRes = mysqli_num_rows($result);
-    if ($queryRes == 0) {
-      echo('<div class="error" style="color: red">Sorry, no results.</div>');
-
-    } else {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $item_id = $row['userID'];
-        $title = $row['itemName'];
-        $description = $row['description'];
-        $current_price = $row['startPrice'];
-        $num_bids = $row['commission'];
-        $end_date = $row['endDate'];
-        // This uses a function defined in utilities.php
-        print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+          /* For the purposes of pagination, it would also be helpful to know the
+              total number of results that satisfy the above query */
+          $num_results = $queryRes; // TODO: Calculate me for real
+          $results_per_page = 2;
+          $max_page = ceil($num_results / $results_per_page);
+        }
       }
     }
-  }
-}
     ?>
   </ul>
 
