@@ -21,7 +21,7 @@ include 'create_auction.php';
             $POST['auctionDetails'], etc. Perform checking on the data to
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
- if (isset($_POST['submit']) {
+ if (isset($_POST['submit'])) {
             $auctionTitle = $_POST['auctionTitle'];
             $description = $_POST['auctionDetails'];
             $category = $_POST['auctionCategory'];
