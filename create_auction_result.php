@@ -21,7 +21,7 @@ include 'create_auction.php';
             $POST['auctionDetails'], etc. Perform checking on the data to
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
- if (isset($_POST['submit'])) {
+ if (isset($_POST['submit']) {
             $auctionTitle = $_POST['auctionTitle'];
             $description = $_POST['auctionDetails'];
             $category = $_POST['auctionCategory'];
@@ -34,7 +34,7 @@ include 'create_auction.php';
             if (!isset($auctionTitle)) {
                         echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
           
-            if (!is_numeric($_POST['auctionStartPrice'])) {
+            elseif (!is_numeric($_POST['auctionStartPrice'])) {
                         echo "Wrong input format for auction starting price. Please input a number.";}  //Why is this not appearing as the right colour? 
 
 /* TODO #3: If everything looks good, make the appropriate call to insert
