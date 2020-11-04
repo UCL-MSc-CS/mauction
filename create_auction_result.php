@@ -47,6 +47,7 @@ if (isset($_POST['submit'])) {
             else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
                         $query = "INSERT INTO auctions (itemName, startPrice, category, description) VALUES('$auctionTitle','$startPrice','$category','$description')"; 
+		        if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
             } }
 ?>
 
