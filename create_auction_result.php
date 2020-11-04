@@ -53,7 +53,7 @@ include 'connection.php';
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
                         $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
             } */
-}
+//}
 ?>
 
 </div>
