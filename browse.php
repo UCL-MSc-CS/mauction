@@ -9,29 +9,26 @@ if (isset($_POST['search'])) {
     $keyword = mysqli_real_escape_string($connection, $_POST['keyword']);
     $cat = mysqli_real_escape_string($connection, $_POST['cat']);
     $order_by = mysqli_real_escape_string($connection, $_POST['order_by']);
-    echo $keyword;
-    echo $cat;
-    echo $order_by;
   // Retrieve these from the URL
-  if (isset($keyword)) {
+  if ($keyword == "") {
     // TODO: Define behavior if a keyword has not been specified.
-    echo $keyword;
+    $keyworderror = "Please enter a search keyword.";
   }
   else {
     $keyword = $_POST['keyword'];
   }
 
-  if (isset($cat) == "pricelow") {
+  if ($cat == "none") {
     // TODO: Define behavior if a category has not been specified.
-    echo "WHAT";
+    $caterror = "Please enter a search category.";
   }
   else {
     $category = $_POST['cat'];
   }
   
-  if (isset($order_by) == "ljhl") {
+  if ($order_by == "none") {
     // TODO: Define behavior if an order_by value has not been specified.
-    echo "HI";
+    $order_byerror = "Please enter a search sort by.";
   }
   else {
     $ordering = $_POST['order_by'];
@@ -90,8 +87,8 @@ if (isset($_POST['search'])) {
     </div>
     <div class="col-md-3 pr-0">
       <div class="form-inline">
-        <label class="mx-2" for="order_by" name="order_by">Sort by:</label>
-        <select class="form-control" id="order_by">
+        <label class="mx-2" for="order_by">Sort by:</label>
+        <select class="form-control" id="order_by" name="order_by">
           <option selected value="none">--Sort By--</option>
           <option value="pricelow">Price (low to high)</option>
           <option value="pricehigh">Price (high to low)</option>
@@ -111,7 +108,23 @@ if (isset($_POST['search'])) {
 <div class="container mt-5">
 
 <!-- TODO: If result set is empty, print an informative message. Otherwise... -->
-
+<?php
+            if(isset($keyworderror) && !empty($keyworderror)){
+            ?>
+            <div class="error" style="color: red"><?= $keyworderror; ?></div>
+            <?php
+            }
+            if (isset($caterror) && !empty($caterror)) {
+              ?>
+            <div class="error" style="color: red"><?= $caterror; ?></div>
+            <?php
+            }
+            if (isset($order_byerror) && !empty($order_byerror)) {
+              ?>
+            <div class="error" style="color: red"><?= $order_byerror; ?></div>
+            <?php
+            }
+            ?>
 <ul class="list-group">
 
 <?php
