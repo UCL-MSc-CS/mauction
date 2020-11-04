@@ -24,16 +24,12 @@ include 'connection.php';
             $POST['auctionDetails'], etc. Perform checking on the data to
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
-// if (isset($_POST["submit"])) {
+	// if (isset($_POST["submit"])) {
             
             //$print = "Went into this statement!";
 	    //echo $print;
-            $error = "Got into here";
-	    echo $error;
-	    header("Location: index.php?error=".urlencode($error), 'replace');
-	    exit();
              
-            /* $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
+            $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
             $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
             $startPrice = mysqli_real_escape_string($connection, $_POST['auctionStartPrice']);
@@ -51,11 +47,10 @@ include 'connection.php';
 /* TODO #3: If everything looks good, make the appropriate call to insert
             data into the database.  If all is successful, let user know. */
 
-            /* else {
+            else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
                         $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
-            } */
-//}
+            } 
 ?>
 
 </div>
