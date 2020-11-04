@@ -1,6 +1,9 @@
 <?php
-include 'connection.php';
 include 'create_auction.php';                   
+?>
+
+<?php
+include 'connection.php';
 ?>
 
 <?php include_once("header.php")?>
@@ -21,7 +24,7 @@ include 'create_auction.php';
             $POST['auctionDetails'], etc. Perform checking on the data to
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
- if (isset($_POST['submit'])) {
+ if (isset($_POST["submit"])) {
             
             //$print = "Went into this statement!";
 	    //echo $print;
