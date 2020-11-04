@@ -119,7 +119,7 @@ include 'connection.php';
     // TODO: Use a while loop to print a list item for each auction listing retrieved from the query
     function searchKey($connection, $keyword, $cat, $order_by)
     {
-      if ($keyword == "") {
+      if (($keyword == "") && ($cat == "") && ($order_by == "")) {
         $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions ORDER BY itemName ASC";
         $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
         $queryRes = mysqli_num_rows($result);
