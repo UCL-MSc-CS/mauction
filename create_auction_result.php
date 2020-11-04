@@ -45,4 +45,4 @@ $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$s
 
 </div>
 
-<?php include_once("footer.php")?>
+<?php include_once("footer.php"); ?>
