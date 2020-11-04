@@ -28,9 +28,9 @@ include 'connection.php';
             
             //$print = "Went into this statement!";
 	    //echo $print;
-            $error = "You have left one of the fields empty!";
+            $error = "Got into here";
 	    echo $error;
-	    header("Location: index.php?error=" . urlencode($error));
+	    header("Location: index.php?error=" . urlencode($error, replace));
 	    exit()
              
             /* $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
