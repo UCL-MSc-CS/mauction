@@ -36,7 +36,7 @@ startPrice DECIMAL NOT NULL,
 description VARCHAR(300)  NULL, 
 reservePrice DECIMAL NULL,
 endTime TIME NULL, 
-endDate DATETIME NOT NULL, 
+endDate DATE NOT NULL,                -- temporarily just a date object
 finalPrice DECIMAL NULL, 
 commission DECIMAL NULL,               -- commission is a fixed value, no dependance on finalPrice yet
 delivery VARCHAR(20)  NULL, 
