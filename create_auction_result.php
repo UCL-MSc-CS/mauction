@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
             
             echo $auctionTitle ;
             
-            if ($auctionTitle = '') {
+            if (empty($auctionTitle)) {
                         echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
           
             elseif (!is_numeric($_POST['auctionStartPrice'])) {
