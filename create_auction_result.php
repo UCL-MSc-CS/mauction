@@ -21,24 +21,30 @@ include 'create_auction.php';
             $POST['auctionDetails'], etc. Perform checking on the data to
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
-
-// $auctionTitle = $_POST['auctionTitle'];
-// $startPrice = $_POST['auctionStartPrice];
+ if (isset($_POST['submit'])) {
+            $auctionTitle = $_POST['auctionTitle'];
+            $description = $_POST['auctionDetails'];
+            $category = $_POST['auctionCategory'];
+            $startPrice = $_POST['auctionStartPrice'];
+            $reservePrice = $_POST['auctionReservePrice'];
+            $endDate = $_POST['auctionEndDate'];
             
-if (!isset($_POST['auctionTitle'])) {
-            echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
+            
+            
+            if (!isset($auctionTitle)) {
+                        echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
           
-if (!is_numeric($_POST['auctionStartPrice'])) {
-            echo "Wrong input format for auction starting price. Please input a number.";}  //Why is this not appearing as the right colour? 
+            if (!is_numeric($_POST['auctionStartPrice'])) {
+                        echo "Wrong input format for auction starting price. Please input a number.";}  //Why is this not appearing as the right colour? 
 
 /* TODO #3: If everything looks good, make the appropriate call to insert
             data into the database.  If all is successful, let user know. */
 
-else {
-            echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
-            $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
+            else {
+                        echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
+                        $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
+            }
 }
-
 
 
 
@@ -47,4 +53,4 @@ else {
 
 </div>
 
-<?php include_once("footer.php"); ?>
+<?php include_once("footer.php") ?>
