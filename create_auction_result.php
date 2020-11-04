@@ -23,9 +23,9 @@ include 'create_auction.php';
             issue, give some semi-helpful feedback to user. */
  if (isset($_POST['submit'])) {
             
-            $print = "Went into this statement!";
-	    echo $print;
-	    header("Location: index.php?error=" . urlencode($print));
+            //$print = "Went into this statement!";
+	    //echo $print;
+	    header("Location: index.php");
 	    exit();
              
             /* $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
