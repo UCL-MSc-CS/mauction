@@ -2,46 +2,56 @@ DROP DATABASE IF EXISTS mauction;
 CREATE DATABASE mauction;
 USE mauction;
 
-CREATE TABLE `buyers` (
-buyerID INT NOT NULL AUTO_INCREMENT,
-userName VARCHAR(45) NULL,
-email VARCHAR(45) NULL,
-address VARCHAR(45) NULL,
+CREATE TABLE `users` (
+userID INT NOT NULL AUTO_INCREMENT,
+userName VARCHAR(45) NOT NULL,
+email VARCHAR(45) NOT NULL,              -- removed addresses as attribute (may put it as separate entity)
 registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
-password VARCHAR(40),
-PRIMARY KEY (buyerID))
+country VARCHAR (45) NOT NULL, 
+principality VARCHAR (45) NULL,
+city VARCHAR (45) NULL, 
+addressLine1 VARCHAR (80) NULL,
+addressLine2 VARCHAR (80) NULL,
+postcode VARCHAR (20) NULL, 
+password VARCHAR(40) NOT NULL,
+status VARCHAR(20) NOT NULL,
+PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
-CREATE TABLE `sellers` (
-sellerID INT NOT NULL AUTO_INCREMENT,
-userName VARCHAR(45) NULL,
-email VARCHAR(45) NULL,
-address VARCHAR(45) NULL,
-registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-firstName VARCHAR(45) NULL,
-lastName VARCHAR(45) NULL,
-password VARCHAR(40),
-PRIMARY KEY (sellerID))
+CREATE TABLE `photos` (
+saleItemID INT NOT NULL,
+photo VARCHAR(200) NULL,
+PRIMARY KEY (saleItemID))
 ENGINE = InnoDB;
 
 CREATE TABLE `auctions` (
 saleItemID INT NOT NULL AUTO_INCREMENT,
-sellerID INT NOT NULL, startDate DATE NOT NULL,
-startTime TIME NOT NULL, category VARCHAR(100) NOT NULL,
-description VARCHAR(300) NOT NULL, reservePrice DECIMAL NOT NULL,
-endTime TIME NOT NULL, endDate DATETIME NOT NULL, 
-finalPrice DECIMAL NOT NULL, commission DECIMAL NOT NULL, 
-delivery VARCHAR(20) NOT NULL, outcome VARCHAR(30) NOT NULL,
+itemName VARCHAR(200) NOT NULL,
+userID INT NOT NULL, 
+startDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+category VARCHAR(100) NOT NULL,
+startPrice DECIMAL NOT NULL,
+description VARCHAR(300) NOT NULL, 
+reservePrice DECIMAL NULL,
+endTime TIME NOT NULL, 
+endDate DATETIME NOT NULL, 
+finalPrice DECIMAL NULL, 
+commission DECIMAL NOT NULL,               -- commission is a fixed value, no dependance on finalPrice yet
+delivery VARCHAR(20) NOT NULL, 
+outcome VARCHAR(30) NOT NULL,
 cond VARCHAR(30) NOT NULL, 
 PRIMARY KEY (saleItemID))
-ENGINE = InnoDB;                
-
+ENGINE = InnoDB; 
+             
 CREATE TABLE `bids` (
 bidID INT NOT NULL AUTO_INCREMENT,
-buyerID INT NOT NULL,
+userID INT NOT NULL,
+bidTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 saleItemID INT NOT NULL,
+-- bidAmount DECIMAL NOT NULL MORE_THAN_ZERO,    -- THIS LINE MIGHT THROW ERRORS 
+bidAmount DECIMAL NOT NULL,
 PRIMARY KEY (bidID))
 ENGINE = InnoDB;
 
