@@ -24,8 +24,8 @@ include 'connection.php';
 	// if (isset($_POST["submit"])) {
             
             //$print = "Went into this statement!";
-	    //echo $print;
-             
+	    //echo $print
+if (isset($_POST['submit'])) {
             $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
             $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
@@ -47,7 +47,7 @@ include 'connection.php';
             else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
                         $query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
-            } 
+            } }
 ?>
 
 </div>
