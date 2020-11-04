@@ -37,7 +37,7 @@ if (!is_numeric($_POST['auctionStartPrice'])) {
 else {
             echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';}
 
-$query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice'); 
+$query = "INSERT INTO auctions (itemName, startPrice) VALUES('$auctionTitle','$startPrice')"; 
 
 
 
