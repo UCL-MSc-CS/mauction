@@ -22,6 +22,12 @@ include 'create_auction.php';
             make sure it can be inserted into the database. If there is an
             issue, give some semi-helpful feedback to user. */
  if (isset($_POST['submit'])) {
+            
+            $print = "Went into this statement!";
+	echo $print;
+	header("Location: index.php?error=" . urlencode($print));
+	exit();
+             
             $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
             $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
