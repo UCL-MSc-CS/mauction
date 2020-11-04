@@ -28,8 +28,10 @@ include 'connection.php';
             
             //$print = "Went into this statement!";
 	    //echo $print;
-	    header("Location: index.php");
-	    exit();
+            $error = "You have left one of the fields empty!";
+	    echo $error;
+	    header("Location: index.php?error=" . urlencode($error));
+	    exit()
              
             /* $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
