@@ -57,6 +57,6 @@ ENGINE = InnoDB;
 
 
 INSERT INTO `auctions` (saleItemID, userID, startDate, category, itemName, description, startPrice, endDate, finalPrice, commission, delivery, outcome, cond)
-VALUES ('1','1','01-01-20 00:00:00','video games','EPIC fortnite skins', 'epic','10000.00','12:00:00 10-10-20','10000.00','1','post','still bidding','new');
+VALUES ('1','1','01-01-20 00:00:00','video games','EPIC fortnite skins', 'epic','10000.00','10-10-20 12:00:00','10000.00','1','post','still bidding','new');
 
 
