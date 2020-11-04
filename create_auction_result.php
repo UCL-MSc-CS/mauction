@@ -30,8 +30,8 @@ include 'connection.php';
 	    //echo $print;
             $error = "Got into here";
 	    echo $error;
-	    header("Location: index.php?error=" . urlencode($error, replace));
-	    exit()
+	    header("Location: index.php?error=".urlencode($error), 'replace');
+	    exit();
              
             /* $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
