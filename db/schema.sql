@@ -12,7 +12,7 @@ USE mauction;
 CREATE TABLE `users` (
 userID INT NOT NULL AUTO_INCREMENT,
 userName VARCHAR(45) NOT NULL,
-email VARCHAR(45) NOT NULL,              -- removed addresses as attribute (may put it as separate entity)
+email VARCHAR(45) NOT NULL,              
 registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
@@ -22,8 +22,8 @@ city VARCHAR (45) NULL,
 addressLine1 VARCHAR (80) NULL,
 addressLine2 VARCHAR (80) NULL,
 postcode VARCHAR (20) NULL, 
-password VARCHAR(40) NOT NULL,
-status VARCHAR(20) NOT NULL,
+password VARCHAR(60) NOT NULL,
+accountType VARCHAR(20) NOT NULL,
 PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
