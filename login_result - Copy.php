@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
             header("refresh:5;url=browse.php");
         }
         else{
-            echo'Wrong combination of Email address and password.';
+            echo'Wrong combination of username and password.';
         }
 
     }
