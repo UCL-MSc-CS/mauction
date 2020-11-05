@@ -2,7 +2,7 @@
 
 // Ari: 5/11/20
 // added password hashing. Added error checking for empty fields. Added message to say account registratiom successful.
-// added header and footer. Text to access login Modal.
+// added header and footer. Text to access login Modal. Checks if email in valid form.
 //TO DO: password confirmation. Make it look less shit. 
 
 ?>
@@ -15,15 +15,15 @@
   
   
 
-  if (isset($_POST['submit'])) {
+  if (isset($_POST['submit'])) { // if submit clicked, assign post variables
 	$accountType = mysqli_real_escape_string($connection, $_POST['accountType']);
 	$username = mysqli_real_escape_string($connection, $_POST['username']);
     $firstName = mysqli_real_escape_string($connection, $_POST['firstName']);
 	$lastName = mysqli_real_escape_string($connection, $_POST['lastName']);
 	$email = mysqli_real_escape_string($connection, $_POST['email']);
-	$password = mysqli_real_escape_string($connection, $_POST['password']);
 	
-	$passhash = password_hash($password, PASSWORD_DEFAULT);
+	$password = mysqli_real_escape_string($connection, $_POST['password']);
+	$passhash = password_hash($password, PASSWORD_DEFAULT); // hashes password
 	
 	$addressLine1 = mysqli_real_escape_string($connection, $_POST['addressLine1']);
 	$addressLine2 = mysqli_real_escape_string($connection, $_POST['addressLine2']);
@@ -32,7 +32,7 @@
 	$country = mysqli_real_escape_string($connection, $_POST['country']);
 	$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
 	
-	    if (empty($username)) {
+	    if (empty($username)) {  // checks if fields are empty
             echo "Please enter a username";} 
 	    elseif (empty($firstName)) {
 		    echo "Please enter your first name";}
@@ -50,9 +50,14 @@
 		    echo "Please enter your country";}
 		elseif (empty($postcode)) {
 		    echo "Please enter your postcode";}
+			
+	$email = filter_var ($_POST['email'], FILTER_SANITIZE_EMAIL);
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
+		echo "$email is not a valid email address.";
+	}
 
 	    
-     else {
+  } else { // inserts data from form
 
       $query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
 	  addressLine2, city, principality, country, postcode) 
@@ -63,7 +68,7 @@
 		      }
 		echo 'Your registration was successful, please login!';
 }
-}
+
 
 ?>
 
