@@ -5,10 +5,10 @@ include 'connection.php';
 <?php require("utilities.php") ?>
 <div class="container">
   <?php
-  if (isset($_POST['search'])) {
-    $keyword = mysqli_real_escape_string($connection, $_POST['keyword']);
-    $cat = mysqli_real_escape_string($connection, $_POST['cat']);
-    $order_by = mysqli_real_escape_string($connection, $_POST['order_by']);
+  if (isset($_GET['search'])) {
+    $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
+    $cat = mysqli_real_escape_string($connection, $_GET['cat']);
+    $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
     // Retrieve these from the URL
     if ($keyword == "") {
       // TODO: Define behavior if a keyword has not been specified.
@@ -23,10 +23,10 @@ include 'connection.php';
       $order_byerror = "Please enter a search sort by.";
     }
 
-    if (!isset($_POST['page'])) {
+    if (!isset($_GET['page'])) {
       $curr_page = 1;
     } else {
-      $curr_page = $_POST['page'];
+      $curr_page = $_GET['page'];
     }
   }
   /* TODO: Use above values to construct a query. Use this query to 
@@ -39,7 +39,7 @@ include 'connection.php';
     <!-- When this form is submitted, this PHP page is what processes it.
      Search/sort specs are passed to this page through parameters in the URL
      (GET method of passing data to a page). -->
-    <form method="post">
+    <form method="get">
       <div class="row">
         <div class="col-md-5 pr-0">
           <div class="form-group">
@@ -86,8 +86,8 @@ include 'connection.php';
             <label for="order_by" class="sr-only">Sort by:</label>
             <select class="form-control" id="order_by" name="order_by">
               <option selected value="none">Sort By</option>
-              <option value="Price (low to high)">Price (low to high)</option>
-              <option value="Price (high to low)">Price (high to low)</option>
+              <option value="Low to High">Price (low to high)</option>
+              <option value="High to Low">Price (high to low)</option>
               <option value="Soonest expiry">Soonest expiry</option>
             </select>
             <?php
@@ -115,38 +115,41 @@ include 'connection.php';
   <ul class="list-group">
 
     <?php
-    searchKey($connection, $keyword, $cat, $order_by);
+    if (!isset($_GET['search'])) {
+      $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions ORDER BY itemName ASC";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $item_id = $row['userID'];
+        $title = $row['itemName'];
+        $description = $row['description'];
+        $current_price = $row['startPrice'];
+        $num_bids = $row['commission'];
+        $end_date = $row['endDate'];
+        // This uses a function defined in utilities.php
+        print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+    }
+  }
+    if (isset($_GET['search'])) {
+      $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
+      $cat = mysqli_real_escape_string($connection, $_GET['cat']);
+      $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+      // Retrieve these from the URL
+      if (($keyword != "") && ($cat != "none") && ($order_by != "none")) {
+        // TODO: Define behavior if a keyword has not been specified.
+        searchKey($connection, $keyword, $cat, $order_by);
+      }
+    }
     // TODO: Use a while loop to print a list item for each auction listing retrieved from the query
-    function searchKey($connection, $keyword, $cat, $order_by)
-    {
-      if (($keyword == "") && ($cat == "") && ($order_by == "")) {
-        $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions ORDER BY itemName ASC";
-        $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
-        $queryRes = mysqli_num_rows($result);
-        while ($row = mysqli_fetch_assoc($result)) {
-          $item_id = $row['userID'];
-          $title = $row['itemName'];
-          $description = $row['description'];
-          $current_price = $row['startPrice'];
-          $num_bids = $row['commission'];
-          $end_date = $row['endDate'];
-          // This uses a function defined in utilities.php
-          print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
-        }
-        /* For the purposes of pagination, it would also be helpful to know the
-              total number of results that satisfy the above query */
-        $num_results = $queryRes; // TODO: Calculate me for real
-        $results_per_page = 2;
-        $max_page = ceil($num_results / $results_per_page);
-      } else {
+    function searchKey($connection, $keyword, $cat, $order_by) {
         if ($cat == "All Categories") {
           $querycat = "";
         } else {
           $querycat = " AND category = '$cat'";
         }
-        if ($order_by == "Price (low to high)") {
+        if ($order_by == "Low to High") {
           $queryorder = " ORDER BY startPrice ASC";
-        } elseif ($order_by == "Price (high to low)") {
+        } elseif ($order_by == "High to Low") {
           $queryorder = " ORDER BY startPrice DESC";
         } else {
           $queryorder = " ORDER BY endDate DESC";
@@ -170,12 +173,12 @@ include 'connection.php';
           }
           /* For the purposes of pagination, it would also be helpful to know the
               total number of results that satisfy the above query */
+          global $max_page;
           $num_results = $queryRes; // TODO: Calculate me for real
           $results_per_page = 2;
           $max_page = ceil($num_results / $results_per_page);
         }
       }
-    }
     ?>
   </ul>
 
