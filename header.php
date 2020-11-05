@@ -1,11 +1,14 @@
 <?php
+
+
   // FIXME: At the moment, I've allowed these values to be set manually.
   // But eventually, with a database, these should be set automatically
   // ONLY after the user's login credentials have been verified via a 
-  // database query.
-  session_start();
-  $_SESSION['logged_in'] = false;
-  $_SESSION['account_type'] = 'seller';
+  // // database query.
+  // any True or False result in this section will become an error for the query and credential 
+  // checks on the login_result page because the form information collected from the user is at the end of this page
+  // but if there aren't any True or False result in this section, the Login, logout display and rediects below this block of code won't work -_-#
+
 ?>
 
 
@@ -90,14 +93,14 @@
       <div class="modal-body">
         <form method="POST" action="login_result.php">
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="Email">
+            <label for="username">Username</label>
+            <input type="text" name = "username" class="form-control" id="username" placeholder="username">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" name= "password" class="form-control" id="password" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary form-control">Sign in</button>
+          <button type="submit" name = "submit" class="btn btn-primary form-control">Sign in</button>
         </form>
         <div class="text-center">or <a href="register.php">create an account</a></div>
       </div>
