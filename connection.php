@@ -7,23 +7,23 @@ $success = mysqli_real_connect(
    $db,
    $port
 ); -->
+
 <?php
-function OpenCon()
- {
- $host = $_ENV["$host"];
- $user = $_ENV["$user"];
- $password = $_ENV["$password"];
- $db = $_ENV["$db"];
- $conn = new mysqli($host, $user, $password,$db) or die("Connect failed: %s\n". $conn -> error);
- 
- return $conn;
- }
- 
-function CloseCon($conn)
- {
- $conn -> close();
- }
-   
+// $dbconfig = parse_ini_file(".env");
+
+// $servername = $dbconfig["host"];
+// $username = $dbconfig["user"];
+// $password = $dbconfig["password"];
+// $database = $dbconfig["db"];
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "mauction";
+
+// Create connection
+$connection = mysqli_connect($servername,$username,$password,$database) 
+    or die('Error connecting to MySQL server.' . mysql_error());
 ?>
 
 <!-- https://www.cloudways.com/blog/connect-mysql-with-php/#createdatabase -->

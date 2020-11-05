@@ -1,4 +1,7 @@
 <?php
+include 'connection.php';
+?>
+<?php
 
 // Ari: 5/11/20
 // added password hashing. Added error checking for empty fields. Added message to say account registratiom successful.
