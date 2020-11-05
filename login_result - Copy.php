@@ -7,35 +7,49 @@ include 'header.php';
 
 <?php
 if(isset($_POST['submit'])){
-    $username = mysqli_real_escape_string($connection, $_POST['username']); // Why does it always say undefined index....AHHHHHHH
-    $password = mysqli_real_escape_string($connection, $_POST['password']); // Why does it always say undefined index....AHHHHHHH
-    
+    // $username = mysqli_real_escape_string($connection, $_POST['username']); // Why does it always say undefined index....AHHHHHHH
+    // $password = mysqli_real_escape_string($connection, $_POST['password']); // Why does it always say undefined index....AHHHHHHH
+    $username = $_POST['username'];
+    $password = $_POST['password'];
     if($username != '' && $password != ''){
         
-        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+        $query = "SELECT * FROM users WHERE userName = '$username' AND password = '$password'";
         $result = mysqli_query($connection,$query) or die('Eroor...' . mysqli_error());
         $row = mysqli_fetch_array($result);
         
         if (isset($row)){
-            $um = mysqli_query($connection, "SELECT 'username' FROM users WHERE username = '$username' AND password = '$password'") or die('Error' . mysqli_error);
-            // $accounttype = mysqli_query($connection, "SELECT 'accounttype' FROM users WHERE email = '$email' AND password = '$password'")
+            // $um = mysqli_query($connection, "SELECT 'username' FROM users WHERE username = '$username' AND password = '$password'") or die('Error' . mysqli_error);
+            // $accounttype = mysqli_query($connection, "SELECT 'accounttype' FROM users WHERE username = '$username' AND password = '$password'")
+
+            echo('<div class="text-center">You are now logged in! You will be redirected shortly.</div>');
+            
             session_start();
             $_SESSION['logged_in'] = true;
-            $_SESSION['username'] = $um;
+            $_SESSION['username'] = $username;
             $_SESSION['account_type'] = "buyer";
-            echo('<div class="text-center">You are now logged in! You will be redirected shortly.</div>');
-            // Redirect to the browse page after 5 seconds. 
+        
+            // Redirect to browse after 5 seconds. 
             header("refresh:5;url=browse.php");
         }
         else{
             echo('<div class="text-center">Wrong combination of username and password. Please try again.</div>');
+            
+            session_start();
+            $_SESSION['logged_in'] = False;
+            
             // Redirect to register page to open the modal for log in after 5 seconds. 
             header("refresh:5;url=register.php");
+
         }
 
     }
 else{
-    echo 'Please enter your email address and Password to log in';
+    echo('<div class="text-center">Please enter your email address and Password to log in</div>');
+        session_start();
+        $_SESSION['logged_in'] = False;
+        // Redirect to register page to open the modal for log in after 5 seconds. 
+        header("refresh:5;url=register.php"); ;
+
     }
 
 
