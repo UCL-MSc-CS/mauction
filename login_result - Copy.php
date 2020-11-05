@@ -24,11 +24,13 @@ if(isset($_POST['submit'])){
             $_SESSION['username'] = $um;
             $_SESSION['account_type'] = "buyer";
             echo('<div class="text-center">You are now logged in! You will be redirected shortly.</div>');
-            // Redirect to index after 5 seconds. 
+            // Redirect to the browse page after 5 seconds. 
             header("refresh:5;url=browse.php");
         }
         else{
-            echo'Wrong combination of username and password.';
+            echo('<div class="text-center">Wrong combination of username and password. Please try again.</div>');
+            // Redirect to register page to open the modal for log in after 5 seconds. 
+            header("refresh:5;url=register.php");
         }
 
     }
