@@ -1,7 +1,9 @@
 <?php
 
-// Ari: Added post variables and insert query for additional fields. Added password hashing. 
-// TODO: error messages still not quite right. Add password confirmation to compare to original password entered
+// Ari: 5/11/20
+// added password hashing. Added error checking for empty fields. Added message to say account registratiom successful.
+// added header and footer. Text to access login Modal.
+//TO DO: password confirmation. Make it look less shit. 
 
 ?>
 
@@ -29,16 +31,28 @@
 	$principality = mysqli_real_escape_string($connection, $_POST['principality']);
 	$country = mysqli_real_escape_string($connection, $_POST['country']);
 	$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
-
 	
-	// if ($username == '' || $firstName == '' || $lastName == '' || $email == '' || $password == '') {
-	// $error = "You have left one of the fields empty!";
-	// echo $error;
-	// header("Location: index.php?error=" . urlencode($error));
-	// exit();
-     // }
+	    if (empty($username)) {
+            echo "Please enter a username";} 
+	    elseif (empty($firstName)) {
+		    echo "Please enter your first name";}
+ 	    elseif (empty($lastName)) {
+		    echo "Please enter your last name";}
+	    elseif (empty($email)) {
+		    echo "Please enter your email address";}
+		elseif (empty($password)) {
+		    echo "Please enter your password";}
+ 	    elseif (empty($addressLine1)) {
+		    echo "Please enter your address";}
+	    elseif (empty($city)) {
+		    echo "Please enter your city";}
+		elseif (empty($country)) {
+		    echo "Please enter your country";}
+		elseif (empty($postcode)) {
+		    echo "Please enter your postcode";}
+
 	    
-     // else {
+     else {
 
       $query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
 	  addressLine2, city, principality, country, postcode) 
@@ -47,12 +61,15 @@
       if (!mysqli_query($connection, $query)) {
         die('Error: ' . mysqli_error($connection));
 		      }
-	 }
-  	 
-	else {
-	header('Location: index.php');
-	exit();
+		echo 'Your registration was successful, please login!';
 }
- 
+}
+
 ?>
+
+
+<div class="text-center">Already have an account? <a href="" data-toggle="modal" data-target="#loginModal">Login</a>
+</div>
+
+
 <?php include_once("footer.php")?>
