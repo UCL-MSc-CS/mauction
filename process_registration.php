@@ -2,8 +2,9 @@
 
 // Ari: 5/11/20
 // added password hashing. Added error checking for empty fields. Added message to say account registratiom successful.
-// added header and footer. Text to access login Modal. Checks if email in valid form.
-//TO DO: password confirmation. Make it look less shit. 
+// added header and footer. Text to access login Modal. Checks password against password confirmation.
+// only enters password into database, not necessary to enter password confirmation??
+//Make it look less shit. 
 
 ?>
 
@@ -23,7 +24,7 @@
 	$email = mysqli_real_escape_string($connection, $_POST['email']);
 	
 	$password = mysqli_real_escape_string($connection, $_POST['password']);
-	$passhash = password_hash($password, PASSWORD_DEFAULT); // hashes password
+	$confirmpassword = mysqli_real_escape_string($connection, $_POST['confirmpassword']);
 	
 	$addressLine1 = mysqli_real_escape_string($connection, $_POST['addressLine1']);
 	$addressLine2 = mysqli_real_escape_string($connection, $_POST['addressLine2']);
@@ -42,6 +43,8 @@
 		    echo "Please enter your email address";}
 		elseif (empty($password)) {
 		    echo "Please enter your password";}
+		elseif (empty($confirmpassword)) {
+		    echo "Please confirm your password";}
  	    elseif (empty($addressLine1)) {
 		    echo "Please enter your address";}
 	    elseif (empty($city)) {
@@ -55,21 +58,25 @@
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
 		echo "$email is not a valid email address.";
 	}
+	
+	if ($password != $confirmpassword) {	// confirms password and password confirmation match
+		echo "Passwords do not match!";
+	}
 
 	    
   } else { // inserts data from form
 
       $query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
 	  addressLine2, city, principality, country, postcode) 
-                VALUES ('$accountType', '$username', '$firstName', '$lastName', '$email', '$passhash', '$addressLine1', 
+                VALUES ('$accountType', '$username', '$firstName', '$lastName', '$email', SHA('$password'), '$addressLine1', 
 				'$addressLine2', '$city', '$principality', '$country', '$postcode')";
       if (!mysqli_query($connection, $query)) {
-        die('Error: ' . mysqli_error($connection));
-		      }
+	  die('Error: ' . mysqli_error($connection)); }
+		{
 		echo 'Your registration was successful, please login!';
+		}
+
 }
-
-
 ?>
 
 
