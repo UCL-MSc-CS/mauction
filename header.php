@@ -5,6 +5,9 @@
   // But eventually, with a database, these should be set automatically
   // ONLY after the user's login credentials have been verified via a 
   // // database query.
+  // any True or False result in this section will become an error for the query and credential 
+  // checks on the login_result page because the form information collected from the user is at the end of this page
+  // but if there aren't any True or False result in this section, the Login, logout display and rediects below this block of code won't work -_-#
 
 ?>
 
