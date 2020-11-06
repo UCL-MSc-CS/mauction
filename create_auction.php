@@ -40,7 +40,7 @@
           </div>
         </div>
 	<div class="form-group row">
-	  <label for="condition" class="col-sm-2 col-form-label text-right">Category</label>
+	  <label for="condition" class="col-sm-2 col-form-label text-right">Condition</label>
 	  <div class="col-sm-10">
 	    <select class="form-control" name="condition" id="condition">
  	      <option selected>Choose...</option>
