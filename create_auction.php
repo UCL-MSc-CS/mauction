@@ -95,13 +95,14 @@
           </div>
         </div>
 	<div class="form-group row">
-          <label for="auctionCategory" class="col-sm-2 col-form-label text-right">Category</label>
+          <label for="delivery" class="col-sm-2 col-form-label text-right">Delivery Method</label>
           <div class="col-sm-10">
-            <select class="form-control" name="auctionCategory" id="auctionCategory">
+            <select class="form-control" name="delivery" id="delivery">
               <option selected>Choose...</option>
-              <option value="fill">Fill me in</option>
-              <option value="with">with options</option>
-              <option value="populated">populated from a database?</option>
+              <option value="post_1">Mail-First Class</option>
+              <option value="post_2">Mail-Second Class</option>
+              <option value="pick-up">Pick-up in person</option>
+              <option value="other">Other</option>
             </select>
             <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Select a category for this item.</small>
           </div>
