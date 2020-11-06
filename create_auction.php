@@ -39,6 +39,18 @@
             <small id="detailsHelp" class="form-text text-muted">Full details of the listing to help bidders decide if it's what they're looking for.</small>
           </div>
         </div>
+	<div class="form-group row">
+	  <label for="condition" class="col-sm-2 col-form-label text-right">Category</label>
+	  <div class="col-sm-10">
+	    <select class="form-control" name="condition" id="condition">
+ 	      <option selected>Choose...</option>
+              <option value="new">New</option>
+              <option value="used_new">Used-Like New</option>
+              <option value="used">Used</op
+            </select>
+            <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Specify the item's condition.</small>
+          </div>
+        </div>
         <div class="form-group row">
           <label for="auctionCategory" class="col-sm-2 col-form-label text-right">Category</label>
           <div class="col-sm-10">
