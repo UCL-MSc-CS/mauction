@@ -46,7 +46,7 @@
  	      <option selected>Choose...</option>
               <option value="new">New</option>
               <option value="used_new">Used-Like New</option>
-              <option value="used">Used</op
+	      <option value="used">Used</option>
             </select>
             <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Specify the item's condition.</small>
           </div>
