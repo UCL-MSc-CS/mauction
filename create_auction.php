@@ -104,7 +104,7 @@
               <option value="pick-up">Pick-up in person</option>
               <option value="other">Other</option>
             </select>
-            <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Select a category for this item.</small>
+            <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Specify the item's delivery method.</small>
           </div>
         </div>
         <button type="submit" name="submit" class="btn btn-primary form-control">Create Auction</button>
