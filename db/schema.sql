@@ -76,15 +76,25 @@ VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK
 
              -- have to edit this insert with new attributes. 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("Vaccine", 1, "Health", 1000000, "COVID-19 Cure", 10000000, '12:00:00','10-10-21', 20, "Post", "Bidding", "New");
+VALUES ("Vaccine", 1, "Health", 1000000, "COVID-19 Cure", 10000000, '12:00:00','10-4-21', 20, "Post", "Bidding", "New");
 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("Vase", 1, "Home Decor", 1000000, "Perfect for flowers", 10000000, '12:00:00','10-10-21', 20, "Post", "Bidding", "New");
+VALUES ("Vase", 1, "Home Decor", 10, "Perfect for flowers", 10000000, '12:00:00','10-7-21', 1, "Post", "Bidding", "New");
 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("New President", 1, "Mental Wellbeing", 1000000, "Harris2020", 10000000, '12:00:00','10-10-21', 20, "Post", "Bidding", "New");
+VALUES ("New President", 1, "Mental Wellbeing", 2020, "Harris2020", 10000000, '12:00:00','10-8-21', 2, "Post", "Bidding", "New");
+
+INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
+VALUES ("Bowl", 1, "Home Decor", 3, "Perfect for ice cream", 10000000, '12:00:00','10-9-21', 3, "Post", "Bidding", "New");
+
+INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
+VALUES ("M&Ms", 1, "Mental Wellbeing", 1, "Perfect for post-graduate students", 10000000, '12:00:00','10-10-21', 4, "Post", "Bidding", "New");
+
+INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
+VALUES ("Toothpaste", 1, "Health", 10, "For clenched teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
+
+INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
+VALUES ("Toothpaste", 1, "Health", 1000000, "For sensitive teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
 VALUES (1,1,4);
-
-

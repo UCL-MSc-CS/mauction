@@ -7,10 +7,9 @@ include 'header.php';
 
 <?php
 if(isset($_POST['submit'])){
-    // $username = mysqli_real_escape_string($connection, $_POST['username']); // Why does it always say undefined index....AHHHHHHH
-    // $password = mysqli_real_escape_string($connection, $_POST['password']); // Why does it always say undefined index....AHHHHHHH
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = mysqli_real_escape_string($connection, $_POST['username']);
+    $password = mysqli_real_escape_string($connection, $_POST['password']); 
+
     if($username != '' && $password != ''){
         
         $query = "SELECT * FROM users WHERE userName = '$username' AND password = '$password'";
@@ -44,7 +43,7 @@ if(isset($_POST['submit'])){
 
     }
 else{
-    echo('<div class="text-center">Please enter your email address and Password to log in</div>');
+        echo('<div class="text-center">Please enter your email address and Password to log in</div>');
         session_start();
         $_SESSION['logged_in'] = False;
         // Redirect to register page to open the modal for log in after 5 seconds. 
@@ -55,6 +54,7 @@ else{
 
     
 }
+
 // TODO: Extract $_POST variables, check they're OK, and attempt to login.
 // Notify user of success/failure and redirect/give navigation options.
 
@@ -67,3 +67,4 @@ else{
 
 
 ?>
+
