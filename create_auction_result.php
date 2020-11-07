@@ -46,9 +46,9 @@ if (isset($_POST['submit'])) {
 	    elseif (empty($endDate)) {
 		    echo "Please provide an endDate";}
 	    elseif (empty($condition)) {
-		    echo "Please state the condition of your item";}
+		    echo "Please state the condition of your item";}      //currently on create_auction.php, condition can't be empty so this line doesn't really do anything
 	    elseif (empty($delivery)) {
-		    echo "Please provide the item's delivery method";}
+		    echo "Please provide the item's delivery method";} 	//same with this line and category. 
 	
 
 /* TODO #3: If everything looks good, make the appropriate call to insert
