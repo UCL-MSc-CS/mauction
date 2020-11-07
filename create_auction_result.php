@@ -1,3 +1,7 @@
+// Questions and stuff to do: how do you update outcome when bidding ends? 
+// Need to set commission to some sort of default value
+// Need to work out how to fill in the correct userID. Get the variable from session somehow? 
+
 
 <?php
 include 'connection.php';
@@ -25,20 +29,26 @@ include 'connection.php';
 if (isset($_POST['submit'])) {
             $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
+	    $condition = mysqli_real_escape_string($connection, $_POST['condition']);
             $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
             $startPrice = mysqli_real_escape_string($connection, $_POST['auctionStartPrice']);
             $reservePrice = mysqli_real_escape_string($connection, $_POST['auctionReservePrice']);
             $endDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
+	    $delivery = mysqli_real_escape_string($connection, $_POST['delivery']);
             
             
             if (empty($auctionTitle)) {
-                        echo "HOW WERE YOU GOING TO CREATE AN AUCTION WITHOUT AN AUCTION TITLE smh";}  //Matt 01/11: this checks that something is in auctionTitle
+                        echo "Please provide an auction title";}  //Matt 01/11: this checks that something is in auctionTitle
 	    elseif (empty($category)) {
 		    echo "Please select a category";}
  	    elseif (empty($startPrice)) {
 		    echo "Please provide a starting price";}
 	    elseif (empty($endDate)) {
 		    echo "Please provide an endDate";}
+	    elseif (empty($condition)) {
+		    echo "Please state the condition of your item";}
+	    elseif (empty($delivery)) {
+		    echo "Please provide the item's delivery method";}
 	
 
 /* TODO #3: If everything looks good, make the appropriate call to insert
@@ -46,7 +56,8 @@ if (isset($_POST['submit'])) {
 
             else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
-                        $query = "INSERT INTO auctions (itemName, startPrice, category, description, endDate) VALUES('$auctionTitle','$startPrice','$category','$description', '$endDate')"; 
+                        $query = "INSERT INTO auctions (itemName, startPrice, category, description, endDate, cond, delivery) VALUES('$auctionTitle','$startPrice','$category',
+			'$description', '$endDate', '$condition', '$delivery')"; 
 		        if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
             } }
 ?>
