@@ -43,7 +43,7 @@
 	  <label for="condition" class="col-sm-2 col-form-label text-right">Condition</label>
 	  <div class="col-sm-10">
 	    <select class="form-control" name="condition" id="condition">
- 	      <option selected>Choose...</option>
+ 	      <!-- <option selected>Choose...</option> -->
               <option value="new">New</option>
               <option value="used_new">Used-Like New</option>
 	      <option value="used">Used</option>
@@ -55,7 +55,7 @@
           <label for="auctionCategory" class="col-sm-2 col-form-label text-right">Category</label>
           <div class="col-sm-10">
             <select class="form-control" name="auctionCategory" id="auctionCategory">
-              <!-- <option selected>Choose...</option> -->
+              <option selected>Choose...</option>
               <option value="fill">Fill me in</option>
               <option value="with">with options</option>
               <option value="populated">populated from a database?</option>
