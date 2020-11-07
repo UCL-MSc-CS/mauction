@@ -45,7 +45,9 @@ if (isset($_POST['submit'])) {
  	    elseif (empty($startPrice)) {
 		    echo "Please provide a starting price";}
 	    elseif (empty($endDate)) {
-		    echo "Please provide an endDate";}
+		    echo "Please provide an end date";}
+	    elseif (empty($endTime)) {
+		    echo "Please provide an end time";}
 	    elseif (empty($condition)) {
 		    echo "Please state the condition of your item";}      //currently on create_auction.php, condition can't be empty so this line doesn't really do anything
 	    elseif (empty($delivery)) {
@@ -57,8 +59,8 @@ if (isset($_POST['submit'])) {
 
             else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
-                        $query = "INSERT INTO auctions (itemName, startPrice, category, description, endDate, cond, delivery) VALUES('$auctionTitle','$startPrice','$category',
-			'$description', '$endDate', '$condition', '$delivery')"; 
+                        $query = "INSERT INTO auctions (itemName, startPrice, category, description, endDate, endTime, cond, delivery) VALUES('$auctionTitle','$startPrice','$category',
+			'$description', '$endDate', '$endTime', '$condition', '$delivery')"; 
 		        if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
             } }
 ?>
