@@ -1,7 +1,3 @@
-// Questions and stuff to do: how do you update outcome when bidding ends? 
-// Need to set commission to some sort of default value
-// Need to work out how to fill in the correct userID. Get the variable from session somehow? 
-
 
 <?php
 include 'connection.php';
@@ -13,6 +9,10 @@ include 'connection.php';
 
 <?php
 
+// Questions and stuff to do: how do you update outcome when bidding ends? 
+// Need to set commission to some sort of default value
+// Need to work out how to fill in the correct userID. Get the variable from session somehow? 
+	
 // This function takes the form data and adds the new auction to the database.
 
 /* TODO #1: Connect to MySQL database (perhaps by requiring a file that
