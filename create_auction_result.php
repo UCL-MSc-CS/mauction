@@ -34,6 +34,7 @@ if (isset($_POST['submit'])) {
             $startPrice = mysqli_real_escape_string($connection, $_POST['auctionStartPrice']);
             $reservePrice = mysqli_real_escape_string($connection, $_POST['auctionReservePrice']);
             $endDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
+	    $endTime = mysqli_real_escape_string($connection, $_POST['auctionEndTime']);
 	    $delivery = mysqli_real_escape_string($connection, $_POST['delivery']);
             
             
