@@ -95,6 +95,13 @@
           </div>
         </div>
 	<div class="form-group row">
+          <label for="auctionEndTime" class="col-sm-2 col-form-label text-right">End Time</label>
+          <div class="col-sm-10">
+            <input type="time" class="form-control" name="auctionEndTime" id="auctionEndTime">
+            <small id="endTimeHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Time for the auction to end.</small>
+          </div>
+        </div>
+	<div class="form-group row">
           <label for="delivery" class="col-sm-2 col-form-label text-right">Delivery Method</label>
           <div class="col-sm-10">
             <select class="form-control" name="delivery" id="delivery">
