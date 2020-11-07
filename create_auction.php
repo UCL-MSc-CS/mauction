@@ -55,7 +55,7 @@
           <label for="auctionCategory" class="col-sm-2 col-form-label text-right">Category</label>
           <div class="col-sm-10">
             <select class="form-control" name="auctionCategory" id="auctionCategory">
-              <option selected>Choose...</option>
+              <!-- <option selected>Choose...</option> -->
               <option value="fill">Fill me in</option>
               <option value="with">with options</option>
               <option value="populated">populated from a database?</option>
