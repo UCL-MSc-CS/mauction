@@ -56,9 +56,12 @@
           <div class="col-sm-10">
             <select class="form-control" name="auctionCategory" id="auctionCategory">
               <option value=""> </option>
-              <option value="fill">Fill me in</option>
-              <option value="with">with options</option>
-              <option value="populated">populated from a database?</option>
+              <option value="homeware">Homeware</option>
+              <option value="fashion">Fashion</option>
+              <option value="electronics">Electronics</option>
+	      <option value="healthbeauty">Health & Beauty</option>
+	      <option value="sportsfit">Sports & Fitness</option>
+	      <option value="entertainment">Films, TV, Musics, Games</option>
             </select>
             <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Select a category for this item.</small>
           </div>
