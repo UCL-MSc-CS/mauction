@@ -12,7 +12,7 @@ USE mauction;
 CREATE TABLE `users` (
 userID INT NOT NULL AUTO_INCREMENT,
 userName VARCHAR(45) NOT NULL,
-email VARCHAR(45) NOT NULL,              
+email VARCHAR(45) NOT NULL,              -- removed addresses as attribute (may put it as separate entity)
 registrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 firstName VARCHAR(45) NULL,
 lastName VARCHAR(45) NULL,
@@ -22,8 +22,8 @@ city VARCHAR (45) NULL,
 addressLine1 VARCHAR (80) NULL,
 addressLine2 VARCHAR (80) NULL,
 postcode VARCHAR (20) NULL, 
-password VARCHAR(60) NOT NULL,
-accountType VARCHAR(20) NOT NULL,
+password VARCHAR(40) NOT NULL,
+status VARCHAR(20) NOT NULL,
 PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
@@ -84,7 +84,6 @@ VALUES ("Vase", 1, "Home Decor", 10, "Perfect for flowers", 10000000, '12:00:00'
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
 VALUES ("New President", 1, "Mental Wellbeing", 2020, "Harris2020", 10000000, '12:00:00','10-8-21', 2, "Post", "Bidding", "New");
 
-
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
 VALUES ("Bowl", 1, "Home Decor", 3, "Perfect for ice cream", 10000000, '12:00:00','10-9-21', 3, "Post", "Bidding", "New");
 
@@ -97,6 +96,7 @@ VALUES ("Toothpaste", 1, "Health", 10, "For clenched teeth", 10000000, '12:00:00
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
 VALUES ("Toothpaste", 1, "Health", 1000000, "For sensitive teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
 
-
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
 VALUES (1,1,4);
+
+
