@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
 
         
             // Redirect to browse after 5 seconds. 
-            header("refresh:5;url=browse.php");
+            header("refresh:5;url=mylistings.php");
         }
         else{
             echo('<div class="text-center">Wrong combination of username and password. Please try again.</div>');
