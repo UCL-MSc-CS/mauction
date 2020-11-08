@@ -33,7 +33,7 @@
 
 <!-- Navbars -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light mx-2">
-  <a class="navbar-brand" href="#">MAUCTION</a>
+  <h3 class="my-3"><a class="navbar-brand" href="#">MAUCTION</a></h3>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
     
