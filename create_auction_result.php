@@ -1,6 +1,7 @@
 
 <?php
 include 'connection.php';
+//include 'login_result.php';
 ?>
 
 <?php include_once("header.php")?>
@@ -36,6 +37,7 @@ if (isset($_POST['submit'])) {
             $endDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
 	    $endTime = mysqli_real_escape_string($connection, $_POST['auctionEndTime']);
 	    $delivery = mysqli_real_escape_string($connection, $_POST['delivery']);
+	    //$userID = mysqli_query($connection, "SELECT 'userID' FROM users WHERE userName = '$loginusername' ") or die('Error...' . mysqli_error());
             
             
             if (empty($auctionTitle)) {
