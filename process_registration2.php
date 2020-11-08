@@ -7,11 +7,7 @@
 
 <?php include_once("header.php")?>
 
-<?php 
-echo 'Your registration was successful, please login!'
-?>
-
-<div class="text-center">Already have an account? <a href="" data-toggle="modal" data-target="#loginModal">Login</a>
+<div class="text-center">Your registration was successful, please <a href="" data-toggle="modal" data-target="#loginModal">login!</a>
 </div>
 
 

@@ -214,12 +214,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (!mysqli_query($connection, $query)) {
 		die('Error: ' . mysqli_error($connection)); }
 		else {
-		echo '<div class="text-center">Your registration was successful! Please <a href="" data-toggle="modal" data-target="#loginModal">Login</a></div>';
+		echo "<script type='text/javascript'> window.location = 'process_registration2.php'; </script>";
    }}
-		// else { // WHY DOES THIS NOT WORK?
-        // header('Location: process_registration2.php');
-        // exit();
-			// }
 	}
  
 ?>
