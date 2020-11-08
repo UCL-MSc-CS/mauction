@@ -62,16 +62,16 @@ bidAmount DECIMAL NOT NULL,
 PRIMARY KEY (bidID))
 ENGINE = InnoDB;
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
 VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "Caroline", "Crandell", "USA", SHA("password"), 'buyer');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
 VALUES ("erinuclkwon", "wei.quan.20@ucl.ac.uk", "Wei", "Quan", "UK", SHA("1234"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
 VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "Matthew", "Shorvon", "UK", SHA("password"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", SHA("1234"), 'buyer');
 
              -- have to edit this insert with new attributes. 
