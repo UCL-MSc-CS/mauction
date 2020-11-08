@@ -1,6 +1,6 @@
-// Added additional fields
+<?php // Added additional fields
 // TODO: add password confirmation. Make it look better?!
-
+?>
 
 <?php include 'connection.php'; ?>
 
@@ -8,9 +8,11 @@
 
 
 <div class="container">
-<div style="max-width: 800px; margin: 10px auto">
+<div style="max-width: 900px; margin: 10px auto">
 <h2 class="my-3">Register new account</h2>
-
+  <div class="card">
+    <div class="card-body">
+	
 <form method="POST" action="process_registration.php">
  <div class="form-group row">
     <label for="accountType" class="col-sm-2 col-form-label text-right">Registering as a:</label>
@@ -62,6 +64,13 @@
 	</div>
 </div>
 <div class="form-group row">
+	<label for="confirmpassword" class="col-sm-2 col-form-label text-right">Confirm Password</label>
+		<div class="col-sm-10">
+		<input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Your password"/>
+	<small id="confirmpasswordHelp" name="confirmpassword" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+	</div>
+</div>
+<div class="form-group row">
 	<label for="addressLine1" class="col-sm-2 col-form-label text-right">Address Line 1</label>
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="addressLine1" name="addressLine1" placeholder="Enter Your Address"/>
@@ -72,7 +81,7 @@
 	<label for="addressLine2" class="col-sm-2 col-form-label text-right">Address Line 2</label>
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="password" name="addressLine2" placeholder="Address Line 2"/>
-	<small id="addressLine2Help" name="addressLine2" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+	<small id="addressLine2Help" name="addressLine2" class="form-text text-muted"></small>
 	</div>
 </div>
 <div class="form-group row">
@@ -86,7 +95,7 @@
 	<label for="principality" class="col-sm-2 col-form-label text-right">Principality</label>
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="principality" name="principality" placeholder="Enter Your principality"/>
-	<small id="principalityHelp" name="principality" class="form-text text-muted"><span class="text-danger">* Required.</span></small>
+	<small id="principalityHelp" name="principality" class="form-text text-muted"></small>
 	</div>
 </div>
 <div class="form-group row">

@@ -3,15 +3,14 @@
 // Ari: 5/11/20
 // added password hashing. Added error checking for empty fields. Added message to say account registratiom successful.
 // added header and footer. Text to access login Modal. Checks password against password confirmation.
-// only enters password into database, not necessary to enter password confirmation??
-//Make it look less shit. 
+// only enters password into database, not necessary to enter password confirmation.
 
 ?>
-
-<?php
-  include 'connection.php'?>
-
+<?php include 'connection.php'?>
 <?php include_once("header.php")?>
+
+<div class="text-center">
+
 <?php  
   
   
@@ -21,6 +20,7 @@
     $firstName = mysqli_real_escape_string($connection, $_POST['firstName']);
 	$lastName = mysqli_real_escape_string($connection, $_POST['lastName']);
 	$email = mysqli_real_escape_string($connection, $_POST['email']);
+	$email = filter_var ($_POST['email'], FILTER_SANITIZE_EMAIL);
 	
 	$password = mysqli_real_escape_string($connection, $_POST['password']);
 	$confirmpassword = mysqli_real_escape_string($connection, $_POST['confirmpassword']);
@@ -40,10 +40,14 @@
 		    echo "Please enter your last name";}
 	    elseif (empty($email)) {
 		    echo "Please enter your email address";}
+			elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
+			echo "$email is not a valid email address."; }	
 		elseif (empty($password)) {
 		    echo "Please enter your password";}
 		elseif (empty($confirmpassword)) {
 		    echo "Please confirm your password";}
+			elseif ($password != $confirmpassword) {	// confirms password and password confirmation match
+		echo "Passwords do not match!"; }
  	    elseif (empty($addressLine1)) {
 		    echo "Please enter your address";}
 	    elseif (empty($city)) {
@@ -53,34 +57,20 @@
 		elseif (empty($postcode)) {
 		    echo "Please enter your postcode";}
 			
-	$email = filter_var ($_POST['email'], FILTER_SANITIZE_EMAIL);
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
-		echo "$email is not a valid email address.";
-	}
-	
-	if ($password != $confirmpassword) {	// confirms password and password confirmation match
-		echo "Passwords do not match!";
-	}
-
 	    
-  } else { // inserts data from form
-
+   else { // inserts data from form
+   
       $query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
 	  addressLine2, city, principality, country, postcode) 
                 VALUES ('$accountType', '$username', '$firstName', '$lastName', '$email', SHA('$password'), '$addressLine1', 
 				'$addressLine2', '$city', '$principality', '$country', '$postcode')";
       if (!mysqli_query($connection, $query)) {
-	  die('Error: ' . mysqli_error($connection)); }
-		{
-		echo 'Your registration was successful, please login!';
-		}
-
-}
+   die('Error: ' . mysqli_error($connection)); }
+	else {
+		echo '<div class="text-center">Your registration was successful! Please <a href="" data-toggle="modal" data-target="#loginModal">Login</a></div>';
+   }}
+  }
 ?>
 
-
-<div class="text-center">Already have an account? <a href="" data-toggle="modal" data-target="#loginModal">Login</a>
 </div>
-
-
 <?php include_once("footer.php")?>
