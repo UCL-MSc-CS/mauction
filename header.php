@@ -1,5 +1,12 @@
 <?php
-
+// if (isset ($_COOKIE['userID']) && isset($_COOKIE['username'])){
+//   session_start();
+//   $_SESSION['logged_in'] == true;
+// }
+// else {
+//   session_start();
+//   $_SESSION['logged_in'] == False;
+// }
 
   // FIXME: At the moment, I've allowed these values to be set manually.
   // But eventually, with a database, these should be set automatically
