@@ -47,7 +47,7 @@
 		elseif (empty($confirmpassword)) {
 		    echo "Please confirm your password";}
 			elseif ($password != $confirmpassword) {	// confirms password and password confirmation match
-		echo "Passwords do not match!"; }
+			echo "Passwords do not match!"; }
  	    elseif (empty($addressLine1)) {
 		    echo "Please enter your address";}
 	    elseif (empty($city)) {
