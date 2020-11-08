@@ -7,6 +7,7 @@
 <?php include_once("header.php")?>
 
 <div class="container">
+<div style="max-width: 800px; margin: 10px auto">
 <h2 class="my-3">Register new account</h2>
 
 <form method="POST" action="process_registration.php">
