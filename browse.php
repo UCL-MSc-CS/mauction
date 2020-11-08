@@ -22,12 +22,6 @@ include 'connection.php';
       // TODO: Define behavior if an order_by value has not been specified.
       $order_byerror = "Please enter a search sort by.";
     }
-
-    if (!isset($_GET['page'])) {
-      $curr_page = 1;
-    } else {
-      $curr_page = $_GET['page'];
-    }
   }
   /* TODO: Use above values to construct a query. Use this query to 
      retrieve data from the database. (If there is no form data entered,
@@ -128,8 +122,17 @@ include 'connection.php';
         $end_date = $row['endDate'];
         // This uses a function defined in utilities.php
         print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+      }
     }
-  }
+    if (!isset($_GET['page'])) {
+      $curr_page = 1;
+    } else {
+      $curr_page = $_GET['page'];
+    }
+    global $max_page;
+    $num_results = $queryRes; // TODO: Calculate me for real
+    $results_per_page = 2;
+    $max_page = ceil($num_results / $results_per_page);
     if (isset($_GET['search'])) {
       $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
       $cat = mysqli_real_escape_string($connection, $_GET['cat']);
@@ -141,44 +144,45 @@ include 'connection.php';
       }
     }
     // TODO: Use a while loop to print a list item for each auction listing retrieved from the query
-    function searchKey($connection, $keyword, $cat, $order_by) {
-        if ($cat == "All Categories") {
-          $querycat = "";
-        } else {
-          $querycat = " AND category = '$cat'";
-        }
-        if ($order_by == "Low to High") {
-          $queryorder = " ORDER BY startPrice ASC";
-        } elseif ($order_by == "High to Low") {
-          $queryorder = " ORDER BY startPrice DESC";
-        } else {
-          $queryorder = " ORDER BY endDate DESC";
-        }
-
-        $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
-        $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
-        $queryRes = mysqli_num_rows($result);
-        if ($queryRes == 0) {
-          echo ('<div class="error" style="color: red">Sorry, no results.</div>');
-        } else {
-          while ($row = mysqli_fetch_assoc($result)) {
-            $item_id = $row['userID'];
-            $title = $row['itemName'];
-            $description = $row['description'];
-            $current_price = $row['startPrice'];
-            $num_bids = $row['commission'];
-            $end_date = $row['endDate'];
-            // This uses a function defined in utilities.php
-            print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
-          }
-          /* For the purposes of pagination, it would also be helpful to know the
-              total number of results that satisfy the above query */
-          global $max_page;
-          $num_results = $queryRes; // TODO: Calculate me for real
-          $results_per_page = 2;
-          $max_page = ceil($num_results / $results_per_page);
-        }
+    function searchKey($connection, $keyword, $cat, $order_by)
+    {
+      if ($cat == "All Categories") {
+        $querycat = "";
+      } else {
+        $querycat = " AND category = '$cat'";
       }
+      if ($order_by == "Low to High") {
+        $queryorder = " ORDER BY startPrice ASC";
+      } elseif ($order_by == "High to Low") {
+        $queryorder = " ORDER BY startPrice DESC";
+      } else {
+        $queryorder = " ORDER BY endDate DESC";
+      }
+
+      $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $queryRes = mysqli_num_rows($result);
+      if ($queryRes == 0) {
+        echo ('<div class="error" style="color: red">Sorry, no results.</div>');
+      } else {
+        while ($row = mysqli_fetch_assoc($result)) {
+          $item_id = $row['userID'];
+          $title = $row['itemName'];
+          $description = $row['description'];
+          $current_price = $row['startPrice'];
+          $num_bids = $row['commission'];
+          $end_date = $row['endDate'];
+          // This uses a function defined in utilities.php
+          print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
+        }
+        /* For the purposes of pagination, it would also be helpful to know the
+              total number of results that satisfy the above query */
+        global $max_page;
+        $num_results = $queryRes; // TODO: Calculate me for real
+        $results_per_page = 2;
+        $max_page = ceil($num_results / $results_per_page);
+      }
+    }
     ?>
   </ul>
 
@@ -201,6 +205,7 @@ include 'connection.php';
       $low_page = max(1, $curr_page - 2 - $low_page_boost);
       $high_page = min($max_page, $curr_page + 2 + $high_page_boost);
 
+      // Puts a <- arrow all the way on the right when you're not on the first page
       if ($curr_page != 1) {
         echo ('
     <li class="page-item">
@@ -214,20 +219,23 @@ include 'connection.php';
       for ($i = $low_page; $i <= $high_page; $i++) {
         if ($i == $curr_page) {
           // Highlight the link
+          // Makes sure the page you are on is highlighted
           echo ('
     <li class="page-item active">');
         } else {
           // Non-highlighted link
+          // Makes sure the not-current page number is not highlighted
           echo ('
     <li class="page-item">');
         }
-
         // Do this in any case
+        // Displays the total range of page numbers
         echo ('
       <a class="page-link" href="browse.php?' . $querystring . 'page=' . $i . '">' . $i . '</a>
     </li>');
       }
 
+      // The very left arrow when we're not on the last page
       if ($curr_page != $max_page) {
         echo ('
     <li class="page-item">
