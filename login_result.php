@@ -6,33 +6,34 @@ include 'header.php';
 ?>
 
 <?php
-if(isset($_POST['submit'])){
-    $username = mysqli_real_escape_string($connection, $_POST['username']);
-    $password = mysqli_real_escape_string($connection, $_POST['password']); 
 
-    if($username != '' && $password != ''){
+if(isset($_POST['submit'])){
+    $loginusername = mysqli_real_escape_string($connection, $_POST['username']);
+    $loginpassword = mysqli_real_escape_string($connection, $_POST['password']); 
+    $logintype = mysqli_query($connection, "SELECT 'status' FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'") or die('Error...' . mysqli_error());
+    $loginaccount_type = mysqli_fetch_array($logintype);
+
+    if($loginusername != '' && $loginpassword != ''){
         
-        $query = "SELECT * FROM users WHERE userName = '$username' AND password = '$password'";
-        $result = mysqli_query($connection,$query) or die('Eroor...' . mysqli_error());
-        $row = mysqli_fetch_array($result);
+        $loginquery = "SELECT * FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'";
+        $loginresult = mysqli_query($connection,$loginquery) or die('Eroor...' . mysqli_error());
+        $loginrow = mysqli_fetch_array($loginresult);
         
-        if (isset($row)){
-            // $um = mysqli_query($connection, "SELECT 'username' FROM users WHERE username = '$username' AND password = '$password'") or die('Error' . mysqli_error);
-            // $accounttype = mysqli_query($connection, "SELECT 'accounttype' FROM users WHERE username = '$username' AND password = '$password'")
+        if (isset($loginrow)){
+
 
             echo('<div class="text-center">You are now logged in! You will be redirected shortly.</div>');
-            
             session_start();
             $_SESSION['logged_in'] = true;
-            $_SESSION['username'] = $username;
-            $_SESSION['account_type'] = "buyer";
+            $_SESSION['username'] = $loginusername;
+            $_SESSION['account_type'] = $loginaccount_type;
+
         
             // Redirect to browse after 5 seconds. 
             header("refresh:5;url=browse.php");
         }
         else{
             echo('<div class="text-center">Wrong combination of username and password. Please try again.</div>');
-            
             session_start();
             $_SESSION['logged_in'] = False;
             
@@ -43,7 +44,7 @@ if(isset($_POST['submit'])){
 
     }
 else{
-        echo('<div class="text-center">Please enter your email address and Password to log in</div>');
+    echo('<div class="text-center">Please enter your email address and Password to log in</div>');
         session_start();
         $_SESSION['logged_in'] = False;
         // Redirect to register page to open the modal for log in after 5 seconds. 
@@ -54,6 +55,7 @@ else{
 
     
 }
+
 
 // TODO: Extract $_POST variables, check they're OK, and attempt to login.
 // Notify user of success/failure and redirect/give navigation options.
@@ -68,3 +70,8 @@ else{
 
 ?>
 
+<?php
+  // Displays either login or logout on the right, depending on user's
+  // current status (session).
+
+?>
