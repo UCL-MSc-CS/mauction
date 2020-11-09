@@ -2,25 +2,40 @@
 <?php require("utilities.php")?>
 <?php include("connection.php")?>
 
+<div class="container mt-5">
+
 <?php
   // Get info from the URL:
   $item_id = $_GET['item_id'];
 
   // TODO: Use item_id to make a query to the database.
-
-  // DELETEME: For now, using placeholder data.
-  $title = "Placeholder title";
-  $description = "Description blah blah blah";
+  
+      $query = "SELECT item_id, userID, itemName, description, category, startPrice, commission, endDate FROM auctions where item_id=$item_id";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $item_id = $row['userID'];
+        $itemName = $row['itemName'];
+        $description = $row['description'];
+		$category = $row['category'];
+        $current_price = $row['startPrice'];
+        $num_bids = $row['commission'];
+        $endDate = $row['endDate'];
+	  }
+		
+  // DISPLAY data.
+  $title = $itemName;
+  $description = $description;
   $current_price = 30.50;
   $num_bids = 1;
-  $end_time = new DateTime('2020-11-02T00:00:00');
+  $end_time = new DateTime($endDate);
 
   // TODO: Note: Auctions that have ended may pull a different set of data,
   //       like whether the auction ended in a sale or was cancelled due
   //       to lack of high-enough bids. Or maybe not.
   
   // Calculate time to auction end:
-  $now = new DateTime();
+  $now = new DateTime("now");
   
   if ($now < $end_time) {
     $time_to_end = date_diff($now, $end_time);
