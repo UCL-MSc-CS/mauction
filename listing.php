@@ -2,7 +2,9 @@
 <?php require("utilities.php")?>
 <?php include("connection.php")?>
 
-<div class="container mt-5">
+<?php // Added query. CHANGED saleitemID to item_id in database!!
+// Altered to endDate in database (no separate time column)
+?>
 
 <?php
   // Get info from the URL:
@@ -50,7 +52,10 @@
 ?>
 
 
-<div class="container">
+<div class="container my-5">
+<div style="max-width: 1000px; margin: 10px auto">
+  <div class="card">
+    <div class="card-body">
 
 <div class="row"> <!-- Row #1 with auction title + watch button -->
   <div class="col-sm-8"> <!-- Left col -->
@@ -89,7 +94,7 @@
      This auction ended <?php echo(date_format($end_time, 'j M H:i')) ?>
      <!-- TODO: Print the result of the auction here? -->
 <?php else: ?>
-     Auction ends <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  
+     Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  
     <p class="lead">Current bid: £<?php echo(number_format($current_price, 2)) ?></p>
 
     <!-- Bidding form -->
