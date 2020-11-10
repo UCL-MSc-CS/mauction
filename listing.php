@@ -4,6 +4,9 @@
 
 <?php // Added query. CHANGED saleitemID to item_id in database!!
 // Altered to endDate in database (no separate time column)
+// Timings, bid number, current price all work
+//TODO: Get all into a single query. Sort out data for when auction has ended. Sessions. Watchlist. 
+// TODO: sort out utilites function to feed the same information through. 
 ?>
 
 <?php
@@ -16,25 +19,34 @@
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
-        $item_id = $row['userID'];
+        $item_id = $row['item_id'];
         $itemName = $row['itemName'];
         $description = $row['description'];
 		$category = $row['category'];
-        $current_price = $row['startPrice'];
-        $num_bids = $row['commission'];
+		$startPrice = $row['startPrice'];
+        $commission = $row['commission'];
         $endDate = $row['endDate'];
 	  }
-		
-  // DISPLAY data.
-  $title = $itemName;
-  $description = $description;
-  $current_price = 30.50;
-  $num_bids = 1;
+	    
+	  $query = "SELECT SUM(bidAmount), COUNT(bidID) FROM bids where item_id=$item_id";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+      $bidTotal = $row['SUM(bidAmount)'];
+	  $num_bids = $row['COUNT(bidID)'];
+	  }	 
+
+  // assigned variables.
+
+  $current_price = ($startPrice + $commission + $bidTotal);
   $end_time = new DateTime($endDate);
+
 
   // TODO: Note: Auctions that have ended may pull a different set of data,
   //       like whether the auction ended in a sale or was cancelled due
   //       to lack of high-enough bids. Or maybe not.
+  
+  
   
   // Calculate time to auction end:
   $now = new DateTime("now");
@@ -59,7 +71,7 @@
 
 <div class="row"> <!-- Row #1 with auction title + watch button -->
   <div class="col-sm-8"> <!-- Left col -->
-    <h2 class="my-3"><?php echo($title); ?></h2>
+    <h2 class="my-3"><?php echo($itemName); ?></h2>
   </div>
   <div class="col-sm-4 align-self-center"> <!-- Right col -->
 <?php
@@ -82,12 +94,16 @@
   <div class="col-sm-8"> <!-- Left col with item info -->
 
     <div class="itemDescription">
-    <?php echo($description); ?>
+    Description: <?php echo($description); ?>
+    </div>
+	    <div class="itemcategory">
+    Category: <?php echo($category); ?>
     </div>
 
   </div>
 
   <div class="col-sm-4"> <!-- Right col with bidding info -->
+  <?php echo($num_bids); ?> Bids
 
     <p>
 <?php if ($now > $end_time): ?>
@@ -95,7 +111,7 @@
      <!-- TODO: Print the result of the auction here? -->
 <?php else: ?>
      Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  
-    <p class="lead">Current bid: £<?php echo(number_format($current_price, 2)) ?></p>
+    <p class="lead">Current bid total: £<?php echo(number_format($current_price, 2)) ?></p>
 
     <!-- Bidding form -->
     <form method="POST" action="place_bid.php">
