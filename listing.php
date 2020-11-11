@@ -2,9 +2,11 @@
 <?php require("utilities.php")?>
 <?php include("connection.php")?>
 
-<?php // CHANGED saleitemID to item_id in database!!
+<?php // Database changes: CHANGED saleitemID to item_id in database!!
 // Altered to endDate in database (no separate time column)
 // dropped commission column, this is calculated here based on the final bid
+// dropped final price, this is calculated here
+// droppped outcome, also not needed
 
 // Timings, bid number, current price all work
 
@@ -33,6 +35,8 @@
         $description = $row['description'];
 		$reservePrice = $row['reservePrice'];
 		$category = $row['category'];
+		$condition = $row['cond'];
+		$delivery = $row['delivery'];
 		$startPrice = $row['startPrice'];
         $endDate = $row['endDate'];
 		$bidTotal = $row['MAX(bidAmount)'];
@@ -105,6 +109,13 @@
 	<div class="itemcategory">
     Category: <?php echo($category); ?>
     </div>
+	<div class="itemcondition">
+    Condition: <?php echo($condition); ?>
+    </div>
+	<div class="itemdelivery">
+    Delivery: <?php echo($delivery); ?>
+    </div>
+
 
   </div>
 
