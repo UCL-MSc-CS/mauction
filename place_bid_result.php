@@ -9,6 +9,7 @@ include 'connection.php';
 <?php
 	
 // This function takes the form data from place_bid.php and adds it to the database.
+// Still need to work out ways to get the saleItemID and userID. 
             
 if (isset($_POST['submit'])) {
             $bidAmount = mysqli_real_escape_string($connection, $_POST['bidAmount']);
