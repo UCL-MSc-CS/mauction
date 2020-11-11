@@ -2,17 +2,19 @@
 <?php require("utilities.php")?>
 <?php include("connection.php")?>
 
-<?php // Added query. CHANGED saleitemID to item_id in database!!
+<?php // CHANGED saleitemID to item_id in database!!
 // Altered to endDate in database (no separate time column)
+// dropped commission column, this is calculated here based on the final bid
+
 // Timings, bid number, current price all work
 
 // current price based on MAX bid, for this to work 
-// most recent bidder must not be allowed to bid lower than the previous bidder
+// most recent bidder must not be allowed to bid lower than the previous bidder (or 0)
 
 
-//TODO: Get all into a single query. Sort out data for when auction has ended. Sessions. Watchlist. 
+//TODO: Sessions. Watchlist. 
 // TODO: sort out utilites function to feed the same information through. 
-//TODO: display start price when bidding hasn't started yet.
+
 ?>
 
 <?php
@@ -21,7 +23,7 @@
 
   // TODO: Use item_id to make a query to the database.
   
-      $query = "SELECT item_id, userID, itemName, description, reservePrice, category, startPrice, commission, endDate FROM auctions where item_id=$item_id";
+	  $query = "SELECT auctions.*, MAX(bidAmount), COUNT(bidID) FROM auctions, bids where auctions.item_id=$item_id and bids.item_id=$item_id";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
@@ -32,27 +34,23 @@
 		$reservePrice = $row['reservePrice'];
 		$category = $row['category'];
 		$startPrice = $row['startPrice'];
-        $commission = $row['commission'];
         $endDate = $row['endDate'];
+		$bidTotal = $row['MAX(bidAmount)'];
+		$num_bids = $row['COUNT(bidID)'];
 	  }
-	    
-	  $query = "SELECT MAX(bidAmount), COUNT(bidID) FROM bids where item_id=$item_id";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
-      $queryRes = mysqli_num_rows($result);
-      while ($row = mysqli_fetch_assoc($result)) {
-      $bidTotal = $row['MAX(bidAmount)'];
-	  $num_bids = $row['COUNT(bidID)'];
-	  }	 
+	     
 
   // assigned variables.
 
-  $current_price = ($bidTotal);
-  $end_time = new DateTime($endDate);
-
+  $current_price = ($bidTotal); // current listing price based off max bid
+  $end_time = new DateTime($endDate); // creates end time
+  $commission = (0.05 * $current_price); // calculates commission from max bid
+  $finalPrice = ($current_price + $commission); //caluculates final price of sold listing
+  
 
   // TODO: Note: Auctions that have ended may pull a different set of data,
   //       like whether the auction ended in a sale or was cancelled due
-  //       to lack of high-enough bids. Or maybe not.
+  //       to lack of high-enough bids. Or maybe not. -- Completed this 
   
   
   
@@ -125,12 +123,17 @@
 	 <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
 	This item was not sold
 	 <?php } else { ?>
-	 The sale price was: £<?php echo number_format($current_price, 2)?>
+	 This item sold for: £<?php echo number_format($current_price, 2)?>
+	 <div>
+	 Plus 0.05% commission: £<?php echo number_format($commission, 2)?>
+	 </div>
+	 Total price: £<?php echo number_format($finalPrice, 2)?>
 	 <?php }
 	 ?>
 	 </div>
      <!-- ARI: loop added: if auction time passed, 
-	 checks if the price exceeded 0 or reserve price -->
+	 checks if the price exceeded 0 or reserve price.
+	Calculates commission and prints the total-->
 
 
 <?php else: ?>
