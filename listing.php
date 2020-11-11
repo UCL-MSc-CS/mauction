@@ -21,7 +21,7 @@
 
   // TODO: Use item_id to make a query to the database.
   
-      $query = "SELECT item_id, userID, itemName, description, category, startPrice, commission, endDate FROM auctions where item_id=$item_id";
+      $query = "SELECT item_id, userID, itemName, description, reservePrice, category, startPrice, commission, endDate FROM auctions where item_id=$item_id";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
@@ -29,6 +29,7 @@
 		$userID = $row['userID'];
         $itemName = $row['itemName'];
         $description = $row['description'];
+		$reservePrice = $row['reservePrice'];
 		$category = $row['category'];
 		$startPrice = $row['startPrice'];
         $commission = $row['commission'];
@@ -110,15 +111,41 @@
   </div>
 
   <div class="col-sm-4"> <!-- Right col with bidding info -->
-  <?php echo($num_bids); ?> Bids
+   <?php if ($num_bids == 1) {
+    echo $num_bids, ' Bid';
+  }
+  else {
+    echo $num_bids, ' Bids';
+  } ?>
 
     <p>
-<?php if ($now > $end_time): ?>
-     This auction ended <?php echo(date_format($end_time, 'j M H:i')) ?>
-     <!-- TODO: Print the result of the auction here? -->
+<?php if ($now > $end_time): ?> 
+     This auction ended on: <?php echo(date_format($end_time, 'j M H:i')) ?></p>
+	 <div>
+	 <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
+	This item was not sold
+	 <?php } else { ?>
+	 The sale price was: £<?php echo number_format($current_price, 2)?>
+	 <?php }
+	 ?>
+	 </div>
+     <!-- ARI: loop added: if auction time passed, 
+	 checks if the price exceeded 0 or reserve price -->
+
+
 <?php else: ?>
-     Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  	 
-	<p class="lead">Current total: £<?php echo(number_format($current_price, 2)) ?></p>
+     Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?>
+	<div>
+	 <?php if ($current_price != 0) { ?> 
+	 Current total: £<?php echo number_format($current_price, 2)?>
+	 <?php } else { ?>
+	 The start price is: £<?php echo number_format($startPrice, 2)?>
+	 <?php }
+	 ?>
+	 </div>
+  	 <!-- ARI: loop added: if auction active, if no bids then start price displayed. 
+	 If bidding has started then current price displayed -->
+	 
     <!-- Bidding form -->
     
 	<form method="POST" action="place_bid.php">
