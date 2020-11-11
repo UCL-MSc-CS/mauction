@@ -18,13 +18,12 @@ if (isset($_POST['submit'])) {
             
             if (empty($bidAmount)) {
                         echo "Please provide a bid amount";}  //Matt 01/11: this checks that something is in bidAmount
-	    if (is_numeric($bidAmount)) {
-		        echo "Please input a number"}
 
             else {
-                        echo '<div class="text-center">Bid placed successfully! <a href="index.php">Back to browse.</a></div>';
+                        echo '<div class="text-center">Bid placed successfully! <a href=index.php>Back to browse.</a></div>';
                         $query = "INSERT INTO bids (bidAmount, bidTime) VALUES('$bidAmount','$bidTime')"; 
-		        if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
+		        if (!mysqli_query($connection, $query)) {
+				die('Error: ' . mysqli_error($connection));}
             } }
 ?>
 
