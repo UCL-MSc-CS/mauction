@@ -49,7 +49,7 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $endDate)
   }
   else {
     // Get interval:
-    echo $endDate
+    echo $endDate;
     $end = date("Y-m-d", $endDate);
     $time_to_end = date_diff($now, $endDate);
     $time_remaining = display_time_remaining($time_to_end) . ' remaining';
