@@ -5,8 +5,14 @@
 <?php // Added query. CHANGED saleitemID to item_id in database!!
 // Altered to endDate in database (no separate time column)
 // Timings, bid number, current price all work
+
+// current price based on MAX bid, for this to work 
+// most recent bidder must not be allowed to bid lower than the previous bidder
+
+
 //TODO: Get all into a single query. Sort out data for when auction has ended. Sessions. Watchlist. 
 // TODO: sort out utilites function to feed the same information through. 
+//TODO: display start price when bidding hasn't started yet.
 ?>
 
 <?php
@@ -20,6 +26,7 @@
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
         $item_id = $row['item_id'];
+		$userID = $row['userID'];
         $itemName = $row['itemName'];
         $description = $row['description'];
 		$category = $row['category'];
@@ -28,17 +35,17 @@
         $endDate = $row['endDate'];
 	  }
 	    
-	  $query = "SELECT SUM(bidAmount), COUNT(bidID) FROM bids where item_id=$item_id";
+	  $query = "SELECT MAX(bidAmount), COUNT(bidID) FROM bids where item_id=$item_id";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
-      $bidTotal = $row['SUM(bidAmount)'];
+      $bidTotal = $row['MAX(bidAmount)'];
 	  $num_bids = $row['COUNT(bidID)'];
 	  }	 
 
   // assigned variables.
 
-  $current_price = ($startPrice + $commission + $bidTotal);
+  $current_price = ($bidTotal);
   $end_time = new DateTime($endDate);
 
 
@@ -96,7 +103,7 @@
     <div class="itemDescription">
     Description: <?php echo($description); ?>
     </div>
-	    <div class="itemcategory">
+	<div class="itemcategory">
     Category: <?php echo($category); ?>
     </div>
 
@@ -110,11 +117,11 @@
      This auction ended <?php echo(date_format($end_time, 'j M H:i')) ?>
      <!-- TODO: Print the result of the auction here? -->
 <?php else: ?>
-     Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  
-    <p class="lead">Current bid total: £<?php echo(number_format($current_price, 2)) ?></p>
-
+     Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?></p>  	 
+	<p class="lead">Current total: £<?php echo(number_format($current_price, 2)) ?></p>
     <!-- Bidding form -->
-    <form method="POST" action="place_bid.php">
+    
+	<form method="POST" action="place_bid.php">
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text">£</span>
