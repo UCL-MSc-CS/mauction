@@ -1,15 +1,15 @@
 <?php include 'connection.php' ?>
 <?php include_once("header.php") ?>
 
-
+<?php
 // TODO: Extract $_POST variables, check they're OK, and attempt to make a bid.
 // Notify user of success/failure and redirect/give navigation options.
 
-// Matt 01/11: connect->extract and check variables -> INSERT query -> close db connection
+// Matt 01/11: connect->extract and check variables -> INSERT query -> close db connection ?.
 
 <!-- Create auction form -->
 <div style="max-width: 800px; margin: 10px auto">
-  <h2 class="my-3">Create new auction</h2>
+  <h2 class="my-3">Place a bid</h2>
   <div class="card">
     <div class="card-body">
       <!-- Note: This form does not do any dynamic / client-side / 
@@ -34,7 +34,7 @@
           </div>
         </div>
        
-        <button type="submit" name="submit" class="btn btn-primary form-control">Create Auction</button>
+        <button type="submit" name="submit" class="btn btn-primary form-control">Place Bid</button>
       </form>
     </div>
   </div>
