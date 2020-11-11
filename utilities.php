@@ -42,13 +42,14 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $endDate)
   }
   
   // Calculate time to auction end
-  $now = new DateTime();
+  $now = new Date("y-m-d");
+  echo($now)
   if ($now > $endDate) {
     $time_remaining = 'This auction has ended';
   }
   else {
     // Get interval:
-    $time_to_end = date_diff($now, $end_time);
+    $time_to_end = date_diff($now, $endDate);
     $time_remaining = display_time_remaining($time_to_end) . ' remaining';
   }
   
