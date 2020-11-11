@@ -17,8 +17,9 @@ if (isset($_POST['submit'])) {
             
             
             if (empty($bidAmount)) {
-                        echo "Please provide an auction title";}  //Matt 01/11: this checks that something is in bidAmount
-	
+                        echo "Please provide a bid amount";}  //Matt 01/11: this checks that something is in bidAmount
+	    if (is_numeric($bidAmount)) {
+		        echo "Please input a number"}
 
             else {
                         echo '<div class="text-center">Bid placed successfully! <a href="index.php">Back to browse.</a></div>';
