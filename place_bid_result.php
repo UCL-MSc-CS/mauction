@@ -12,7 +12,7 @@ include 'connection.php';
             
 if (isset($_POST['submit'])) {
             $bidAmount = mysqli_real_escape_string($connection, $_POST['bidAmount']);
-            $bidTime = date("Y-m-d H:i:s")
+            $bidTime = date("Y-m-d H:i:s");
 	          //$userID = mysqli_query($connection, "SELECT 'userID' FROM users WHERE userName = '$loginusername' ") or die('Error...' . mysqli_error());
             
             
