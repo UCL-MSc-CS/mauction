@@ -85,16 +85,16 @@ INSERT INTO `auctions` (itemName, userID, category, startPrice, description, res
 VALUES ("New President", 1, "Mental Wellbeing", 2020, "Harris2020", 10000000, '12:00:00','10-8-21', 2, "Post", "Bidding", "New");
 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("Bowl", 1, "Home Decor", 3, "Perfect for ice cream", 10000000, '12:00:00','10-9-21', 3, "Post", "Bidding", "New");
+VALUES ("Bowl", 2, "Home Decor", 3, "Perfect for ice cream", 10000000, '12:00:00','10-9-21', 3, "Post", "Bidding", "New");
 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("M&Ms", 1, "Mental Wellbeing", 1, "Perfect for post-graduate students", 10000000, '12:00:00','10-10-21', 4, "Post", "Bidding", "New");
+VALUES ("M&Ms", 2, "Mental Wellbeing", 1, "Perfect for post-graduate students", 10000000, '12:00:00','10-10-21', 4, "Post", "Bidding", "New");
 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("Toothpaste", 1, "Health", 10, "For clenched teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
+VALUES ("Toothpaste", 3, "Health", 10, "For clenched teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
 
 INSERT INTO `auctions` (itemName, userID, category, startPrice, description, reservePrice, endTime, endDate, commission, delivery, outcome, cond)
-VALUES ("Toothpaste", 1, "Health", 1000000, "For sensitive teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
+VALUES ("Toothpaste", 4, "Health", 1000000, "For sensitive teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
 VALUES (1,1,4);
