@@ -97,6 +97,14 @@ INSERT INTO `auctions` (itemName, userID, category, startPrice, description, res
 VALUES ("Toothpaste", 4, "Health", 1000000, "For sensitive teeth", 10000000, '12:00:00','09-10-21', 5, "Post", "Bidding", "New");
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
-VALUES (1,1,4);
+VALUES (1,6,4);
 
+INSERT INTO `bids` (userID, saleItemID, bidAmount)
+VALUES (2,7,4);
+
+INSERT INTO `bids` (userID, saleItemID, bidAmount)
+VALUES (3,1,4);
+
+INSERT INTO `bids` (userID, saleItemID, bidAmount)
+VALUES (4,1,4);
 
