@@ -1,24 +1,29 @@
-<?php include("connection.php")?>
+<?php include("connection.php") ?>
  <?php
   $userID = 4;
-  $saleItemID = ($_POST['arguments']);
+  $item_id = isset($_POST['arguments']);
+
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
   }
 
   // Extract arguments from the POST variables:
-  $item_id = $_POST['arguments'];
+
 
   if ($_POST['functionname'] == "add_to_watchlist") {
     // TODO: Update database and return success/failure.
-    $query = "INSERT INTO watchlist (userID, saleItemID) VALUES ('$userID','$saleItemID')";
-    if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
+    $query = "INSERT INTO watchlist (userID, saleItemID) VALUES ('$userID','$item_id')";
+    if (!mysqli_query($connection, $query)) {
+      die('Error: ' . mysqli_error($connection));
+    }
     // $res = "success";
     $res = $query;
   } else if ($_POST['functionname'] == "remove_from_watchlist") {
     // TODO: Update database and return success/failure.
-    $query = "DELETE FROM watchlist WHERE userID = '$userID' AND saleItemID = '$saleItemID'";
-    if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
+    $query = "DELETE FROM watchlist WHERE userID = '$userID' AND saleItemID = '$item_id'";
+    if (!mysqli_query($connection, $query)) {
+      die('Error: ' . mysqli_error($connection));
+    }
     $res = "success";
   }
 

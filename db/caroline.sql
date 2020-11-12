@@ -114,5 +114,5 @@ VALUES (3,1,4);
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
 VALUES (4,1,4);
 
-INSERT INTO `watchlist` (userID, saleItemID)
-VALUES (4,1);
+-- INSERT INTO `watchlist` (userID, saleItemID)
+-- VALUES (4,2);
