@@ -1,6 +1,6 @@
 <?php include("connection.php") ?>
  <?php
-  $userID = 4;
+  $userID = 2;
   $item_id = isset($_POST['arguments']);
 
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
@@ -16,8 +16,7 @@
     if (!mysqli_query($connection, $query)) {
       die('Error: ' . mysqli_error($connection));
     }
-    // $res = "success";
-    $res = $query;
+    $res = "success";
   } else if ($_POST['functionname'] == "remove_from_watchlist") {
     // TODO: Update database and return success/failure.
     $query = "DELETE FROM watchlist WHERE userID = '$userID' AND saleItemID = '$item_id'";
