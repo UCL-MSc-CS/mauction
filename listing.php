@@ -22,7 +22,7 @@
   // Calculate time to auction end:
   $now = new DateTime();
   
-  if ($now < $end_time) {
+  if ($now > $end_time) {
     $time_to_end = date_diff($now, $end_time);
     $time_remaining = ' (in ' . display_time_remaining($time_to_end) . ')';
   }
@@ -45,7 +45,7 @@
 <?php
   /* The following watchlist functionality uses JavaScript, but could
      just as easily use PHP as in other places in the code */
-  if ($now < $end_time):
+  if ($now > $end_time):
 ?>
     <div id="watch_nowatch" <?php if ($has_session && $watching) echo('style="display: none"');?> >
       <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
@@ -116,7 +116,7 @@ function addToWatchlist(button) {
         // Callback function for when call is successful and returns obj
         console.log("Success");
         var objT = obj.trim();
- 
+        console.log("objT: " + objT);
         if (objT == "success") {
           $("#watch_nowatch").hide();
           $("#watch_watching").show();
@@ -148,7 +148,7 @@ function removeFromWatchlist(button) {
         // Callback function for when call is successful and returns obj
         console.log("Success");
         var objT = obj.trim();
- 
+        console.log("OBJECT: ");
         if (objT == "success") {
           $("#watch_watching").hide();
           $("#watch_nowatch").show();

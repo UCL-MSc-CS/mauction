@@ -27,6 +27,12 @@ status VARCHAR(20) NOT NULL,
 PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
+CREATE TABLE `watchlist` (
+userID INT NOT NULL,
+saleItemID INT NOT NULL,
+PRIMARY KEY (saleItemID))
+ENGINE = InnoDB;
+
 CREATE TABLE `photos` (
 saleItemID INT NOT NULL,
 photo VARCHAR(200) NULL,
@@ -108,3 +114,5 @@ VALUES (3,1,4);
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
 VALUES (4,1,4);
 
+INSERT INTO `watchlist` (userID, saleItemID)
+VALUES (4,1);
