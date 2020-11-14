@@ -15,7 +15,8 @@
 
 
 //TODO: Sessions. Watchlist. 
-// TODO: sort out utilites function to feed the same information through. 
+// TODO: sort out utilites function to feed the same information through.
+// TODO: notify specific user that they have won 
 
 ?>
 
@@ -25,7 +26,8 @@
 
   // TODO: Use item_id to make a query to the database.
   
-	  $query = "SELECT auctions.*, MAX(bidAmount), COUNT(bidID) FROM auctions, bids where auctions.item_id=$item_id and bids.item_id=$item_id";
+	  $query = "SELECT auctions.*, MAX(bidAmount), COUNT(bidID) 
+	  FROM auctions, bids where auctions.item_id=$item_id and bids.item_id=$item_id";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
@@ -39,14 +41,13 @@
 		$delivery = $row['delivery'];
 		$startPrice = $row['startPrice'];
         $endDate = $row['endDate'];
-		$bidTotal = $row['MAX(bidAmount)'];
+		$current_price = $row['MAX(bidAmount)'];
 		$num_bids = $row['COUNT(bidID)'];
 	  }
 	     
 
   // assigned variables.
 
-  $current_price = ($bidTotal); // current listing price based off max bid
   $end_time = new DateTime($endDate); // creates end time
   $commission = (0.05 * $current_price); // calculates commission from max bid
   $finalPrice = ($current_price + $commission); //caluculates final price of sold listing
@@ -71,8 +72,8 @@
   //       For now, this is hardcoded.
   $has_session = true;
   $watching = false;
-?>
 
+?>
 
 <div class="container my-5">
 <div style="max-width: 1000px; margin: 10px auto">
