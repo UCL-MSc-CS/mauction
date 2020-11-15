@@ -19,10 +19,10 @@ include 'connection.php';
 session_start(); //how to access the info set in the header 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     echo '<a class="nav-link" href="logout.php">Logout</a>';
-    $listingquery = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE userID = '1' ORDER BY itemName ASC";
+    $listingquery = "SELECT userName, itemName, description, startPrice, commission, endDate FROM auctions WHERE userID = '1' ORDER BY itemName ASC";
     $listresult = mysqli_query($connection, $listingquery) or die('Error selecting user query' . mysqli_error());
     while ($listrow = mysqli_fetch_assoc($listresult)) {
-      $listitem_id = $listrow['userID'];
+      $listitem_id = $listrow['userName'];
       $listtitle = $listrow['itemName'];
       $listdescription = $listrow['description'];
       $listcurrent_price = $listrow['startPrice'];

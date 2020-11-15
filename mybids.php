@@ -20,11 +20,11 @@ include 'connection.php';
       echo '<a class="nav-link" href="logout.php">Logout</a>';
       $bidquery = "SELECT auctions.*, bids.* 
                        FROM auctions, bids 
-                       WHERE bids.saleItemID = auctions.saleItemID AND bids.userID = '2' ORDER BY bidAmount ASC";//fixed the uerID reference issue (undefined variable)
+                       WHERE bids.saleItemID = auctions.saleItemID AND bids.userName = '2' ORDER BY bidAmount ASC";//fixed the uerID reference issue (undefined variable)
       $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
       while ($bidrow = mysqli_fetch_assoc($bidresult)) {
         $bidid = $bidrow['bidID'];
-        $biduser_id = $bidrow['userID'];
+        $biduser_id = $bidrow['userName'];
         $biditem_id = $bidrow['saleItemID'];
         $bidamount = $bidrow['bidAmount'];
         $biditem_name = $bidrow['itemName'];

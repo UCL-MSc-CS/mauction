@@ -10,7 +10,7 @@ include 'header.php';
 if(isset($_POST['submit'])){
   $loginusername = mysqli_real_escape_string($connection, $_POST['username']);
   $loginpassword = mysqli_real_escape_string($connection, $_POST['password']); 
-  $loginstatuscheck = "SELECT status FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'";
+  $loginstatuscheck = "SELECT accountType FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'";
   $logintype = mysqli_query($connection, $loginstatuscheck) or die('Error...' . mysqli_error());
   $loginaccount_type = mysqli_fetch_array($logintype);
 
@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
       $loginquery = "SELECT * FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'";
       $loginresult = mysqli_query($connection,$loginquery) or die('Error...' . mysqli_error());
       $loginrow = mysqli_fetch_array($loginresult);
-      $loginstatus = $loginaccount_type['status'];
+      $loginstatus = $loginaccount_type['accountType'];
       if (isset($loginrow)){       
         echo('<div class="text-center">You are now logged in!</div>');
         $_SESSION['account_type'] = $loginstatus;
