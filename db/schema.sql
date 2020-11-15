@@ -60,6 +60,7 @@ saleItemID INT NOT NULL,
 -- bidAmount DECIMAL NOT NULL MORE_THAN_ZERO,    -- THIS LINE MIGHT THROW ERRORS 
 bidAmount DECIMAL NOT NULL,
 PRIMARY KEY (bidID))
+FOREIGN KEY (saleItemID)
 ENGINE = InnoDB;
 
 INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
@@ -99,4 +100,25 @@ VALUES ("Toothpaste", 1, "Health", 1000000, "For sensitive teeth", 10000000, '12
 
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
-VALUES (1,1,4);
+VALUES (3,1,1000001);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000002);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (3,1,1000003);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000004);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (3,1,1000005);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000006);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (3,1,1000007);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000008);
