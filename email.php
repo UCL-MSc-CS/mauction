@@ -24,5 +24,21 @@ $message = "Max bid is $bidTotal";
 $headers = [ "From: $from" ];
 
 mail( $to, $subject, $message, implode( '\r\n', $headers ) );
+
+
+	// if ($now > $end_time && $current_price > $reservePrice) {
+		// $query = "INSERT INTO outcome (userID, outcome_seller, outcome_buyer, item_id) 
+		// Values ($userID, 'sold', 'winner', $item_id)";
+		// if (!mysqli_query($connection, $query)) {
+		// die('Error: ' . mysqli_error($connection)); }
+	// }
+	
+		// if ($now > $end_time && $current_price < $reservePrice) {
+		// $query = "INSERT INTO outcome (userID, outcome_seller, outcome_buyer, item_id) 
+		// Values ($userID, 'not sold', 'no winner', $item_id)";
+		// if (!mysqli_query($connection, $query)) {
+		// die('Error: ' . mysqli_error($connection)); }
+	// }
+	
 ?>
 		
