@@ -1,4 +1,4 @@
-<?php include_once("header.php")?>
+<?php include 'header.php'?>
 <?php 
 include 'connection.php';
 ?>
@@ -15,11 +15,12 @@ include 'connection.php';
   // This can be started after browse.php is working with a database.
   // Feel free to extract out useful functions from browse.php and put them in
   // the shared "utilities.php" where they can be shared by multiple files.
-    // $listusername = mysqli_real_escape_string($connection, $_POST['username']);
-    // $listpassword = mysqli_real_escape_string($connection, $_POST['password']);
-    $listingquery = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE userID = '1' ORDER BY itemName ASC"; // need to add WHERE userID IN (SELECT userID WHERE userName = '$listusername' AND password = '$listpassword'FROM users)
+
+session_start(); //how to access the info set in the header 
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+    echo '<a class="nav-link" href="logout.php">Logout</a>';
+    $listingquery = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE userID = '$loginuserID' ORDER BY itemName ASC";
     $listresult = mysqli_query($connection, $listingquery) or die('Error selecting user query' . mysqli_error());
-    $listqueryRes = mysqli_num_rows($listresult);
     while ($listrow = mysqli_fetch_assoc($listresult)) {
       $listitem_id = $listrow['userID'];
       $listtitle = $listrow['itemName'];
@@ -27,14 +28,21 @@ include 'connection.php';
       $listcurrent_price = $listrow['startPrice'];
       $listnum_bids = $listrow['commission'];
       $listend_date = $listrow['endDate'];
+      print_listing_li($listitem_id, $listtitle, $listdescription, $listcurrent_price, $listnum_bids, $listend_date);
     }
-    print_listing_li($listitem_id, $listtitle, $listdescription, $listcurrent_price, $listnum_bids, $listend_date);
+}
+
+else {
+  echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';
+}
+
   // TODO: Check user's credentials (cookie/session).
   
-  // TODO: Perform a query to pull up their auctions. 95%DONE
+  // TODO: Perform a query to pull up their auctions. DONE
   
   // TODO: Loop through results and print them out as list items. DONE
   
 ?>
+
 
 <?php include_once("footer.php")?>
