@@ -1,27 +1,34 @@
+<?php include("connection.php") ?>
  <?php
+  $userID = 2;
+  $item_id = array_pop(array_reverse($_POST['arguments']));
+  if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
+    return;
+  }
 
-if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
-  return;
-}
+  // Extract arguments from the POST variables:
 
-// Extract arguments from the POST variables:
-$item_id = $_POST['arguments'];
 
-if ($_POST['functionname'] == "add_to_watchlist") {
-  // TODO: Update database and return success/failure.
+  if ($_POST['functionname'] == "add_to_watchlist") {
+    // TODO: Update database and return success/failure.
+    $query = "INSERT INTO watchlist (userID, saleItemID) VALUES ('$userID','$item_id')";
+    if (!mysqli_query($connection, $query)) {
+      die('Error: ' . mysqli_error($connection));
+    }
+    $res = "success";
+  } else if ($_POST['functionname'] == "remove_from_watchlist") {
+    // TODO: Update database and return success/failure.
+    $query = "DELETE FROM watchlist WHERE userID = '$userID' AND saleItemID = '$item_id'";
+    if (!mysqli_query($connection, $query)) {
+      die('Error: ' . mysqli_error($connection));
+    }
+    $res = "success";
+  }
 
-  $res = "success";
-}
-else if ($_POST['functionname'] == "remove_from_watchlist") {
-  // TODO: Update database and return success/failure.
+  // Note: Echoing from this PHP function will return the value as a string.
+  // If multiple echo's in this file exist, they will concatenate together,
+  // so be careful. You can also return JSON objects (in string form) using
+  // echo json_encode($res).
+  echo $res;
 
-  $res = "success";
-}
-
-// Note: Echoing from this PHP function will return the value as a string.
-// If multiple echo's in this file exist, they will concatenate together,
-// so be careful. You can also return JSON objects (in string form) using
-// echo json_encode($res).
-echo $res;
-
-?>
+  ?>

@@ -110,11 +110,11 @@ include 'connection.php';
 
     <?php
     if (!isset($_GET['search'])) {
-      $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions ORDER BY itemName ASC";
+      $query = "SELECT * FROM auctions ORDER BY itemName ASC";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
-        $item_id = $row['userID'];
+        $item_id = $row['saleItemID'];
         $title = $row['itemName'];
         $description = $row['description'];
         $current_price = $row['startPrice'];
@@ -159,14 +159,14 @@ include 'connection.php';
         $queryorder = " ORDER BY endDate DESC";
       }
 
-      $query = "SELECT userID, itemName, description, startPrice, commission, endDate FROM auctions WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
+      $query = "SELECT * FROM auctions WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       if ($queryRes == 0) {
         echo ('<div class="error" style="color: red">Sorry, no results.</div>');
       } else {
         while ($row = mysqli_fetch_assoc($result)) {
-          $item_id = $row['userID'];
+          $item_id = $row['saleItemID'];
           $title = $row['itemName'];
           $description = $row['description'];
           $current_price = $row['startPrice'];
