@@ -26,18 +26,18 @@
 
   // TODO: Use item_id to make a query to the database.
   
-	  $query = "SELECT auctions.*, MAX(bidAmount), COUNT(bidID) 
-	  FROM auctions, bids where auctions.item_id=$item_id and bids.item_id=$item_id";
+	  $query = "SELECT auction.*, MAX(bidAmount), COUNT(bidID) 
+	  FROM auction, bid where auction.saleItemID=$item_id and bid.saleItemID=$item_id";
       $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
-        $item_id = $row['item_id'];
-		$userID = $row['userID'];
+        $item_id = $row['saleItemID'];
+		$userName = $row['userName'];
         $itemName = $row['itemName'];
         $description = $row['description'];
 		$reservePrice = $row['reservePrice'];
 		$category = $row['category'];
-		$condition = $row['cond'];
+		$condition = $row['itemCondition'];
 		$delivery = $row['delivery'];
 		$startPrice = $row['startPrice'];
         $endDate = $row['endDate'];

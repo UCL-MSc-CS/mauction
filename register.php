@@ -187,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php  
   if (isset($_POST['submit'])) { // if submit clicked, assign post variables
 	$accountType = mysqli_real_escape_string($connection, $_POST['accountType']);
-	$username = mysqli_real_escape_string($connection, $_POST['username']);
+	$username = mysqli_real_escape_string($connection, $_POST['userName']);
     $firstName = mysqli_real_escape_string($connection, $_POST['firstName']);
 	$lastName = mysqli_real_escape_string($connection, $_POST['lastName']);
 	$email = mysqli_real_escape_string($connection, $_POST['email']);
@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			echo "$email is not a valid email address."; }	
 			
 	else {
-	$query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
+	$query = "INSERT INTO user (accountType, userName, firstName, lastName, email, password, addressLine1, 
 	  addressLine2, city, principality, country, postcode) 
                 VALUES ('$accountType', '$username', '$firstName', '$lastName', '$email', SHA('$password'), '$addressLine1', 
 				'$addressLine2', '$city', '$principality', '$country', '$postcode')";
