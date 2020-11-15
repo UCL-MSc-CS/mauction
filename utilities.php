@@ -1,3 +1,6 @@
+<?php // Ari altered print listing function to display correct timings. 
+// Database: needs to have column endDate only (not date and time, with DATETIME datatype)
+?>
 <?php
 
 // display_time_remaining:
@@ -23,7 +26,7 @@ function display_time_remaining($interval) {
 
 // print_listing_li:
 // This function prints an HTML <li> element containing an auction listing
-function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
+function print_listing_li($item_id, $title, $desc, $price, $num_bids, $endDate)
 {
   // Truncate long descriptions
   if (strlen($desc) > 250) {
@@ -42,7 +45,8 @@ function print_listing_li($item_id, $title, $desc, $price, $num_bids, $end_time)
   }
   
   // Calculate time to auction end
-  $now = new DateTime();
+  $end_time = new DateTime($endDate);
+  $now = new DateTime("now");
   if ($now > $end_time) {
     $time_remaining = 'This auction has ended';
   }
