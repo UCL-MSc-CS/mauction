@@ -19,7 +19,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $database = "mauction";
 
 // Create connection
