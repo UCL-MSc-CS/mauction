@@ -2,46 +2,96 @@
 <?php require("utilities.php") ?>
 <?php include("connection.php") ?>
 
-<?php
-// Get info from the URL:
-$item_id = $_GET['item_id'];
+<?php // Database changes: CHANGED saleitemID to item_id in database!!
+// Altered to endDate in database (no separate time column)
+// dropped commission column, this is calculated here based on the final bid
+// dropped final price, this is calculated here
+// droppped outcome, also not needed
 
-// TODO: Use item_id to make a query to the database.
+// Timings, bid number, current price all work
 
-// DELETEME: For now, using placeholder data.
-$title = "Placeholder title";
-$description = "Description blah blah blah";
-$current_price = 30.50;
-$num_bids = 1;
-$end_time = new DateTime('2020-11-02T00:00:00');
+// current price based on MAX bid, for this to work 
+// most recent bidder must not be allowed to bid lower than the previous bidder (or 0)
 
-// TODO: Note: Auctions that have ended may pull a different set of data,
-//       like whether the auction ended in a sale or was cancelled due
-//       to lack of high-enough bids. Or maybe not.
 
-// Calculate time to auction end:
-$now = new DateTime();
+//TODO: Sessions. Watchlist. 
+// TODO: sort out utilites function to feed the same information through.
+// TODO: notify specific user that they have won 
 
-if ($now > $end_time) {
-  $time_to_end = date_diff($now, $end_time);
-  $time_remaining = ' (in ' . display_time_remaining($time_to_end) . ')';
-}
-
-// TODO: If the user has a session, use it to make a query to the database
-//       to determine if the user is already watching this item.
-//       For now, this is hardcoded.
-$has_session = true;
-$watching = false;
 ?>
 
+<?php
+  // Get info from the URL:
+  $item_id = $_GET['item_id'];
 
-<div class="container">
+  // TODO: Use item_id to make a query to the database.
+  
+	  $query = "SELECT auctions.*, MAX(bidAmount), COUNT(bidID) 
+	  FROM auctions, bids where auctions.item_id=$item_id and bids.item_id=$item_id";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $item_id = $row['item_id'];
+		$userID = $row['userID'];
+        $itemName = $row['itemName'];
+        $description = $row['description'];
+		$reservePrice = $row['reservePrice'];
+		$category = $row['category'];
+		$condition = $row['cond'];
+		$delivery = $row['delivery'];
+		$startPrice = $row['startPrice'];
+        $endDate = $row['endDate'];
+		$current_price = $row['MAX(bidAmount)'];
+		$num_bids = $row['COUNT(bidID)'];
+	  }
+	     
 
-  <div class="row">
-    <!-- Row #1 with auction title + watch button -->
-    <div class="col-sm-8">
-      <!-- Left col -->
-      <h2 class="my-3"><?php echo ($title); ?></h2>
+  // assigned variables.
+
+  $end_time = new DateTime($endDate); // creates end time
+  $commission = (0.05 * $current_price); // calculates commission from max bid
+  $finalPrice = ($current_price + $commission); //caluculates final price of sold listing
+  
+
+  // TODO: Note: Auctions that have ended may pull a different set of data,
+  //       like whether the auction ended in a sale or was cancelled due
+  //       to lack of high-enough bids. Or maybe not. -- Completed this 
+  
+  
+  
+  // Calculate time to auction end:
+  $now = new DateTime("now");
+  
+  if ($now < $end_time) {
+    $time_to_end = date_diff($now, $end_time);
+    $time_remaining = ' (in ' . display_time_remaining($time_to_end) . ')';
+  }
+  
+  // TODO: If the user has a session, use it to make a query to the database
+  //       to determine if the user is already watching this item.
+  //       For now, this is hardcoded.
+  $has_session = true;
+  $watching = false;
+
+?>
+
+<div class="container my-5">
+<div style="max-width: 1000px; margin: 10px auto">
+  <div class="card">
+    <div class="card-body">
+
+<div class="row"> <!-- Row #1 with auction title + watch button -->
+  <div class="col-sm-8"> <!-- Left col -->
+    <h2 class="my-3"><?php echo($itemName); ?></h2>
+  </div>
+  <div class="col-sm-4 align-self-center"> <!-- Right col -->
+<?php
+  /* The following watchlist functionality uses JavaScript, but could
+     just as easily use PHP as in other places in the code */
+  if ($now < $end_time):
+?>
+    <div id="watch_nowatch" <?php if ($has_session && $watching) echo('style="display: none"');?> >
+      <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addToWatchlist()">+ Add to watchlist</button>
     </div>
     <div class="col-sm-4 align-self-center">
       <!-- Right col -->
@@ -66,30 +116,69 @@ $watching = false;
     <div class="col-sm-8">
       <!-- Left col with item info -->
 
-      <div class="itemDescription">
-        <?php echo ($description); ?>
-      </div>
-
+    <div class="itemDescription">
+    Description: <?php echo($description); ?>
+    </div>
+	<div class="itemcategory">
+    Category: <?php echo($category); ?>
+    </div>
+	<div class="itemcondition">
+    Condition: <?php echo($condition); ?>
+    </div>
+	<div class="itemdelivery">
+    Delivery: <?php echo($delivery); ?>
     </div>
 
-    <div class="col-sm-4">
-      <!-- Right col with bidding info -->
 
-      <p>
-        <?php if ($now > $end_time) : ?>
-          This auction ended <?php echo (date_format($end_time, 'j M H:i')) ?>
-          <!-- TODO: Print the result of the auction here? -->
-        <?php else : ?>
-          Auction ends <?php echo (date_format($end_time, 'j M H:i') . $time_remaining) ?></p>
-      <p class="lead">Current bid: £<?php echo (number_format($current_price, 2)) ?></p>
+  </div>
 
-      <!-- Bidding form -->
-      <form method="POST" action="place_bid.php">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">£</span>
-          </div>
-          <input type="number" class="form-control" id="bid">
+  <div class="col-sm-4"> <!-- Right col with bidding info -->
+   <?php if ($num_bids == 1) {
+    echo $num_bids, ' Bid';
+  }
+  else {
+    echo $num_bids, ' Bids';
+  } ?>
+
+    <p>
+<?php if ($now > $end_time): ?> 
+     This auction ended on: <?php echo(date_format($end_time, 'j M H:i')) ?></p>
+	 <div>
+	 <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
+	This item was not sold
+	 <?php } else { ?>
+	 This item sold for: £<?php echo number_format($current_price, 2)?>
+	 <div>
+	 Plus 0.05% commission: £<?php echo number_format($commission, 2)?>
+	 </div>
+	 Total price: £<?php echo number_format($finalPrice, 2)?>
+	 <?php }
+	 ?>
+	 </div>
+     <!-- ARI: loop added: if auction time passed, 
+	 checks if the price exceeded 0 or reserve price.
+	Calculates commission and prints the total-->
+
+
+<?php else: ?>
+     Auction ends: <?php echo(date_format($end_time, 'j M H:i') . $time_remaining) ?>
+	<div>
+	 <?php if ($current_price != 0) { ?> 
+	 Current total: £<?php echo number_format($current_price, 2)?>
+	 <?php } else { ?>
+	 The start price is: £<?php echo number_format($startPrice, 2)?>
+	 <?php }
+	 ?>
+	 </div>
+  	 <!-- ARI: loop added: if auction active, if no bids then start price displayed. 
+	 If bidding has started then current price displayed -->
+	 
+    <!-- Bidding form -->
+    
+	<form method="POST" action="place_bid.php">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">£</span>
         </div>
         <button type="submit" class="btn btn-primary form-control">Place bid</button>
       </form>
