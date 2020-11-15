@@ -110,15 +110,16 @@ include 'connection.php';
 
     <?php
     if (!isset($_GET['search'])) {
-      $query = "SELECT * FROM auctions ORDER BY itemName ASC";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $query = "SELECT * FROM auction ORDER BY itemName ASC";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
         $item_id = $row['saleItemID'];
         $title = $row['itemName'];
         $description = $row['description'];
         $current_price = $row['startPrice'];
-        $num_bids = $row['commission'];
+        // $num_bids = $row['commission'];
+        $num_bids = 2;
         $end_date = $row['endDate'];
         // This uses a function defined in utilities.php
         print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
@@ -159,8 +160,8 @@ include 'connection.php';
         $queryorder = " ORDER BY endDate DESC";
       }
 
-      $query = "SELECT * FROM auctions WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+      $query = "SELECT * FROM auction WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
       $queryRes = mysqli_num_rows($result);
       if ($queryRes == 0) {
         echo ('<div class="error" style="color: red">Sorry, no results.</div>');
@@ -170,7 +171,8 @@ include 'connection.php';
           $title = $row['itemName'];
           $description = $row['description'];
           $current_price = $row['startPrice'];
-          $num_bids = $row['commission'];
+          // $num_bids = $row['commission'];
+          $num_bids = 2;
           $end_date = $row['endDate'];
           // This uses a function defined in utilities.php
           print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);

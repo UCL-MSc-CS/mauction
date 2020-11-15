@@ -2,42 +2,24 @@
 <?php require("utilities.php") ?>
 <?php include("connection.php") ?>
 
-<?php // Database changes: CHANGED saleitemID to item_id in database!!
-// Altered to endDate in database (no separate time column)
-// dropped commission column, this is calculated here based on the final bid
-// dropped final price, this is calculated here
-// droppped outcome, also not needed
-
-// Timings, bid number, current price all work
-
-// current price based on MAX bid, for this to work 
-// most recent bidder must not be allowed to bid lower than the previous bidder (or 0)
-
-
-//TODO: Sessions. Watchlist. 
-// TODO: sort out utilites function to feed the same information through.
-// TODO: notify specific user that they have won 
-
-?>
-
 <?php
   // Get info from the URL:
   $item_id = $_GET['item_id'];
 
   // TODO: Use item_id to make a query to the database.
   
-	  $query = "SELECT auctions.*, MAX(bidAmount), COUNT(bidID) 
-	  FROM auctions, bids where auctions.item_id=$item_id and bids.item_id=$item_id";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysql_error());
+	  $query = "SELECT auction.*, MAX(bidAmount), COUNT(bidID) 
+	  FROM auction, bid where auction.saleItemID=$item_id and bid.saleItemID=$item_id";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
-        $item_id = $row['item_id'];
-		$userID = $row['userID'];
+        $item_id = $row['saleItemID'];
+		    $userName = $row['userName'];
         $itemName = $row['itemName'];
         $description = $row['description'];
 		$reservePrice = $row['reservePrice'];
 		$category = $row['category'];
-		$condition = $row['cond'];
+		$condition = $row['itemCondition'];
 		$delivery = $row['delivery'];
 		$startPrice = $row['startPrice'];
         $endDate = $row['endDate'];
@@ -53,7 +35,7 @@
   $finalPrice = ($current_price + $commission); //caluculates final price of sold listing
   
 
-  // TODO: Note: Auctions that have ended may pull a different set of data,
+  // TODO: Note: Auction that have ended may pull a different set of data,
   //       like whether the auction ended in a sale or was cancelled due
   //       to lack of high-enough bids. Or maybe not. -- Completed this 
   

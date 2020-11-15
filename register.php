@@ -13,7 +13,7 @@ $countryErr = "";
 $postcodeErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["username"])) {
+  if (empty($_POST["userName"])) {
     $usernameErr = ": Username is required";
   }
 }
@@ -85,10 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</div>
   </div>
 <div class="form-group row">
-	<label for="username" class="col-sm-2 col-form-label text-right">Username</label>
+	<label for="userName" class="col-sm-2 col-form-label text-right">Username</label>
 		<div class="col-sm-10">
-		<input type="text" class="form-control" id="username" name="username" placeholder="Enter Your username"/>
-	<small id="usernameHelp" name="username" class="form-text text-muted"></small>
+		<input type="text" class="form-control" id="userName" name="userName" placeholder="Enter Your username"/>
+	<small id="usernameHelp" name="userName" class="form-text text-muted"></small>
 	  <span class="text-danger">*Required<?php echo $usernameErr;?></span>
     </div>
 </div>
@@ -187,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php  
   if (isset($_POST['submit'])) { // if submit clicked, assign post variables
 	$accountType = mysqli_real_escape_string($connection, $_POST['accountType']);
-	$username = mysqli_real_escape_string($connection, $_POST['username']);
+	$userName = mysqli_real_escape_string($connection, $_POST['userName']);
     $firstName = mysqli_real_escape_string($connection, $_POST['firstName']);
 	$lastName = mysqli_real_escape_string($connection, $_POST['lastName']);
 	$email = mysqli_real_escape_string($connection, $_POST['email']);
@@ -207,10 +207,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			echo "$email is not a valid email address."; }	
 			
 	else {
-	$query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
-	  addressLine2, city, principality, country, postcode) 
-                VALUES ('$accountType', '$username', '$firstName', '$lastName', '$email', SHA('$password'), '$addressLine1', 
-				'$addressLine2', '$city', '$principality', '$country', '$postcode')";
+	$query = "INSERT INTO user (userName, email, firstName, lastName, country, principality, city, addressLine1, 
+	  addressLine2, postcode, password, accountType) 
+                VALUES ('$userName', '$email', '$firstName', '$lastName', '$country', '$principality', '$city', '$addressLine1', '$addressLine2', '$postcode', SHA('$password'), '$accountType')";
       if (!mysqli_query($connection, $query)) {
 		die('Error: ' . mysqli_error($connection)); }
 		else {

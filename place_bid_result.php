@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 
             else {
                         echo '<div class="text-center">Bid placed successfully! <a href=index.php>Back to browse.</a></div>';
-                        $query = "INSERT INTO bids (bidAmount, bidTime) VALUES('$bidAmount','$bidTime')"; 
+                        $query = "INSERT INTO bid (bidAmount, bidTime) VALUES('$bidAmount','$bidTime')"; 
 		        if (!mysqli_query($connection, $query)) {
 				die('Error: ' . mysqli_error($connection));}
             } }
