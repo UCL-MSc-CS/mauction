@@ -60,18 +60,19 @@ saleItemID INT NOT NULL,
 -- bidAmount DECIMAL NOT NULL MORE_THAN_ZERO,    -- THIS LINE MIGHT THROW ERRORS 
 bidAmount DECIMAL NOT NULL,
 PRIMARY KEY (bidID))
+FOREIGN KEY (saleItemID)
 ENGINE = InnoDB;
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "Caroline", "Crandell", "USA", SHA("password"), 'buyer');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("erinuclkwon", "wei.quan.20@ucl.ac.uk", "Wei", "Quan", "UK", SHA("1234"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "Matthew", "Shorvon", "UK", SHA("password"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", SHA("1234"), 'buyer');
 
              -- have to edit this insert with new attributes. 
@@ -99,4 +100,25 @@ VALUES ("Toothpaste", 1, "Health", 1000000, "For sensitive teeth", 10000000, '12
 
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
-VALUES (1,1,4);
+VALUES (3,1,1000001);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000002);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (3,1,1000003);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000004);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (3,1,1000005);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000006);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (3,1,1000007);
+
+INSERT INTO 'bids' (userID, saleItemID, bidAmount)
+VALUES (2,1,1000008);
