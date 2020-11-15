@@ -63,16 +63,16 @@ PRIMARY KEY (bidID))
 FOREIGN KEY (saleItemID)
 ENGINE = InnoDB;
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("cecrandell", "caroline.crandell.20@ucl.ac.uk", "Caroline", "Crandell", "USA", SHA("password"), 'buyer');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("erinuclkwon", "wei.quan.20@ucl.ac.uk", "Wei", "Quan", "UK", SHA("1234"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "Matthew", "Shorvon", "UK", SHA("password"), 'seller');
 
-INSERT INTO `users` (userName, email, firstName, lastName, country, password, accountType)
+INSERT INTO `users` (userName, email, firstName, lastName, country, password, status)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", SHA("1234"), 'buyer');
 
              -- have to edit this insert with new attributes. 
@@ -100,7 +100,6 @@ VALUES ("Toothpaste", 1, "Health", 1000000, "For sensitive teeth", 10000000, '12
 
 
 INSERT INTO `bids` (userID, saleItemID, bidAmount)
-<<<<<<< HEAD
 VALUES (3,1,1000001);
 
 INSERT INTO 'bids' (userID, saleItemID, bidAmount)
@@ -123,6 +122,3 @@ VALUES (3,1,1000007);
 
 INSERT INTO 'bids' (userID, saleItemID, bidAmount)
 VALUES (2,1,1000008);
-=======
-VALUES (1,1,4);
->>>>>>> aa6f0ed8583a0841761497b610b935b4ce0611b6
