@@ -183,8 +183,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<input id="show-btn" type="submit" name="submit" class="btn btn-primary form-control" value="Register"/>
 </div>
 </form>
-
-<div class="text-center">Already have an account? <a href="" data-toggle="modal" data-target="#loginModal">Login</a>
 </div>
 <?php  
   if (isset($_POST['submit'])) { // if submit clicked, assign post variables
@@ -204,10 +202,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
 	 
 	if ($password != $confirmpassword) {	// confirms password and password confirmation match
-			echo " Passwords do not match!"; }
+			echo "Passwords do not match!"; }
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
-			echo " $email is not a valid email address!";
-			}	
+			echo "$email is not a valid email address."; }	
 			
 	else {
 	$query = "INSERT INTO users (accountType, username, firstName, lastName, email, password, addressLine1, 
@@ -217,9 +214,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (!mysqli_query($connection, $query)) {
 		die('Error: ' . mysqli_error($connection)); }
 		else {
-		echo "<script type='text/javascript'> window.location = 'process_registration2.php'; </script>";
+		echo "<script type='text/javascript'> window.location = 'process_registration.php'; </script>";
    }}
-	}
- 
+	
+  }
 ?>
 <?php include_once("footer.php")?>
