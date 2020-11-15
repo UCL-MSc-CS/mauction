@@ -1,8 +1,7 @@
 <?php include("connection.php") ?>
  <?php
   $userID = 2;
-  $item_id = isset($_POST['arguments']);
-
+  $item_id = array_pop(array_reverse($_POST['arguments']));
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
   }

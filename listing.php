@@ -110,6 +110,7 @@ $watching = false;
 
     function addToWatchlist(button) {
       console.log("These print statements are helpful for debugging btw");
+      console.log(<?php echo ($item_id); ?>)
       // This performs an asynchronous call to a PHP function using POST method.
       // Sends item ID as an argument to that function.
       $.ajax('watchlist_funcs.php', {
