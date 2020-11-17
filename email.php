@@ -1,6 +1,13 @@
 <?php include("connection.php")?>
 <?php include_once("header.php")?>
+<?php
+// this script need to be run from email.php to enter the outcome results into the outcome table
+// it will then send an email to the buyer and seller 
 
+// problems: only adds 1 saleItem to outcome table rather than all of the items that have gone past the end date
+// only sends emails referring to that 1 saleItem
+// sends email every time page is refreshed
+?>
 Refresh to send outcome to database and email results
 
 <?php
@@ -87,8 +94,8 @@ if ($itemOutcome == "sold") {
 	$to = "$seller_email";
 	$subject = "You have sold an item!";
 	$message = "Congratulations $seller_username! Your item $itemName 
-	has $itemOutcome for $end_bid. You will recieve $finalPrice, 
-	which is the final price minus our $commission commission fee of 0.05%";
+	has $itemOutcome for $end_bid. You will receive $finalPrice, 
+	which is the winning bid price minus our $commission commission fee of 0.05%";
 	$headers = [ "From: $from" ];
 
 mail( $to, $subject, $message, implode( '\r\n', $headers ) ); 
@@ -134,17 +141,6 @@ $headers = [ "From: $from" ];
 
 mail( $to, $subject, $message, implode( '\r\n', $headers ) );
 }
-
-
-
-// SET GLOBAL event_schedular = ON;
-// Create EVENT email
-// ON SCHEDULE
-// EVERY 1 DAY
-// STARTS 2020-11-14
-// DO
-// 
-
 	
 ?>
 <?php include_once("footer.php")?>

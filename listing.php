@@ -45,18 +45,17 @@
 		$num_bids = $row['COUNT(bidID)'];
 	  }
 	     
+	////////////////////////////	 
+	// MAKE SURE: there is entries in the auction table that are current! 
+	//Where end date is past the current day or the bid box will not show up!!
+	/////////////////////////
 
-  // assigned variables.
+
+ // assigned variables.
 
   $end_time = new DateTime($endDate); // creates end time
   $commission = (0.05 * $current_price); // calculates commission from max bid
   $finalPrice = ($current_price - $commission); //caluculates final price of sold listing
-  
-
-  // TODO: Note: Auctions that have ended may pull a different set of data,
-  //       like whether the auction ended in a sale or was cancelled due
-  //       to lack of high-enough bids. Or maybe not. -- Completed this 
-  
   
   
   // Calculate time to auction end:
@@ -145,8 +144,11 @@
 	 <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
 	This item was not sold
 	 <?php } else { ?>
-	 The final winning bid was: £<?php echo number_format($current_price, 2)?>
+	 The winning bid was: £<?php echo number_format($current_price, 2)?>
 	 <div>
+	 We take 0.05% commission, which works out to £<?php echo number_format($commission, 2)?> on this item
+	 <div>
+	 So, the seller receives: £<?php echo number_format($finalPrice, 2)?>
 	 <?php }
 	 ?>
 	 </div>
