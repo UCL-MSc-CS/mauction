@@ -1,6 +1,142 @@
 <?php include("connection.php")?>
+<?php include_once("header.php")?>
+
+Refresh to send outcome to database and email results
 
 <?php
+//// send outcome of auctions to outcome table
+	  $query = "SELECT auction.*
+	  FROM auction 
+	  WHERE saleItemID='6' ";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        // $saleItemID = $row['saleItemID'];
+		$seller_username = $row['userName'];	
+        $itemName = $row['itemName'];
+		$reservePrice = $row['reservePrice'];
+        $endDate = $row['endDate'];
+	  }
+	  
+	  $query = "SELECT MAX(bidAmount), saleItemID
+	  FROM bid
+	  WHERE saleItemID='6' ";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $saleItemID = $row['saleItemID'];
+		$end_bid = $row['MAX(bidAmount)'];
+
+	  }
+	
+	$query = "SELECT userName
+	  FROM bid 
+	  WHERE bidAmount= $end_bid and 
+	  saleItemID=$saleItemID ";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+		$buyer_username = $row['userName'];
+	  }
+
+$now = new DateTime("now");
+$end_time = new DateTime($endDate);
+$commission = (0.05 * $end_bid); 
+$finalPrice = ($end_bid - $commission);
+if ($finalPrice > $reservePrice) {
+$itemOutcome = "sold";}
+else{ 
+$itemOutcome = "unsold"; }
+
+// query to send results to outcome table, only sends once per sale item to avoid duplicates
+if ($now > $end_time) {
+	
+	$query = "SELECT * FROM outcome WHERE saleItemID=$saleItemID";
+	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+	
+	if (mysqli_num_rows($result) <= 0) {
+	$query = "INSERT INTO outcome (saleItemID, itemOutcome, end_bid, commission, finalPrice, seller_username, buyer_username) 
+	VALUES ('$saleItemID', '$itemOutcome', '$end_bid', '$commission', '$finalPrice', '$seller_username', '$buyer_username')";
+	if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection)); }
+	}
+}
+
+// // seller email
+// // if sold
+
+
+$query = "SELECT outcome.saleItemID, outcome.itemOutcome, outcome.seller_username,
+ outcome.end_bid, outcome.commission, outcome.finalPrice, user.email, auction.itemName FROM outcome, user, auction 
+WHERE outcome.seller_username=user.userName and outcome.saleItemID=auction.saleItemID";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+		$saleItemID = $row['saleItemID'];
+		$itemOutcome = $row['itemOutcome'];
+		$seller_username = $row['seller_username'];
+		$itemName = $row['itemName'];
+		$end_bid = $row['end_bid'];
+		$commission = $row['commission'];
+		$finalPrice = $row['finalPrice'];
+		$seller_email = $row['email'];
+	  }
+	  	
+if ($itemOutcome == "sold") {
+	
+	$from = "ariannabourke@gmail.com";
+	$to = "$seller_email";
+	$subject = "You have sold an item!";
+	$message = "Congratulations $seller_username! Your item $itemName 
+	has $itemOutcome for $end_bid. You will recieve $finalPrice, 
+	which is the final price minus our $commission commission fee of 0.05%";
+	$headers = [ "From: $from" ];
+
+mail( $to, $subject, $message, implode( '\r\n', $headers ) ); 
+
+}
+// // seller email
+// // if not sold 
+
+if ($itemOutcome == "unsold") {
+	$from = "ariannabourke@gmail.com";
+	$to = "$seller_email";
+	$subject = "Your item has not sold";
+	$message = "Unfortunately, $seller_username your item $itemName has not sold!";
+	$headers = [ "From: $from" ];
+
+mail( $to, $subject, $message, implode( '\r\n', $headers ) );
+}
+
+
+// buyer email
+// if won
+
+if ($itemOutcome == "sold") {
+$query = "SELECT outcome.saleItemID, outcome.itemOutcome, outcome.end_bid, outcome.buyer_username, user.email, auction.itemName FROM outcome, user, auction 
+WHERE outcome.buyer_username=user.userName and outcome.saleItemID=auction.saleItemID";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+		$saleItemID = $row['saleItemID'];
+		$itemOutcome = $row['itemOutcome'];
+		$buyer_username = $row['buyer_username'];
+		$itemName = $row['itemName'];
+		$end_bid = $row['end_bid'];
+		$buyer_email = $row['email'];
+	  }
+
+$from = "ariannabourke@gmail.com";
+$to = "$buyer_email";
+$subject = "You have won an auction!";
+$message = "Congratulations! $buyer_username you have won item $itemName
+ Your bid of $end_bid was the highest! ";
+$headers = [ "From: $from" ];
+
+mail( $to, $subject, $message, implode( '\r\n', $headers ) );
+}
+
+
+
 // SET GLOBAL event_schedular = ON;
 // Create EVENT email
 // ON SCHEDULE
@@ -9,36 +145,7 @@
 // DO
 // 
 
-$query = "SELECT MAX(bidAmount)
-	  FROM bid";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
-      $queryRes = mysqli_num_rows($result);
-      while ($row = mysqli_fetch_assoc($result)) {
-		$bidTotal = $row['MAX(bidAmount)'];
-	  }
-
-$from = "ariannabourke@gmail.com";
-$to = "arianna.bourke.20@ucl.ac.uk";
-$subject = "I hate PHP";
-$message = "Max bid is $bidTotal";
-$headers = [ "From: $from" ];
-
-mail( $to, $subject, $message, implode( '\r\n', $headers ) );
-
-
-	// if ($now > $end_time && $current_price > $reservePrice) {
-		// $query = "INSERT INTO outcome (userID, outcome_seller, outcome_buyer, item_id) 
-		// Values ($userID, 'sold', 'winner', $item_id)";
-		// if (!mysqli_query($connection, $query)) {
-		// die('Error: ' . mysqli_error($connection)); }
-	// }
-	
-		// if ($now > $end_time && $current_price < $reservePrice) {
-		// $query = "INSERT INTO outcome (userID, outcome_seller, outcome_buyer, item_id) 
-		// Values ($userID, 'not sold', 'no winner', $item_id)";
-		// if (!mysqli_query($connection, $query)) {
-		// die('Error: ' . mysqli_error($connection)); }
-	// }
 	
 ?>
+<?php include_once("footer.php")?>
 		

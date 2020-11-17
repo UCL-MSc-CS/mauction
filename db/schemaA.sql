@@ -20,9 +20,10 @@ PRIMARY KEY (userName))
 ENGINE = InnoDB;
 
 CREATE TABLE watchlist (
+watchID INT NOT NULL AUTO_INCREMENT,
 userName VARCHAR(45) NOT NULL,
 saleItemID INT NOT NULL,
-PRIMARY KEY (saleItemID))
+PRIMARY KEY (watchID))
 ENGINE = InnoDB;
 
 CREATE TABLE auction (
@@ -62,16 +63,16 @@ INSERT INTO user (userName, email, firstName, lastName, country, city, addressLi
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", "Santa Ana", "1 Memory Lane", "90210", SHA("1234"), 'seller');
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
-VALUES ("Vaccine", "cecrandell", "Health", 1000000, "COVID-19 Cure", 10000000, '10-4-21', "Post", "New");
+VALUES ("Vaccine", "cecrandell", "Health", 1000000, "COVID-19 Cure", 10000000, '21-4-21', "Post", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
-VALUES ("Vase", "cecrandell", "Home Decor", 10, "Perfect for flowers", 10000000, '10-7-21', "Post", "New");
+VALUES ("Vase", "cecrandell", "Home Decor", 10, "Perfect for flowers", 10000000, '21-7-21', "Post", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
 VALUES ("New President", "cecrandell", "Mental Wellbeing", 2020, "Harris2020", 10000000, '10-8-21', "Post", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
-VALUES ("Bowl", "AriannaBourke", "Home Decor", 3, "Perfect for ice cream", 10000000, '10-9-21', "Post", "New");
+VALUES ("Bowl", "AriannaBourke", "Home Decor", 3, "Perfect for ice cream", 10000000, '21-9-21', "Post", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
 VALUES ("M&Ms", "AriannaBourke", "Mental Wellbeing", 1, "Perfect for post-graduate students", 10000000, '10-10-21', "Post", "New");
@@ -107,4 +108,4 @@ INSERT INTO bid (userName, saleItemID, bidAmount)
 VALUES ("erinuclkwon",1,1000008);
 
 INSERT INTO watchlist (userName, saleItemID)
-VALUES (4,2);
+VALUES ("AriannaBourke",1);
