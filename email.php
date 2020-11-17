@@ -11,7 +11,8 @@
 Refresh to send outcome to database and email results
 
 <?php
-//// send outcome of auctions to outcome table
+//// Assign variables:
+
 	  $query = "SELECT auction.*
 	  FROM auction 
 	  WHERE saleItemID='6' ";
@@ -50,10 +51,10 @@ $now = new DateTime("now");
 $end_time = new DateTime($endDate);
 $commission = (0.05 * $end_bid); 
 $finalPrice = ($end_bid - $commission);
-if ($finalPrice > $reservePrice) {
-$itemOutcome = "sold";}
-else{ 
-$itemOutcome = "unsold"; }
+	if ($finalPrice > $reservePrice) {
+		$itemOutcome = "sold";}
+	else{ 
+		$itemOutcome = "unsold"; }
 
 // query to send results to outcome table, only sends once per sale item to avoid duplicates
 if ($now > $end_time) {
@@ -132,12 +133,12 @@ WHERE outcome.buyer_username=user.userName and outcome.saleItemID=auction.saleIt
 		$buyer_email = $row['email'];
 	  }
 
-$from = "ariannabourke@gmail.com";
-$to = "$buyer_email";
-$subject = "You have won an auction!";
-$message = "Congratulations! $buyer_username you have won item $itemName
- Your bid of $end_bid was the highest! ";
-$headers = [ "From: $from" ];
+	$from = "ariannabourke@gmail.com";
+	$to = "$buyer_email";
+	$subject = "You have won an auction!";
+	$message = "Congratulations! $buyer_username you have won item $itemName
+	Your bid of $end_bid was the highest! ";
+	$headers = [ "From: $from" ];
 
 mail( $to, $subject, $message, implode( '\r\n', $headers ) );
 }

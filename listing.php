@@ -2,21 +2,15 @@
 <?php require("utilities.php")?>
 <?php include("connection.php")?>
 
-<?php // Database changes: CHANGED saleitemID to item_id in database!!
-// Altered to endDate in database (no separate time column)
-// dropped commission column, this is calculated here based on the final bid
-// dropped final price, this is calculated here
-// droppped outcome, also not needed
-
-// Timings, bid number, current price all work
+<?php
 
 // current price based on MAX bid, for this to work 
 // most recent bidder must not be allowed to bid lower than the previous bidder (or 0)
 
+// new table has been created to insert data about auction outcomes (see email.php)
 
-//TODO: Sessions. Watchlist. 
-// TODO: sort out utilites function to feed the same information through.
-// TODO: notify specific user that they have won 
+//TODO: Sessions. Bid history. 
+
 
 ?>
 
