@@ -31,6 +31,7 @@ if(isset($_POST['submit'])){
           <li class="nav-item mx-1">
               <a class="nav-link" href="recommendations.php">Recommended</a>
             </li>');
+          echo $_SESSION['username'];
         }
         if (isset($_SESSION['account_type']) && $_SESSION['account_type'] == 'seller') {
           echo('

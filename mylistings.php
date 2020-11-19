@@ -16,13 +16,14 @@ include 'connection.php';
   // Feel free to extract out useful functions from browse.php and put them in
   // the shared "utilities.php" where they can be shared by multiple files.
 
-session_start(); //how to access the info set in the header 
+//how to access the info set in the header 
+$listingsusername = $_SESSION['username'];
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-    echo '<a class="nav-link" href="logout.php">Logout</a>';
-    $listingquery = "SELECT userName, itemName, description, startPrice, endDate FROM auction WHERE userName = 'cecrandell' ORDER BY itemName ASC";
+    // echo '<a class="nav-link" href="logout.php">Logout</a>';
+    $listingquery = "SELECT userName, saleItemID, itemName, description, startPrice, endDate FROM auction WHERE userName = '$listingsusername' ORDER BY itemName ASC";
     $listresult = mysqli_query($connection, $listingquery) or die('Error selecting user query' . mysqli_error());
     while ($listrow = mysqli_fetch_assoc($listresult)) {
-      $listitem_id = $listrow['userName'];
+      $listitem_id = $listrow['saleItemID'];
       $listtitle = $listrow['itemName'];
       $listdescription = $listrow['description'];
       $listcurrent_price = $listrow['startPrice'];
