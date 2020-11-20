@@ -200,21 +200,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$principality = mysqli_real_escape_string($connection, $_POST['principality']);
 	$country = mysqli_real_escape_string($connection, $_POST['country']);
 	$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
-	 
-	if ($password != $confirmpassword) {	// confirms password and password confirmation match
-			echo "Passwords do not match!"; }
+	
+	
+	$query = "SELECT userName FROM user WHERE userName='$userName'";
+	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
+	if (mysqli_num_rows($result) != 0) {
+	die ("Sorry, this username is already taken, please try again"); }
+	
+	
+	if ($_POST['password'] !== $_POST['confirmpassword']) {	// confirms password and password confirmation match
+			die("Passwords do not match! Please try again."); }
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
-			echo "$email is not a valid email address."; }	
+			echo "' $email ' is not a valid email address. Please try again."; }	
 			
 	else {
+		
 	$query = "INSERT INTO user (userName, email, firstName, lastName, country, principality, city, addressLine1, 
 	  addressLine2, postcode, password, accountType) 
                 VALUES ('$userName', '$email', '$firstName', '$lastName', '$country', '$principality', '$city', '$addressLine1', '$addressLine2', '$postcode', SHA('$password'), '$accountType')";
       if (!mysqli_query($connection, $query)) {
-		die('Error: ' . mysqli_error($connection)); }
+		die('Error: Error making insert user query' . mysqli_error($connection)); }
 		else {
 		echo "<script type='text/javascript'> window.location = 'process_registration.php'; </script>";
    }}
+	
 	
   }
 ?>

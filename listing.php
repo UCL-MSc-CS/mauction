@@ -22,7 +22,7 @@
   
 	  $query = "SELECT auction.*, MAX(bidAmount), COUNT(bidID) 
 	  FROM auction, bid where auction.saleItemID=$item_id and bid.saleItemID=$item_id";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $result = mysqli_query($connection, $query) or die('Error making select bid and auction query' . mysqli_error($connection));
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
         $item_id = $row['saleItemID'];
