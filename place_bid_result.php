@@ -2,7 +2,7 @@
 include 'connection.php';
 ?>
 
-<?php //include_once("header.php")?>
+<?php include_once("header.php")?>
 
 <div class="container my-5">
 
@@ -17,6 +17,7 @@ if (isset($_POST['submit'])) {
 	          //$userID = mysqli_query($connection, "SELECT 'userID' FROM users WHERE userName = '$loginusername' ") or die('Error...' . mysqli_error());
             $item_id = $_GET['item_id'];
             
+
             if (empty($bidAmount)) {
                         echo "Please provide a bid amount";}  //Matt 01/11: this checks that something is in bidAmount
             $query = "SELECT MAX(bidAmount) FROM bid WHERE saleItemID = '$item_id' ";

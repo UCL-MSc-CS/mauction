@@ -163,14 +163,20 @@
 	 
     <!-- Bidding form -->
     
-	<form method="POST" action="place_bid_result.php">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">£</span>
+    <form method="POST" action="place_bid_result.php?item_id=<?=$item_id?>">                  
+      <div class="form-group row">
+        <!-- <label for="bidAmount" class="col-sm-2 col-form-label text-right">Bid Amount</label> -->
+        <div class="col-sm-10">
+	      <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">£</span>
+            </div>
+            <input type="number" class="form-control" name="bidAmount" id="bidAmount">
+          </div>
+          <!-- <small id="placeBidHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> How much are you bidding?.</small> -->
         </div>
-	    <input type="number" class="form-control" id="bid">
       </div>
-      <button type="submit" class="btn btn-primary form-control">Place bid</button>
+      <button type="submit" name="submit" class="btn btn-primary form-control">Place Bid</button>
     </form>
 <?php endif ?>
 
@@ -253,7 +259,6 @@ function removeFromWatchlist(button) {
 
 } // End of addToWatchlist func
 </script>
-<?php endif; ?>
 	    
 <?php if ($now < $end_time): ?>
 <div class="container my-5">

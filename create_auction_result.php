@@ -5,7 +5,7 @@ include 'connection.php';
 //include 'login_result.php';
 ?>
 
-<?php //include_once("header.php")?>
+<?php include_once("header.php")?>
 
 <div class="container my-5">
 
@@ -43,6 +43,8 @@ if (isset($_POST['submit'])) {
 	    $delivery = mysqli_real_escape_string($connection, $_POST['delivery']);
 	    //$userID = mysqli_query($connection, "SELECT 'userID' FROM users WHERE userName = '$loginusername' ") or die('Error...' . mysqli_error());
             
+            if ($reservePrice == '') {//echo "yes";
+                    $reservePrice = 0;}
             
             if (empty($auctionTitle)) {
                         echo "Please provide an auction title";}  //Matt 01/11: this checks that something is in auctionTitle
@@ -61,7 +63,7 @@ if (isset($_POST['submit'])) {
 /* TODO #3: If everything looks good, make the appropriate call to insert
             data into the database.  If all is successful, let user know. */
 
-            else {
+            else {      
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
                         $query = "INSERT INTO auction (userName, itemName, startPrice, category, description, endDate, itemCondtion, delivery, reservePrice) VALUES('$username','$auctionTitle','$startPrice','$category',
 			'$description', '$endDate', '$condition', '$delivery','$reservePrice')"; 
