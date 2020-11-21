@@ -138,7 +138,7 @@
 	 <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
 	This item was not sold
 	 <?php } else { ?>
-	 The winning bid was: £<?php echo number_format($current_price, 2)?>
+	 The winning bid was: £<?php echo number_format($current_price, 2)?> 
 	 <div>
 	 We take 0.05% commission, which works out to £<?php echo number_format($commission, 2)?> on this item
 	 <div>
