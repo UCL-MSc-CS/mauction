@@ -9,20 +9,24 @@ include 'connection.php';
 <?php
 	
 // This function takes the form data from place_bid.php and adds it to the database.
-// Still need to work out ways to get the saleItemID and userID. 
+// Still need to get it to submit the userName. 
             
 if (isset($_POST['submit'])) {
             $bidAmount = mysqli_real_escape_string($connection, $_POST['bidAmount']);
             $bidTime = date("Y-m-d H:i:s");
 	          //$userID = mysqli_query($connection, "SELECT 'userID' FROM users WHERE userName = '$loginusername' ") or die('Error...' . mysqli_error());
+            $item_id = $_GET['item_id'];
             
-            
+
             if (empty($bidAmount)) {
                         echo "Please provide a bid amount";}  //Matt 01/11: this checks that something is in bidAmount
-
+            $query = "SELECT MAX(bidAmount) FROM bid WHERE saleItemID = '$item_id' ";
+            $max_bid = mysqli_query($connection,$query) or die('Error making maxBid query' . mysqli_error($connection));
+            if ($bidAmount <= $max_bid) {
+                echo "Please enter an amount above the current leading bid";}
             else {
                         echo '<div class="text-center">Bid placed successfully! <a href=index.php>Back to browse.</a></div>';
-                        $query = "INSERT INTO bid (bidAmount, bidTime) VALUES('$bidAmount','$bidTime')"; 
+                        $query = "INSERT INTO bids (saleItemID, bidAmount, bidTime) VALUES('$item_id','$bidAmount','$bidTime')"; 
 		        if (!mysqli_query($connection, $query)) {
 				die('Error: ' . mysqli_error($connection));}
             } }
