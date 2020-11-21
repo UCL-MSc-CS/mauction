@@ -253,3 +253,40 @@ function removeFromWatchlist(button) {
 
 } // End of addToWatchlist func
 </script>
+<?php endif; ?>
+	    
+<?php if ($now < $end_time): ?>
+<div class="container my-5">
+<div style="max-width: 1000px; margin: 10px auto">
+  <div class="card">
+    <div class="card-body">
+    <div class="bidhistory">
+      <div class="row"> 
+      <div class="col-sm-8"> 
+        <h2 class="my-3">Bid History</h2>
+      </div>
+      </div> 
+    <?php 
+    $query = "SELECT * FROM bid WHERE saleItemID=$item_id";
+    $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
+    echo '<table style="width:70%">
+      <th>Username</th>
+      <th>Bid Time</th>
+      <th>Bid Amount</th>';
+    while ($row = mysqli_fetch_assoc($result)) {
+      $userName = $row["userName"];
+      $bidTime = $row["bidTime"];
+      $bidAmount = $row["bidAmount"];
+    echo '<tr> 
+        <td>'.$userName.' </td>
+        <td>'.$bidTime.' </td>
+        <td>'.$bidAmount.' </td>
+        </tr>';
+    }
+  ?>
+    </div>
+    </div>
+  </div>
+</div>
+</div> 
+<?php endif; ?>
