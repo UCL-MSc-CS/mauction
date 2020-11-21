@@ -2,21 +2,15 @@
 <?php require("utilities.php")?>
 <?php include("connection.php")?>
 
-<?php // Database changes: CHANGED saleitemID to item_id in database!!
-// Altered to endDate in database (no separate time column)
-// dropped commission column, this is calculated here based on the final bid
-// dropped final price, this is calculated here
-// droppped outcome, also not needed
-
-// Timings, bid number, current price all work
+<?php
 
 // current price based on MAX bid, for this to work 
 // most recent bidder must not be allowed to bid lower than the previous bidder (or 0)
 
+// new table has been created to insert data about auction outcomes (see email.php)
 
-//TODO: Sessions. Watchlist. 
-// TODO: sort out utilites function to feed the same information through.
-// TODO: notify specific user that they have won 
+//TODO: Sessions. Bid history. 
+
 
 ?>
 
@@ -28,7 +22,7 @@
   
 	  $query = "SELECT auction.*, MAX(bidAmount), COUNT(bidID) 
 	  FROM auction, bid where auction.saleItemID=$item_id and bid.saleItemID=$item_id";
-      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $result = mysqli_query($connection, $query) or die('Error making select bid and auction query' . mysqli_error($connection));
       $queryRes = mysqli_num_rows($result);
       while ($row = mysqli_fetch_assoc($result)) {
         $item_id = $row['saleItemID'];
@@ -37,7 +31,7 @@
         $description = $row['description'];
 		$reservePrice = $row['reservePrice'];
 		$category = $row['category'];
-		$condition = $row['itemCondition'];
+		$condition = $row['itemCondtion'];
 		$delivery = $row['delivery'];
 		$startPrice = $row['startPrice'];
         $endDate = $row['endDate'];
@@ -45,18 +39,17 @@
 		$num_bids = $row['COUNT(bidID)'];
 	  }
 	     
+	////////////////////////////	 
+	// MAKE SURE: there is entries in the auction table that are current! 
+	//Where end date is past the current day or the bid box will not show up!!
+	/////////////////////////
 
-  // assigned variables.
+
+ // assigned variables.
 
   $end_time = new DateTime($endDate); // creates end time
   $commission = (0.05 * $current_price); // calculates commission from max bid
-  $finalPrice = ($current_price + $commission); //caluculates final price of sold listing
-  
-
-  // TODO: Note: Auctions that have ended may pull a different set of data,
-  //       like whether the auction ended in a sale or was cancelled due
-  //       to lack of high-enough bids. Or maybe not. -- Completed this 
-  
+  $finalPrice = ($current_price - $commission); //caluculates final price of sold listing
   
   
   // Calculate time to auction end:
@@ -70,8 +63,18 @@
   // TODO: If the user has a session, use it to make a query to the database
   //       to determine if the user is already watching this item.
   //       For now, this is hardcoded.
-  $has_session = true;
-  $watching = false;
+  $has_session = "";
+  
+  session_start();
+  if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+	$has_session = true;
+    echo '<a class="nav-link" href="logout.php">Logout</a>';
+	$query = "SELECT * FROM watchlist WHERE userName=$loginuser and saleItemID=$item_id";
+	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+	$queryRes = mysqli_num_rows($result);
+	if (!empty($queryRes)) {
+		  $watching = true;
+  }}
 
 ?>
 
@@ -135,11 +138,11 @@
 	 <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
 	This item was not sold
 	 <?php } else { ?>
-	 This item sold for: £<?php echo number_format($current_price, 2)?>
+	 The winning bid was: £<?php echo number_format($current_price, 2)?> 
 	 <div>
-	 Plus 0.05% commission: £<?php echo number_format($commission, 2)?>
-	 </div>
-	 Total price: £<?php echo number_format($finalPrice, 2)?>
+	 We take 0.05% commission, which works out to £<?php echo number_format($commission, 2)?> on this item
+	 <div>
+	 So, the seller receives: £<?php echo number_format($finalPrice, 2)?>
 	 <?php }
 	 ?>
 	 </div>
@@ -201,7 +204,7 @@ function addToWatchlist(button) {
         // Callback function for when call is successful and returns obj
         console.log("Success");
         var objT = obj.trim();
- 
+		console.log("objT " + objT);
         if (objT == "success") {
           $("#watch_nowatch").hide();
           $("#watch_watching").show();

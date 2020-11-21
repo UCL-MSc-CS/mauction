@@ -1,65 +1,66 @@
 <?php include 'connection.php'; ?>
 <?php include_once("header.php")?>
  <?php 	
-$usernameErr = "";
-$firstNameErr = "";
-$lastNameErr = "";
-$emailErr = "";
-$passwordErr = "";
-$confirmpasswordErr = "";
-$addressLine1Err = "";
-$cityErr = "";
-$countryErr = "";
-$postcodeErr = "";
+ // https://www.w3schools.com/php/php_form_required.asp (reference)
+$usernameError = "";
+$firstNameError = "";
+$lastNameError = "";
+$emailError = "";
+$passwordError = "";
+$confirmpasswordError = "";
+$addressLine1Error = "";
+$cityError = "";
+$countryError = "";
+$postcodeError = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["userName"])) {
-    $usernameErr = ": Username is required";
+    $usernameError = ": Username is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["firstName"])) {
-    $firstNameErr = ": First name is required";
+    $firstNameError = ": First name is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["lastName"])) {
-    $lastNameErr = ": Last name is required";
+    $lastNameError = ": Last name is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["email"])) {
-    $emailErr = ": email is required";
+    $emailError = ": email is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["password"])) {
-    $passwordErr = ": password is required";
+    $passwordError = ": password is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["confirmpassword"])) {
-    $confirmpasswordErr = ": password confirmation is required";
+    $confirmpasswordError = ": password confirmation is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["addressLine1"])) {
-    $addressLine1Err = ": Address Line 1 is required";
+    $addressLine1Error = ": Address Line 1 is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["city"])) {
-    $cityErr = ": city is required";
+    $cityError = ": city is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["country"])) {
-    $countryErr = ": country is required";
+    $countryError = ": country is required";
   }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["postcode"])) {
-    $postcodeErr = ": postcode is required";
+    $postcodeError = ": postcode is required";
   }
 }
 ?>
@@ -89,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="userName" name="userName" placeholder="Enter Your username"/>
 	<small id="usernameHelp" name="userName" class="form-text text-muted"></small>
-	  <span class="text-danger">*Required<?php echo $usernameErr;?></span>
+	  <span class="text-danger">*Required<?php echo $usernameError;?></span>
     </div>
 </div>
 <div class="form-group row">
@@ -97,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter Your First Name"/>
 	<small id="firstNameHelp" name="firstName" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $firstNameErr;?></span>
+	<span class="text-danger">* Required<?php echo $firstNameError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -105,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Your Last Name"/>
 	<small id="lastNameHelp" name="lastName" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $lastNameErr;?></span>
+	<span class="text-danger">* Required<?php echo $lastNameError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -113,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="email" name="email" placeholder="Enter Your email"/>
 	<small id="emailHelp" name="email" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $emailErr;?></span>
+	<span class="text-danger">* Required<?php echo $emailError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -121,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="password" class="form-control" id="password" name="password" placeholder="Enter Your password"/>
 	<small id="passwordHelp" name="password" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $passwordErr;?></span>
+	<span class="text-danger">* Required<?php echo $passwordError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -129,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Your password"/>
 	<small id="confirmpasswordHelp" name="confirmpassword" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $confirmpasswordErr;?></span>
+	<span class="text-danger">* Required<?php echo $confirmpasswordError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -137,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="addressLine1" name="addressLine1" placeholder="Enter Your Address"/>
 	<small id="addressLine1dHelp" name="addressLine1" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $addressLine1Err;?></span>
+	<span class="text-danger">* Required<?php echo $addressLine1Error;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -152,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="city" name="city" placeholder="City"/>
 	<small id="cityHelp" name="city" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $cityErr;?></span>
+	<span class="text-danger">* Required<?php echo $cityError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -167,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="country" name="country" placeholder="Enter Your country"/>
 	<small id="countryHelp" name="country" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $countryErr;?></span>
+	<span class="text-danger">* Required<?php echo $countryError;?></span>
 	</div>
 </div>
 <div class="form-group row">
@@ -175,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="col-sm-10">
 		<input type="text" class="form-control" id="postcode" name="postcode" placeholder="Enter Your postcode"/>
 	<small id="postcodeHelp" name="postcode" class="form-text text-muted"></small>
-	<span class="text-danger">* Required<?php echo $postcodeErr;?></span>
+	<span class="text-danger">* Required<?php echo $postcodeError;?></span>
 	</div>
 </div>
 
@@ -200,21 +201,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$principality = mysqli_real_escape_string($connection, $_POST['principality']);
 	$country = mysqli_real_escape_string($connection, $_POST['country']);
 	$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
-	 
-	if ($password != $confirmpassword) {	// confirms password and password confirmation match
-			echo "Passwords do not match!"; }
+	
+	
+	$query = "SELECT userName FROM user WHERE userName='$userName'";
+	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
+	if (mysqli_num_rows($result) != 0) {
+	die ("Sorry, this username is already taken, please try again"); }
+	
+	
+	if ($_POST['password'] !== $_POST['confirmpassword']) {	// confirms password and password confirmation match
+			die("Passwords do not match! Please try again."); }
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
-			echo "$email is not a valid email address."; }	
+			echo "' $email ' is not a valid email address. Please try again."; }	
 			
 	else {
+		
 	$query = "INSERT INTO user (userName, email, firstName, lastName, country, principality, city, addressLine1, 
 	  addressLine2, postcode, password, accountType) 
                 VALUES ('$userName', '$email', '$firstName', '$lastName', '$country', '$principality', '$city', '$addressLine1', '$addressLine2', '$postcode', SHA('$password'), '$accountType')";
       if (!mysqli_query($connection, $query)) {
-		die('Error: ' . mysqli_error($connection)); }
+		die('Error: Error making insert user query' . mysqli_error($connection)); }
 		else {
 		echo "<script type='text/javascript'> window.location = 'process_registration.php'; </script>";
    }}
+	
 	
   }
 ?>
