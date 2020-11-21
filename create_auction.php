@@ -93,15 +93,8 @@
         <div class="form-group row">
           <label for="auctionEndDate" class="col-sm-2 col-form-label text-right">End date</label>
           <div class="col-sm-10">
-            <input type="date" class="form-control" name="auctionEndDate" id="auctionEndDate">
+            <input type="datetime-local" class="form-control" name="auctionEndDate" id="auctionEndDate">
             <small id="endDateHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Day for the auction to end.</small>
-          </div>
-        </div>
-	<div class="form-group row">
-          <label for="auctionEndTime" class="col-sm-2 col-form-label text-right">End Time</label>
-          <div class="col-sm-10">
-            <input type="time" class="form-control" name="auctionEndTime" id="auctionEndTime" step="2">
-            <small id="endTimeHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Time for the auction to end.</small>
           </div>
         </div>
 	<div class="form-group row">
@@ -127,3 +120,4 @@
 
 
 <?php include_once("footer.php")?>
+
