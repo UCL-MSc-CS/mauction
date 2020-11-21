@@ -1,10 +1,11 @@
 
+
 <?php
 include 'connection.php';
 //include 'login_result.php';
 ?>
 
-<?php include_once("header.php")?>
+<?php //include_once("header.php")?>
 
 <div class="container my-5">
 
@@ -28,14 +29,17 @@ include 'connection.php';
             issue, give some semi-helpful feedback to user. */
             
 if (isset($_POST['submit'])) {
-            $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
+	    $username = 'mattShorvon' ; // hardcoded for now
+            $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']); // this is the itemName
             $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
 	    $condition = mysqli_real_escape_string($connection, $_POST['condition']);
             $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
             $startPrice = mysqli_real_escape_string($connection, $_POST['auctionStartPrice']);
             $reservePrice = mysqli_real_escape_string($connection, $_POST['auctionReservePrice']);
-            $endDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
-	    $endTime = mysqli_real_escape_string($connection, $_POST['auctionEndTime']);
+            $htmlDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
+	    $strDate = strtotime($htmlDate);
+            $endDate = date("Y-m-d H:i:s",$strDate);
+	    //$endTime = mysqli_real_escape_string($connection, $_POST['auctionEndTime']);
 	    $delivery = mysqli_real_escape_string($connection, $_POST['delivery']);
 	    //$userID = mysqli_query($connection, "SELECT 'userID' FROM users WHERE userName = '$loginusername' ") or die('Error...' . mysqli_error());
             
@@ -48,8 +52,6 @@ if (isset($_POST['submit'])) {
 		    echo "Please provide a starting price";}
 	    elseif (empty($endDate)) {
 		    echo "Please provide an end date";}
-	    elseif (empty($endTime)) {
-		    echo "Please provide an end time";}
 	    elseif (empty($condition)) {
 		    echo "Please state the condition of your item";}      //currently on create_auction.php, condition can't be empty so this line doesn't really do anything
 	    elseif (empty($delivery)) {
@@ -61,8 +63,8 @@ if (isset($_POST['submit'])) {
 
             else {
                         echo '<div class="text-center">Auction successfully created! <a href="FIXME">View your new listing.</a></div>';
-                        $query = "INSERT INTO auctions (itemName, startPrice, category, description, endDate, endTime, cond, delivery) VALUES('$auctionTitle','$startPrice','$category',
-			'$description', '$endDate', '$endTime', '$condition', '$delivery')"; 
+                        $query = "INSERT INTO auction (userName, itemName, startPrice, category, description, endDate, itemCondtion, delivery, reservePrice) VALUES('$username','$auctionTitle','$startPrice','$category',
+			'$description', '$endDate', '$condition', '$delivery','$reservePrice')"; 
 		        if (!mysqli_query($connection, $query)) {die('Error: ' . mysqli_error($connection));}
             } }
 ?>
