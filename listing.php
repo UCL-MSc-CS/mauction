@@ -65,12 +65,15 @@
   //       For now, this is hardcoded.
   $has_session = "";
   
-  session_start();
+  ?>
+<?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) : ?>
+
+<?php
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 	$has_session = true;
     echo '<a class="nav-link" href="logout.php">Logout</a>';
 	$query = "SELECT * FROM watchlist WHERE userName=$loginuser and saleItemID=$item_id";
-	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
 	$queryRes = mysqli_num_rows($result);
 	if (!empty($queryRes)) {
 		  $watching = true;
@@ -183,7 +186,7 @@
     </form>
 <?php endif ?>
 
-  
+<?php endif ?>  
   </div> <!-- End of right col with bidding info -->
 
 </div> <!-- End of row #2 -->
