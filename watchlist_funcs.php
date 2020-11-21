@@ -1,6 +1,6 @@
 <?php include("connection.php") ?>
  <?php
-  $userID = 2;
+  $userName = "erinuclkwon";
   $item_id = array_pop(array_reverse($_POST['arguments']));
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
@@ -11,14 +11,14 @@
 
   if ($_POST['functionname'] == "add_to_watchlist") {
     // TODO: Update database and return success/failure.
-    $query = "INSERT INTO watchlist (userID, saleItemID) VALUES ('$userID','$item_id')";
+    $query = "INSERT INTO watchlist (userName, saleItemID) VALUES ('$userName','$item_id')";
     if (!mysqli_query($connection, $query)) {
       die('Error: ' . mysqli_error($connection));
     }
     $res = "success";
   } else if ($_POST['functionname'] == "remove_from_watchlist") {
     // TODO: Update database and return success/failure.
-    $query = "DELETE FROM watchlist WHERE userID = '$userID' AND saleItemID = '$item_id'";
+    $query = "DELETE FROM watchlist WHERE userName = '$userName' AND saleItemID = '$item_id'";
     if (!mysqli_query($connection, $query)) {
       die('Error: ' . mysqli_error($connection));
     }

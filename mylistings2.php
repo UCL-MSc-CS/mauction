@@ -31,12 +31,12 @@ include 'connection.php';
 	// also your database may need to only have a single endDate column as DATETIME type, rather than split into 2, but we can look at this on Sunday :) :) :)
 	
 	
-    $listingquery = "SELECT MAX(bidAmount), COUNT(bidID), auctions.*
-	  FROM auctions, bids WHERE auctions.item_id= '1' and bids.item_id= '1' ORDER BY itemName ASC"; // need to add WHERE userID IN (SELECT userID WHERE userName = '$listusername' AND password = '$listpassword'FROM users)
+    $listingquery = "SELECT MAX(bidAmount), COUNT(bidID), auction.*
+	  FROM auction, bid WHERE auction.saleItemID= '1' and bid.saleItemID= '1' ORDER BY itemName ASC"; // need to add WHERE userID IN (SELECT userID WHERE userName = '$listusername' AND password = '$listpassword'FROM users)
     $listresult = mysqli_query($connection, $listingquery) or die('Error selecting user query' . mysqli_error());
     $listqueryRes = mysqli_num_rows($listresult);
     while ($listrow = mysqli_fetch_assoc($listresult)) {
-      $listitem_id = $listrow['userID'];
+      $listitem_id = $listrow['saleItemID'];
       $listtitle = $listrow['itemName'];
       $listdescription = $listrow['description'];
       $listcurrent_price = $listrow['MAX(bidAmount)'];
@@ -44,12 +44,6 @@ include 'connection.php';
       $listend_date = $listrow['endDate'];
     }
     print_listing_li($listitem_id, $listtitle, $listdescription, $listcurrent_price, $listnum_bids, $listend_date);
-		
-  // TODO: Check user's credentials (cookie/session).
-  
-  // TODO: Perform a query to pull up their auctions. 95%DONE
-  
-  // TODO: Loop through results and print them out as list items. DONE
   
 ?>
 

@@ -44,7 +44,7 @@
   <!-- Custom CSS file -->
   <link rel="stylesheet" href="css/custom.css">
 
-  <title>MAUCTION</title>
+  <title>mAuction</title>
 </head>
 
 
@@ -60,14 +60,14 @@
 if(isset($_POST['submit'])){
     $loginusername = mysqli_real_escape_string($connection, $_POST['username']);
     $loginpassword = mysqli_real_escape_string($connection, $_POST['password']); 
-    $loginstatuscheck = "SELECT status FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'";
+    $loginstatuscheck = "SELECT accountType FROM user WHERE userName = '$loginusername' AND password = '$loginpassword'";
     $logintype = mysqli_query($connection, $loginstatuscheck) or die('Error...' . mysqli_error());
     $loginaccount_type = mysqli_fetch_array($logintype);
-    $loginstatus = $loginaccount_type['status'];
+    $loginstatus = $loginaccount_type['accountType'];
 
     if($loginusername != '' && $loginpassword != ''){
         
-        $loginquery = "SELECT * FROM users WHERE userName = '$loginusername' AND password = '$loginpassword'";
+        $loginquery = "SELECT * FROM user WHERE userName = '$loginusername' AND password = '$loginpassword'";
         $loginresult = mysqli_query($connection,$loginquery) or die('Error...' . mysqli_error());
         $loginrow = mysqli_fetch_array($loginresult);
         
@@ -76,11 +76,9 @@ if(isset($_POST['submit'])){
 
 if (isset($loginrow)){
   $loginuser = $loginrow['userName'];
-  $loginuserID = $loginrow['userID'];
   session_start();
   $_SESSION['logged_in'] = true;
   $_SESSION['username'] = $loginuser;
-  $_SESSION ['userID'] = $loginuserID;
   $_SESSION['account_type'] = $loginstatus;
 }
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
