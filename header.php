@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!-- Login modal -->
 <div class="modal fade" id="loginModal">
   <div class="modal-dialog">
@@ -30,7 +34,6 @@
 
 
 
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -57,32 +60,39 @@
     <li class="nav-item">
 
 <?php
+
 if(isset($_POST['submit'])){
     $loginusername = mysqli_real_escape_string($connection, $_POST['username']);
     $loginpassword = mysqli_real_escape_string($connection, $_POST['password']); 
-    $loginstatuscheck = "SELECT accountType FROM user WHERE userName = '$loginusername' AND password = '$loginpassword'";
+    $loginstatuscheck = "SELECT accountType FROM user WHERE userName = '$loginusername' AND password = SHA('$loginpassword')";
     $logintype = mysqli_query($connection, $loginstatuscheck) or die('Error...' . mysqli_error());
     $loginaccount_type = mysqli_fetch_array($logintype);
     $loginstatus = $loginaccount_type['accountType'];
 
     if($loginusername != '' && $loginpassword != ''){
         
-        $loginquery = "SELECT * FROM user WHERE userName = '$loginusername' AND password = '$loginpassword'";
+        $loginquery = "SELECT * FROM user WHERE userName = '$loginusername' AND password = SHA('$loginpassword')";
         $loginresult = mysqli_query($connection,$loginquery) or die('Error...' . mysqli_error());
         $loginrow = mysqli_fetch_array($loginresult);
         
+        if (isset($loginrow)){
+          $loginuser = $loginrow['userName'];
+          $_SESSION['logged_in'] = true;
+          $_SESSION['username'] = $loginuser;
+          $_SESSION['account_type'] = $loginstatus;
+        }  
     }
+    
 }
+// echo $_SESSION['logged_in'];
+// echo $_SESSION['account_type'];
 
-if (isset($loginrow)){
-  $loginuser = $loginrow['userName'];
-  session_start();
-  $_SESSION['logged_in'] = true;
-  $_SESSION['username'] = $loginuser;
-  $_SESSION['account_type'] = $loginstatus;
-}
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-  echo '<a class="nav-link" href="logout.php">Logout</a>';
+          // echo $_SESSION['username'];
+          // echo $_SESSION['account_type'];
+    echo '<a class="nav-link" href="logout.php">Logout</a>';
+
+
 }
 else {
   echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';

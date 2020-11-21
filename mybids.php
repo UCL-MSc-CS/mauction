@@ -15,12 +15,13 @@ include 'connection.php';
   // Feel free to extract out useful functions from browse.php and put them in
   // the shared "utilities.php" where they can be shared by multiple files.
 
-  session_start();
+  // session_start();
+  $bidssusername = $_SESSION['username'];
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
       echo '<a class="nav-link" href="logout.php">Logout</a>';
       $bidquery = "SELECT auction.*, bid.* 
                        FROM auction, bid 
-                       WHERE bid.saleItemID = auction.saleItemID AND bid.userName = 'erinuclkwon' ORDER BY bidAmount ASC";//fixed the uerID reference issue (undefined variable)
+                       WHERE bid.saleItemID = auction.saleItemID AND bid.userName = '$bidssusername' ORDER BY bidAmount ASC";//fixed the uerID reference issue (undefined variable)
       $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
       while ($bidrow = mysqli_fetch_assoc($bidresult)) {
         $bidid = $bidrow['bidID'];
