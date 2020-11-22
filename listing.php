@@ -70,9 +70,11 @@
 
 <?php
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+  $user = $_SESSION['username'];
+  $watching = false;
 	$has_session = true;
     echo '<a class="nav-link" href="logout.php">Logout</a>';
-	$query = "SELECT * FROM watchlist WHERE userName=$loginuser and saleItemID=$item_id";
+	$query = "SELECT * FROM watchlist WHERE userName='$user' and saleItemID='$item_id'";
 	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
 	$queryRes = mysqli_num_rows($result);
 	if (!empty($queryRes)) {
@@ -206,7 +208,7 @@ function addToWatchlist(button) {
   // Sends item ID as an argument to that function.
   $.ajax('watchlist_funcs.php', {
     type: "POST",
-    data: {functionname: 'add_to_watchlist', arguments: [<?php echo($item_id);?>]},
+    data: {functionname: 'add_to_watchlist', arguments: [<?php echo($item_id);?>], user: [<?php echo($user);?>]},
 
     success: 
       function (obj, textstatus) {
@@ -291,7 +293,7 @@ function removeFromWatchlist(button) {
     echo '<tr> 
         <td>'.$userName.' </td>
         <td>'.$bidTime.' </td>
-        <td>'.$bidAmount.' </td>
+        <td>£'.number_format($bidAmount).' </td>
         </tr>';
     }
   ?>
