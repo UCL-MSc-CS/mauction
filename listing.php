@@ -70,9 +70,11 @@
 
 <?php
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+  $user = $_SESSION['username'];
+  $watching = false;
 	$has_session = true;
     echo '<a class="nav-link" href="logout.php">Logout</a>';
-	$query = "SELECT * FROM watchlist WHERE userName=$loginuser and saleItemID=$item_id";
+	$query = "SELECT * FROM watchlist WHERE userName='$user' and saleItemID='$item_id'";
 	$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
 	$queryRes = mysqli_num_rows($result);
 	if (!empty($queryRes)) {
