@@ -1,8 +1,10 @@
 <?php include("connection.php") ?>
 
  <?php
-  $userName = "erinuclkwon";
+  // $userName = "erinuclkwon";
   $array = $_POST['arguments'];
+  $array2 = $_POST['user'];
+  $userName = $array2[0];
   $item_id = $array[0];
   // $item_id = array_pop(array_reverse($_POST['arguments']));
   // $item_id = $_POST['arguments'];
