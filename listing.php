@@ -293,7 +293,7 @@ function removeFromWatchlist(button) {
     echo '<tr> 
         <td>'.$userName.' </td>
         <td>'.$bidTime.' </td>
-        <td>'.$bidAmount.' </td>
+        <td>£'.number_format($bidAmount).' </td>
         </tr>';
     }
   ?>
