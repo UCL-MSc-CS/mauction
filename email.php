@@ -154,8 +154,6 @@ Refresh to send outcome to database and email results
 
 <?php
 
-// $now = new DateTime("now");
-// echo $now;
 
 $query = "SELECT * FROM auction WHERE endDate < NOW()";
 $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
@@ -173,16 +171,26 @@ $result2 = mysqli_query($connection, $query2) or die('Error making select users 
 		  $end_bid = $row2['MAX(bidAmount)'];	
 			
 if ($end_bid == '') {	
+	$query3 = "SELECT * FROM outcome WHERE saleItemID=$saleItemID";
+	$result3 = mysqli_query($connection, $query3) or die('Error making select outcome query' . mysqli_error($connection));
+	$row3 = mysqli_fetch_assoc($result3);
+	
+	if ($row3['saleItemID'] != $saleItemID) {
 $query4 = "INSERT INTO outcome (saleItemID, sold, end_bid, seller_username, buyer_username) 
 	VALUES ('$saleItemID', '0', '0.0', '$seller_username', '')";
 	if (!mysqli_query($connection, $query4)) {die('Error: making insert into outcome query' . mysqli_error($connection)); }
-}
+}}
 
 else {	
+	$query3 = "SELECT * FROM outcome WHERE saleItemID=$saleItemID";
+	$result3 = mysqli_query($connection, $query3) or die('Error making select outcome query' . mysqli_error($connection));
+	$row3 = mysqli_fetch_assoc($result3);
+	if ($row3['saleItemID'] != $saleItemID) {
+
 $query5 = "INSERT INTO outcome (saleItemID, sold, end_bid, seller_username, buyer_username) 
 	VALUES ('$saleItemID', '1', '$end_bid', '$seller_username', '$buyer_username')";
 	if (!mysqli_query($connection, $query5)) {die('Error: making insert into outcome query' . mysqli_error($connection)); }
-}
+}}
 	  
 
 
