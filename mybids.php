@@ -18,29 +18,6 @@ include 'connection.php';
   // session_start();
   $bidssusername = $_SESSION['username'];
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-<<<<<<< HEAD
-      echo '<a class="nav-link" href="logout.php">Logout</a>';
-      $bidquery = "SELECT auction.*, bid.* 
-                       FROM auction, bid 
-                       WHERE bid.saleItemID = auction.saleItemID AND bid.userName = '$bidssusername' GROUP BY auction.saleItemID";//fixed the uerID reference issue (undefined variable)
-      $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
-      // $bidsecondquery = "SELECT MAX(bidAmount), COUNT(bidID)
-      //                   FROM bid WHERE";
-      while ($bidrow = mysqli_fetch_assoc($bidresult)) {
-        $bidid = $bidrow['bidID'];
-        $biduser_id = $bidrow['userName'];
-        $biditem_id = $bidrow['saleItemID'];
-        $bidamount = $bidrow['bidAmount'];
-        $biditem_name = $bidrow['itemName'];
-        $biddescription = $bidrow['description'];
-        $bidcurrent_price = $bidrow['startPrice'];
-        $bidend_date = $bidrow['endDate'];
-        print_listing_li($bidid, $biduser_id, $biditem_id, $bidamount, $biditem_name, $biddescription, $bidcurrent_price, $bidend_date);
-      }
-  }
-  
-  else {
-=======
     $bidquery = "SELECT auction.*, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid 
                        WHERE bid.saleItemID = auction.saleItemID GROUP BY auction.saleItemID, auction.itemName, auction.userName, auction.category, auction.startPrice, auction.description, auction.reservePrice, auction.endDate, auction.delivery, auction.itemCondtion"; //fixed the uerID reference issue (undefined variable)
     $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
@@ -60,7 +37,6 @@ include 'connection.php';
       print_listing_li($biditem_id, $biditem_name, $biddescription, $bidcurrent_price, $num_bids, $bidend_date);
     }
   } else {
->>>>>>> 88d1e5d6fd899f4694e830ce6aee818f8c55cfd6
     echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';
   }
 
