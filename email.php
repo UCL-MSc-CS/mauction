@@ -13,63 +13,67 @@ Refresh to send outcome to database and email results
 <?php
 //// Assign variables:
 
-	  $query = "SELECT auction.*
-	  FROM auction
-	  WHERE saleItemID='6' ";
-      $result = mysqli_query($connection, $query) or die('Error making select auction query' . mysqli_error($connection));
-      $queryRes = mysqli_num_rows($result);
-      while ($row = mysqli_fetch_assoc($result)) {
-        // $saleItemID = $row['saleItemID'];
-		$seller_username = $row['userName'];	
-        $itemName = $row['itemName'];
-		$reservePrice = $row['reservePrice'];
-        $endDate = $row['endDate'];
-	  }
+	  // $query = "SELECT DISTINCT(saleItemID), userName, itemName, reservePrice, endDate
+	  // FROM auction ";
+      // $result = mysqli_query($connection, $query) or die('Error making select auction query' . mysqli_error($connection));
+      // $queryRes = mysqli_num_rows($result);
+      // while ($row = mysqli_fetch_assoc($result)) {
+        // // $saleItemID = $row['saleItemID'];
+		// $seller_username = $row['userName'];	
+        // $itemName = $row['itemName'];
+		// $reservePrice = $row['reservePrice'];
+        // $endDate = $row['endDate'];
+	  // }
 	  
-	  $query = "SELECT MAX(bidAmount), saleItemID
-	  FROM bid
-	  WHERE saleItemID='6' ";
-      $result = mysqli_query($connection, $query) or die('Error making select bid query' . mysqli_error($connection));
-      $queryRes = mysqli_num_rows($result);
-      while ($row = mysqli_fetch_assoc($result)) {
-        $saleItemID = $row['saleItemID'];
-		$end_bid = $row['MAX(bidAmount)'];
+	  // $query = "SELECT MAX(bidAmount), saleItemID
+	  // FROM bid GROUP BY saleItemID";
+      // $result = mysqli_query($connection, $query) or die('Error making select bid query' . mysqli_error($connection));
+      // $queryRes = mysqli_num_rows($result);
+      // while ($row = mysqli_fetch_assoc($result)) {
+        // $saleItemID = $row['saleItemID'];
+		// $end_bid = $row['MAX(bidAmount)'];
 
-	  }
+	  // }
 	
-	$query = "SELECT userName
-	  FROM bid 
-	  WHERE bidAmount= $end_bid and 
-	  saleItemID=$saleItemID ";
-      $result = mysqli_query($connection, $query) or die('Error making select bid query' . mysqli_error($connection));
-      $queryRes = mysqli_num_rows($result);
-      while ($row = mysqli_fetch_assoc($result)) {
-		$buyer_username = $row['userName'];
-	  }
+	// $query = "SELECT userName
+	  // FROM bid 
+	  // WHERE bidAmount= $end_bid and 
+	  // saleItemID=$saleItemID ";
+      // $result = mysqli_query($connection, $query) or die('Error making select bid query' . mysqli_error($connection));
+      // $queryRes = mysqli_num_rows($result);
+      // while ($row = mysqli_fetch_assoc($result)) {
+		// $buyer_username = $row['userName'];
+	  // }
 
-$now = new DateTime("now");
-$end_time = new DateTime($endDate);
-$commission = (0.05 * $end_bid); 
-$finalPrice = ($end_bid - $commission);
+// $now = new DateTime("now");
+// $end_time = new DateTime($endDate);
+// $commission = (0.05 * $end_bid); 
+// $finalPrice = ($end_bid - $commission);
 
-	if ($finalPrice > $reservePrice) {
-		$sold = True;}
-	else { 
-		$sold = False;}
+	// if ($finalPrice > $reservePrice) {
+		// $sold = True;}
+	// else { 
+		// $sold = False;}
 
-// query to send results to outcome table, only sends once per sale item to avoid duplicates
+// // query to send results to outcome table, only sends once per sale item to avoid duplicates
 
-	if ($now > $end_time) {
+	// if ($now > $end_time) {
+	// $query2 = "SELECT DISTINCT(saleItemID) AS items FROM auction";
+	// $result2 = mysqli_query($connection, $query2) or die('Error making select bid query' . mysqli_error($connection));
+      // $queryRes2 = mysqli_num_rows($result2);
+      // while ($row2 = mysqli_fetch_assoc($result2)) {
+		// $items = $row2['items'];	
+		  
 	
-	$query = "SELECT * FROM outcome WHERE saleItemID=$saleItemID";
-	$result = mysqli_query($connection, $query) or die('Error making select outcome query' . mysqli_error($connection));
+	// $query3 = "SELECT * FROM outcome WHERE saleItemID=$items";
+	// $result3 = mysqli_query($connection, $query3) or die('Error making select outcome query' . mysqli_error($connection));
 	
-	if (mysqli_num_rows($result) <= 0) {
-	$query = "INSERT INTO outcome (saleItemID, sold, end_bid, commission, finalPrice, seller_username, buyer_username) 
-	VALUES ('$saleItemID', '$sold', '$end_bid', '$commission', '$finalPrice', '$seller_username', '$buyer_username')";
-	if (!mysqli_query($connection, $query)) {die('Error: making insert into outcome query' . mysqli_error($connection)); }
-	}
-}
+	// if (mysqli_num_rows($result3) <= 0) {
+	// $query4 = "INSERT INTO outcome (saleItemID, sold, end_bid, commission, finalPrice, seller_username, buyer_username) 
+	// VALUES ('$saleItemID', '$sold', '$end_bid', '$commission', '$finalPrice', '$seller_username', '$buyer_username')";
+	// if (!mysqli_query($connection, $query4)) {die('Error: making insert into outcome query' . mysqli_error($connection)); }
+	  // }}
+// }
 
 // // seller email
 // // if sold
@@ -145,6 +149,44 @@ $finalPrice = ($end_bid - $commission);
 // mail( $to, $subject, $message, implode( '\r\n', $headers ) );
 // }
 	
+	
+?>
+
+<?php
+
+// $now = new DateTime("now");
+// echo $now;
+
+$query = "SELECT * FROM auction WHERE endDate < NOW()";
+$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+		  $saleItemID = $row['saleItemID'];
+		  $seller_username = $row['userName'];
+		  
+
+$query2 = "SELECT MAX(bidAmount), userName FROM bid WHERE saleItemID = '$saleItemID' GROUP BY userName";
+$result2 = mysqli_query($connection, $query2) or die('Error making select users query' . mysqli_error($connection));
+      $queryRes2 = mysqli_num_rows($result2);
+      $row2 = mysqli_fetch_assoc($result2);
+		  $buyer_username = $row2['userName'];
+		  $end_bid = $row2['MAX(bidAmount)'];	
+			
+if ($end_bid == '') {	
+$query4 = "INSERT INTO outcome (saleItemID, sold, end_bid, seller_username, buyer_username) 
+	VALUES ('$saleItemID', '0', '0.0', '$seller_username', '')";
+	if (!mysqli_query($connection, $query4)) {die('Error: making insert into outcome query' . mysqli_error($connection)); }
+}
+
+else {	
+$query5 = "INSERT INTO outcome (saleItemID, sold, end_bid, seller_username, buyer_username) 
+	VALUES ('$saleItemID', '1', '$end_bid', '$seller_username', '$buyer_username')";
+	if (!mysqli_query($connection, $query5)) {die('Error: making insert into outcome query' . mysqli_error($connection)); }
+}
+	  
+
+
+	  }
 ?>
 <?php include_once("footer.php")?>
 		
