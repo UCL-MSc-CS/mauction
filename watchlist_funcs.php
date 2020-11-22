@@ -2,7 +2,9 @@
 
  <?php
   $userName = "erinuclkwon";
-  $item_id = array_pop(array_reverse($_POST['arguments']));
+  $array = $_POST['arguments'];
+  $item_id = $array[0];
+  // $item_id = array_pop(array_reverse($_POST['arguments']));
   // $item_id = $_POST['arguments'];
   // $item_id = 10;
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
