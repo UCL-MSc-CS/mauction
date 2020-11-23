@@ -18,8 +18,12 @@ include 'connection.php';
   // session_start();
   $bidssusername = $_SESSION['username'];
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-    $bidquery = "SELECT auction.*, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid 
-                       WHERE bid.saleItemID = auction.saleItemID GROUP BY auction.saleItemID, auction.itemName, auction.userName, auction.category, auction.startPrice, auction.description, auction.reservePrice, auction.endDate, auction.delivery, auction.itemCondtion"; //fixed the uerID reference issue (undefined variable)
+    $bidquery = "SELECT auction.saleItemID, auction.itemName, auction.category, auction.description, auction.endDate, 
+    auction.userName AS seller, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid
+    FROM auction, bid
+    WHERE auction.saleItemID IN (SELECT saleItemID FROM bid WHERE userName = '$bidssusername') 
+        AND auction.saleItemID = bid.saleItemID
+    GROUP BY auction.saleItemID";
     $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
     if (empty($bidrow)) {
       echo "Your bid history is empty.";
