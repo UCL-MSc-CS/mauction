@@ -9,14 +9,7 @@ include 'connection.php';
   <h2 class="my-3">Recommendations for you</h2>
 
   <?php
-  $userName = 'erinuclkwon';
-  $bidQuery = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
-  $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
-  $bidQueryRes = mysqli_num_rows($bidResult);
-  $arr = array();
-  while ($bidRow = mysqli_fetch_assoc($bidResult)) {
-    $arr . array_push($arr, $bidRow);
-  }
+  $userName = 2;
   $query = "SELECT * FROM bid WHERE userName = '$userName'";
   $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
   $queryRes = mysqli_num_rows($result);
@@ -50,14 +43,9 @@ include 'connection.php';
         $description = $row3['description'];
         $current_price = $row3['startPrice'];
         // $num_bids = $row3['commission'];
-        $num_bids = 0;
+        $num_bids = 2;
         $end_date = $row3['endDate'];
-        for ($y = 0; $y <= count($arr) - 1; $y++) {
-          if ($saleItemID == $arr[$y]['saleItemID']) {
-            $current_price = $arr[$y]['maxBid'];
-            $num_bids = $arr[$y]['countBid'];
-          }
-        }
+        // This uses a function defined in utilities.php
         if (!in_array("$saleItemID", $title)) {
           print_listing_li($item_id, $title3, $description, $current_price, $num_bids, $end_date);
         }

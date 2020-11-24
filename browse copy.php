@@ -9,20 +9,30 @@ include 'connection.php';
     $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
     $cat = mysqli_real_escape_string($connection, $_GET['cat']);
     $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+    // Retrieve these from the URL
     if ($keyword == "") {
+      // TODO: Define behavior if a keyword has not been specified.
       $keyworderror = "Please enter a search keyword.";
     }
     if ($cat == "none") {
+      // TODO: Define behavior if a category has not been specified.
       $caterror = "Please enter a search category.";
     }
     if ($order_by == "none") {
+      // TODO: Define behavior if an order_by value has not been specified.
       $order_byerror = "Please enter a search sort by.";
     }
   }
+  /* TODO: Use above values to construct a query. Use this query to 
+     retrieve data from the database. (If there is no form data entered,
+     decide on appropriate default value/default query to make. */
   ?>
   <h2 class="my-3">Browse listings</h2>
 
   <div id="searchSpecs">
+    <!-- When this form is submitted, this PHP page is what processes it.
+     Search/sort specs are passed to this page through parameters in the URL
+     (GET method of passing data to a page). -->
     <form method="get">
       <div class="row">
         <div class="col-md-5 pr-0">
@@ -51,6 +61,7 @@ include 'connection.php';
             <select class="form-control" id="cat" name="cat">
               <option selected value="none">Category</option>
               <option value="All Categories">All Categories</option>
+              <!-- Matt 01/11: This is where we can add our own category names -->
               <option value="Health">Health</option>
               <option value="Mental Wellbeing">Mental Wellbeing</option>
               <option value="Home Decor">Home Decor</option>
@@ -87,39 +98,30 @@ include 'connection.php';
         </div>
       </div>
     </form>
-  </div>
+  </div> <!-- end search specs bar -->
 
 </div>
 
 <div class="container mt-5">
 
+  <!-- TODO: If result set is empty, print an informative message. Otherwise... -->
+
   <ul class="list-group">
 
     <?php
     if (!isset($_GET['search'])) {
-      $bidQuery = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
-      $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
-      $bidQueryRes = mysqli_num_rows($bidResult);
-      $arr = array();
-      while ($bidRow = mysqli_fetch_assoc($bidResult)) {
-        $arr . array_push($arr, $bidRow);
-      }
-      $auctionQuery = "SELECT * FROM auction ORDER BY itemName ASC";
-      $auctionResult = mysqli_query($connection, $auctionQuery) or die('Error making select users query' . mysqli_error());
-      $auctionQueryRes = mysqli_num_rows($auctionResult);
-      while ($auctionRow = mysqli_fetch_assoc($auctionResult)) {
-        $item_id = $auctionRow['saleItemID'];
-        $current_price = $auctionRow['startPrice'];
-        $title = $auctionRow['itemName'];
-        $description = $auctionRow['description'];
-        $num_bids = 0;
-        $end_date = $auctionRow['endDate'];
-        for ($x = 0; $x <= count($arr) - 1; $x++) {
-          if ($item_id == $arr[$x]['saleItemID']) {
-            $current_price = $arr[$x]['maxBid'];
-            $num_bids = $arr[$x]['countBid'];
-          }
-        }
+      $query = "SELECT * FROM auction ORDER BY itemName ASC";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $item_id = $row['saleItemID'];
+        $title = $row['itemName'];
+        $description = $row['description'];
+        $current_price = $row['startPrice'];
+        // $num_bids = $row['commission'];
+        $num_bids = 2;
+        $end_date = $row['endDate'];
+        // This uses a function defined in utilities.php
         print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
       }
     }
@@ -129,17 +131,20 @@ include 'connection.php';
       $curr_page = $_GET['page'];
     }
     global $max_page;
-    $num_results = $auctionQueryRes;
+    $num_results = $queryRes; // TODO: Calculate me for real
     $results_per_page = 2;
     $max_page = ceil($num_results / $results_per_page);
     if (isset($_GET['search'])) {
       $keyword = mysqli_real_escape_string($connection, $_GET['keyword']);
       $cat = mysqli_real_escape_string($connection, $_GET['cat']);
       $order_by = mysqli_real_escape_string($connection, $_GET['order_by']);
+      // Retrieve these from the URL
       if (($keyword != "") && ($cat != "none") && ($order_by != "none")) {
+        // TODO: Define behavior if a keyword has not been specified.
         searchKey($connection, $keyword, $cat, $order_by);
       }
     }
+    // TODO: Use a while loop to print a list item for each auction listing retrieved from the query
     function searchKey($connection, $keyword, $cat, $order_by)
     {
       if ($cat == "All Categories") {
@@ -154,36 +159,28 @@ include 'connection.php';
       } else {
         $queryorder = " ORDER BY endDate DESC";
       }
-      $bidQuery2 = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
-      $bidResult2 = mysqli_query($connection, $bidQuery2) or die('Error making select users query' . mysqli_error());
-      $bidQueryRes2 = mysqli_num_rows($bidResult2);
-      $arr2 = array();
-      while ($bidRow2 = mysqli_fetch_assoc($bidResult2)) {
-        $arr2 . array_push($arr2, $bidRow2);
-      }
-      $auctionQuery2 = "SELECT * FROM auction WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
-      $auctionResult2 = mysqli_query($connection, $auctionQuery2) or die('Error making select users query' . mysqli_error());
-      $auctionQueryRes2 = mysqli_num_rows($auctionResult2);
-      if ($auctionQueryRes2 == 0) {
+
+      $query = "SELECT * FROM auction WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryRes = mysqli_num_rows($result);
+      if ($queryRes == 0) {
         echo ('<div class="error" style="color: red">Sorry, no results.</div>');
       } else {
-        while ($auctionRow2 = mysqli_fetch_assoc($auctionResult2)) {
-          $item_id2 = $auctionRow2['saleItemID'];
-          $current_price2 = $auctionRow2['startPrice'];
-          $title2 = $auctionRow2['itemName'];
-          $description2 = $auctionRow2['description'];
-          $num_bids2 = 0;
-          $end_date2 = $auctionRow2['endDate'];
-          for ($x = 0; $x <= count($arr2) - 1; $x++) {
-            if ($item_id2 == $arr2[$x]['saleItemID']) {
-              $current_price2 = $arr2[$x]['maxBid'];
-              $num_bids2 = $arr2[$x]['countBid'];
-            }
-          }
-          print_listing_li($item_id2, $title2, $description2, $current_price2, $num_bids2, $end_date2);
+        while ($row = mysqli_fetch_assoc($result)) {
+          $item_id = $row['saleItemID'];
+          $title = $row['itemName'];
+          $description = $row['description'];
+          $current_price = $row['startPrice'];
+          // $num_bids = $row['commission'];
+          $num_bids = 2;
+          $end_date = $row['endDate'];
+          // This uses a function defined in utilities.php
+          print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
         }
+        /* For the purposes of pagination, it would also be helpful to know the
+              total number of results that satisfy the above query */
         global $max_page;
-        $num_results = $auctionQueryRes2;
+        $num_results = $queryRes; // TODO: Calculate me for real
         $results_per_page = 2;
         $max_page = ceil($num_results / $results_per_page);
       }
@@ -191,11 +188,13 @@ include 'connection.php';
     ?>
   </ul>
 
+  <!-- Pagination for results listings -->
   <nav aria-label="Search results pages" class="mt-5">
     <ul class="pagination justify-content-center">
 
       <?php
 
+      // Copy any currently-set GET variables to the URL.
       $querystring = "";
       foreach ($_GET as $key => $value) {
         if ($key != "page") {
@@ -208,6 +207,7 @@ include 'connection.php';
       $low_page = max(1, $curr_page - 2 - $low_page_boost);
       $high_page = min($max_page, $curr_page + 2 + $high_page_boost);
 
+      // Puts a <- arrow all the way on the right when you're not on the first page
       if ($curr_page != 1) {
         echo ('
     <li class="page-item">
@@ -220,17 +220,24 @@ include 'connection.php';
 
       for ($i = $low_page; $i <= $high_page; $i++) {
         if ($i == $curr_page) {
+          // Highlight the link
+          // Makes sure the page you are on is highlighted
           echo ('
     <li class="page-item active">');
         } else {
+          // Non-highlighted link
+          // Makes sure the not-current page number is not highlighted
           echo ('
     <li class="page-item">');
         }
+        // Do this in any case
+        // Displays the total range of page numbers
         echo ('
       <a class="page-link" href="browse.php?' . $querystring . 'page=' . $i . '">' . $i . '</a>
     </li>');
       }
 
+      // The very left arrow when we're not on the last page
       if ($curr_page != $max_page) {
         echo ('
     <li class="page-item">
@@ -245,6 +252,9 @@ include 'connection.php';
     </ul>
   </nav>
 
+
 </div>
+
+
 
 <?php include_once("footer.php") ?>

@@ -107,5 +107,17 @@ VALUES ("mattShorvon",1,1000007);
 INSERT INTO bid (userName, saleItemID, bidAmount)
 VALUES ("erinuclkwon",1,1000008);
 
+INSERT INTO bid (userName, saleItemID, bidAmount)
+VALUES ("erinuclkwon",2,8);
+
+INSERT INTO bid (userName, saleItemID, bidAmount)
+VALUES ("erinuclkwon",4,4);
+
+INSERT INTO bid (userName, saleItemID, bidAmount)
+VALUES ("mattShorvon",6,11);
+
+INSERT INTO bid (userName, saleItemID, bidAmount)
+VALUES ("erinuclkwon",7,101);
+
 INSERT INTO watchlist (userName, saleItemID)
 VALUES ("AriannaBourke",1);
