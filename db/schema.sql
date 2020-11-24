@@ -37,7 +37,7 @@ description VARCHAR(300) NOT NULL,
 reservePrice DECIMAL NULL, 
 endDate DATETIME NOT NULL, 
 delivery VARCHAR(20) NOT NULL, 
-itemCondtion VARCHAR(30) NOT NULL, 
+itemCondition VARCHAR(30) NOT NULL, 
 PRIMARY KEY (saleItemID))
 ENGINE = InnoDB; 
              
@@ -62,25 +62,25 @@ VALUES ("mattShorvon", "matthew.shorvon.20@ucl.ac.uk", "Matthew", "Shorvon", "UK
 INSERT INTO user (userName, email, firstName, lastName, country, city, addressLine1, postcode, password, accountType)
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", "Santa Ana", "1 Memory Lane", "90210", SHA("1234"), 'seller');
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("Vaccine", "cecrandell", "Health", 1000000, "COVID-19 Cure", 10000000, '21-4-21', "Post", "New");
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("Vase", "cecrandell", "Home Decor", 10, "Perfect for flowers", 10000000, '21-7-21', "Post", "New");
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("New President", "cecrandell", "Mental Wellbeing", 2020, "Harris2020", 10000000, '10-8-21', "Post", "New");
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("Bowl", "AriannaBourke", "Home Decor", 3, "Perfect for ice cream", 10000000, '21-9-21', "Post", "New");
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("M&Ms", "AriannaBourke", "Mental Wellbeing", 1, "Perfect for post-graduate students", 10000000, '10-10-21', "Post", "New");
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("Toothpaste", "AriannaBourke", "Health", 10, "For clenched teeth", 1000, '09-10-21', "Post", "New");
 
-INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondtion)
+INSERT INTO auction (itemName, userName, category, startPrice, description, reservePrice, endDate, delivery, itemCondition)
 VALUES ("Toothpaste", "AriannaBourke", "Health", 100, "For sensitive teeth", 10000000, '09-10-21', "Post", "New");
 
 INSERT INTO bid (userName, saleItemID, bidAmount)
@@ -120,4 +120,4 @@ INSERT INTO bid (userName, saleItemID, bidAmount)
 VALUES ("erinuclkwon",7,101);
 
 INSERT INTO watchlist (userName, saleItemID)
-VALUES ("AriannaBourke",1);
+VALUES ("erinuclkwon",1);
