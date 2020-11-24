@@ -21,11 +21,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     // $listingquery = "SELECT userName, saleItemID, itemName, description, startPrice, endDate FROM auction WHERE userName = '$listingsusername' ORDER BY itemName ASC";
     $listingquery = "SELECT auction.saleItemID, auction.itemName, auction.category, auction.description, auction.endDate, 
     auction.userName AS seller, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid
-    FROM auction, bid
-    WHERE auction.saleItemID IN (SELECT saleItemID FROM bid WHERE auction.userName = '$listingsusername') 
-        AND auction.saleItemID = bid.saleItemID
+    FROM auction
+    LEFT JOIN bid
+    ON auction.saleItemID = bid.saleItemID
+    WHERE auction.userName = '$listingsusername'
     GROUP BY auction.saleItemID";
     $listresult = mysqli_query($connection, $listingquery) or die('Error selecting user query' . mysqli_error());
+    $nobidlist = "SELECT auction.saleItemID, auction.itemName, auction.category, auction.description, auction.endDate, auction.userName";
     if (empty($listresult)){
       echo 'You do not have any listings at this point.';
     }
