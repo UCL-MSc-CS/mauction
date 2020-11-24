@@ -25,11 +25,7 @@ include 'connection.php';
         AND auction.saleItemID = bid.saleItemID
     GROUP BY auction.saleItemID";
     $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
-<<<<<<< HEAD
     if (empty($bidresult)) {
-=======
-    if ($bidresult == 0) {
->>>>>>> f61feae0993732fa14fa59adeb49ba1851045207
       echo "Your bid history is empty.";
     }
     
@@ -48,6 +44,7 @@ include 'connection.php';
     
   } 
   else {
+    echo 'Please log in before you check your bid history.';
     echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';
   }
 
