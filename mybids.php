@@ -21,7 +21,7 @@ include 'connection.php';
     $bidquery = "SELECT auction.saleItemID, auction.itemName, auction.category, auction.description, auction.endDate, 
     auction.userName AS seller, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid
     FROM auction, bid
-    WHERE auction.saleItemID IN (SELECT saleItemID FROM bid WHERE userName = '$bidssusername') 
+    WHERE auction.saleItemID IN (SELECT saleItemID FROM bid WHERE auction.userName = '$bidssusername') 
         AND auction.saleItemID = bid.saleItemID
     GROUP BY auction.saleItemID";
     $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
