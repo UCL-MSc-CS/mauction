@@ -73,7 +73,6 @@ $has_session = "";
     $user = $_SESSION['username'];
     $watching = false;
     $has_session = true;
-    echo '<a class="nav-link" href="logout.php">Logout</a>';
     $query = "SELECT * FROM watchlist WHERE userName='$user' and saleItemID='$item_id'";
     $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
     $queryRes = mysqli_num_rows($result);
@@ -216,8 +215,7 @@ $has_session = "";
                     type: "POST",
                     data: {
                       functionname: 'add_to_watchlist',
-                      arguments: [<?php echo ($item_id); ?>],
-                      user: [<?php echo ($user); ?>]
+                      arguments: [<?php echo ($item_id); ?>]
                     },
 
                     success: function(obj, textstatus) {
@@ -256,7 +254,7 @@ $has_session = "";
                       // Callback function for when call is successful and returns obj
                       console.log("Success");
                       var objT = obj.trim();
-
+                      console.log("objT " + objT);
                       if (objT == "success") {
                         $("#watch_watching").hide();
                         $("#watch_nowatch").show();

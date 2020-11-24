@@ -25,6 +25,7 @@ include 'connection.php';
         AND auction.saleItemID = bid.saleItemID
     GROUP BY auction.saleItemID";
     $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
+    // empty() only works on Windows
     if (empty($bidresult)) {
       echo "Your bid history is empty.";
     }

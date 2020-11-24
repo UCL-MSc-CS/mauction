@@ -20,7 +20,7 @@ $listingsusername = $_SESSION['username'];
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     // $listingquery = "SELECT userName, saleItemID, itemName, description, startPrice, endDate FROM auction WHERE userName = '$listingsusername' ORDER BY itemName ASC";
     $listingquery = "SELECT auction.saleItemID, auction.itemName, auction.category, auction.description, auction.endDate, 
-    auction.userName AS seller, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid
+    auction.userName AS seller, auction.startPrice, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid
     FROM auction
     LEFT JOIN bid
     ON auction.saleItemID = bid.saleItemID
@@ -33,10 +33,15 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     }
     else{
     while ($listrow2 = mysqli_fetch_assoc($listresult)) {
+      if ($listrow2['maxBid'] == null) {
+        $listcurrent_price = $listrow2['startPrice'];
+      } else {
+        $listcurrent_price = $listrow2['maxBid'];
+      }
       $listitem_id = $listrow2['saleItemID'];
       $listtitle = $listrow2['itemName'];
       $listdescription = $listrow2['description'];
-      $listcurrent_price = $listrow2['maxBid'];
+      // $listcurrent_price = $listrow2['maxBid'];
       $listnum_bids = $listrow2['countBid'];
       // $listnum_bids = $listrow['commission'];
       $listend_date = $listrow2['endDate'];

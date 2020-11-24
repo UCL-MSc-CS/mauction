@@ -9,7 +9,7 @@ include 'connection.php';
   <h2 class="my-3">Recommendations for you</h2>
 
   <?php
-  $userName = 'erinuclkwon';
+  $userName = $_SESSION['username'];
   $bidQuery = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
   $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
   $bidQueryRes = mysqli_num_rows($bidResult);
