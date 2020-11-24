@@ -5,7 +5,8 @@
 // TODO: Extract $_POST variables, check they're OK, and attempt to make a bid.
 // Notify user of success/failure and redirect/give navigation options.
 
-// Matt 01/11: connect->extract and check variables -> INSERT query -> close db connection ?>
+// Matt 01/11: connect->extract and check variables -> INSERT query -> close db connection 
+?>
 
 <!-- Create auction form -->
 <div style="max-width: 800px; margin: 10px auto">
@@ -19,12 +20,12 @@
       before they try to send it, but that kind of functionality should be
       extremely low-priority / only done after all database functions are
       complete. -->
-      <form method="post" action="place_bid_result.php">              
-        
+      <form method="post" action="place_bid_result.php">
+
         <div class="form-group row">
           <label for="bidAmount" class="col-sm-2 col-form-label text-right">Bid Amount</label>
           <div class="col-sm-10">
-	        <div class="input-group">
+            <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">£</span>
               </div>
@@ -33,7 +34,7 @@
             <small id="placeBidHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> How much are you bidding?.</small>
           </div>
         </div>
-       
+
         <button type="submit" name="submit" class="btn btn-primary form-control">Place Bid</button>
       </form>
     </div>
@@ -43,5 +44,4 @@
 </div>
 
 
-<?php include_once("footer.php")?>
-
+<?php include_once("footer.php") ?>

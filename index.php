@@ -3,4 +3,3 @@
   // if you like.
   
   header("Location: browse.php");
-?>
