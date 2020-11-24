@@ -73,28 +73,28 @@ INSERT INTO user (userName, email, firstName, lastName, country, city, addressLi
 VALUES ("AriannaBourke", "arianna.bourke.20@ucl.ac.uk", "Arianna", "Bourke", "UK", "Santa Ana", "1 Memory Lane", "90210", SHA("1234"), 'seller');
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Ibuprofen", "cecrandell", "Health", 2, "Good for headaches", '21-4-21', "Post", "New");
+VALUES ("Ibuprofen", "cecrandell", "Health", 2, "Good for headaches", '21-4-21', "Mail-First Class", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Paracetamol", "AriannaBourke", "Health", 0.6, "Good for general pain", '21-3-21', "Post", "New");
+VALUES ("Paracetamol", "AriannaBourke", "Health", 0.6, "Good for general pain", '21-3-21', "Mail-First Class", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Becoming", "cecrandell", "Books", 28.99, "Michelle Obama's life", '20-3-21', "Post", "Used");
+VALUES ("Becoming", "cecrandell", "Books", 28.99, "Michelle Obama's life", '20-3-21', "Mail-First Class", "Used");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("A Promised Land", "AriannaBourke", "Books", 31.99, "Barack Obama's life", '21-3-21', "Post", "New");
+VALUES ("A Promised Land", "AriannaBourke", "Books", 31.99, "Barack Obama's life", '21-3-21', "Mail-First Class", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Bowl", "cecrandell", "Home Decor", 10.5, "Ceramic yellow bowl with green stripes. Excellent for fruit", '20-2-26', "Pick-Up Only", "Used");
+VALUES ("Bowl", "cecrandell", "Home Decor", 10.5, "Ceramic yellow bowl with green stripes. Excellent for fruit", '20-2-26', "Pick-up in person", "Used");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Armchair", "AriannaBourke", "Home Decor", 75, "Green tartan velvet armchair. Very comfortable", '20-6-1', "Pick-Up Only", "New");
+VALUES ("Armchair", "AriannaBourke", "Home Decor", 75, "Green tartan velvet armchair. Very comfortable", '20-6-1', "Pick-up in person", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Dumbbell 10kg", "cecrandell", "Sports and Fitness", 50, "Perfect for home workout", '21-6-1', "Post", "New");
+VALUES ("Dumbbell 10kg", "cecrandell", "Sports and Fitness", 50, "Perfect for home workout", '21-6-1', "Mail-First Class", "New");
 
 INSERT INTO auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Dumbbell 15kg", "AriannaBourke", "Sports and Fitness", 55, "Perfect for home workout", '21-6-1', "Pick-Up Only", "New");
+VALUES ("Dumbbell 15kg", "AriannaBourke", "Sports and Fitness", 55, "Perfect for home workout", '21-6-1', "Pick-up in person", "New");
 
 INSERT INTO bid (userName, saleItemID, bidAmount)
 VALUES ("mattShorvon",1,3);

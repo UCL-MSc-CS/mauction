@@ -44,9 +44,9 @@
             <div class="col-sm-10">
               <select class="form-control" name="condition" id="condition">
                 <option value=""> </option>
-                <option value="new">New</option>
-                <option value="used_new">Used-Like New</option>
-                <option value="used">Used</option>
+                <option value="New">New</option>
+                <option value="Used-Like New">Used-Like New</option>
+                <option value="Used">Used</option>
               </select>
               <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Specify the item's condition.</small>
             </div>
@@ -78,18 +78,6 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="auctionReservePrice" class="col-sm-2 col-form-label text-right">Reserve price</label>
-            <div class="col-sm-10">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">£</span>
-                </div>
-                <input type="number" class="form-control" name="auctionReservePrice" id="auctionReservePrice">
-              </div>
-              <small id="reservePriceHelp" class="form-text text-muted">Optional. Auctions that end below this price will not go through. This value is not displayed in the auction listing.</small>
-            </div>
-          </div>
-          <div class="form-group row">
             <label for="auctionEndDate" class="col-sm-2 col-form-label text-right">End date</label>
             <div class="col-sm-10">
               <input type="datetime-local" class="form-control" name="auctionEndDate" id="auctionEndDate">
@@ -101,10 +89,10 @@
             <div class="col-sm-10">
               <select class="form-control" name="delivery" id="delivery">
                 <option value=""> </option>
-                <option value="post_1">Mail-First Class</option>
-                <option value="post_2">Mail-Second Class</option>
-                <option value="pick-up">Pick-up in person</option>
-                <option value="other">Other</option>
+                <option value="Mail-First Class">Mail-First Class</option>
+                <option value="Mail-Second Class">Mail-Second Class</option>
+                <option value="Pick-up in person">Pick-up in person</option>
+                <option value="Other">Other</option>
               </select>
               <small id="categoryHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Specify the item's delivery method.</small>
             </div>
