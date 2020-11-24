@@ -25,10 +25,11 @@ include 'connection.php';
         AND auction.saleItemID = bid.saleItemID
     GROUP BY auction.saleItemID";
     $bidresult = mysqli_query($connection, $bidquery) or die('Error selecting user query' . mysqli_error());
-    if (empty($bidrow)) {
+    if (empty($bidresult)) {
       echo "Your bid history is empty.";
     }
-    while ($bidrow = mysqli_fetch_assoc($bidresult)) {
+    
+      while ($bidrow = mysqli_fetch_assoc($bidresult)) {
       // $bidid = $bidrow['bidID'];
       // $biduser_id = $bidrow['userName'];
       $biditem_id = $bidrow['saleItemID'];
@@ -40,7 +41,9 @@ include 'connection.php';
       $bidend_date = $bidrow['endDate'];
       print_listing_li($biditem_id, $biditem_name, $biddescription, $bidcurrent_price, $num_bids, $bidend_date);
     }
-  } else {
+    
+  } 
+  else {
     echo '<button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">Login</button>';
   }
 
