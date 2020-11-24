@@ -10,18 +10,17 @@ include 'connection.php';
 
     <?php
     $userName = $_SESSION['username'];
-    $bidQuery = "SELECT auction.*, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
+    $bidQuery = "SELECT Auction.*, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
     $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
     $bidQueryRes = mysqli_num_rows($bidResult);
     $arr = array();
     while ($bidRow = mysqli_fetch_assoc($bidResult)) {
         $arr . array_push($arr, $bidRow);
     }
-    $query = "SELECT * FROM watchlist WHERE userName = '$userName'";
+    $query = "SELECT * FROM Watchlist WHERE userName = '$userName'";
     $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
     $queryRes = mysqli_num_rows($result);
 
-    // TODO: Loop through results and print them out as list items.
     while ($row = mysqli_fetch_assoc($result)) {
         $item_id = $row['userName'];
         $saleItemID = $row['saleItemID'];

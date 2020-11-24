@@ -6,18 +6,18 @@ include 'connection.php';
 
 <div class="container">
 
-  <h2 class="my-3">Recommendations for you</h2>
+  <h2 class="my-3">Recommendations For You</h2>
 
   <?php
   $userName = $_SESSION['username'];
-  $bidQuery = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
+  $bidQuery = "SELECT Auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
   $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
   $bidQueryRes = mysqli_num_rows($bidResult);
   $arr = array();
   while ($bidRow = mysqli_fetch_assoc($bidResult)) {
     $arr . array_push($arr, $bidRow);
   }
-  $query = "SELECT * FROM bid WHERE userName = '$userName'";
+  $query = "SELECT * FROM Bid WHERE userName = '$userName'";
   $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
   $queryRes = mysqli_num_rows($result);
   $title = array();
@@ -26,7 +26,7 @@ include 'connection.php';
   }
   $title2 = array();
   for ($x = 0; $x <= count($title) - 1; $x++) {
-    $query2 = "SELECT itemName FROM auction a WHERE a.saleItemID = '$title[$x]'";
+    $query2 = "SELECT itemName FROM Auction WHERE Auction.saleItemID = '$title[$x]'";
     $result2 = mysqli_query($connection, $query2) or die('Error making select users query' . mysqli_error());
     $queryRes2 = mysqli_num_rows($result2);
     while ($row2 = mysqli_fetch_assoc($result2)) {
@@ -35,7 +35,7 @@ include 'connection.php';
   }
   $noResults = array();
   for ($x = 0; $x <= count($title2) - 1; $x++) {
-    $query3 = "SELECT userName, saleItemID, itemName, description, startPrice, endDate FROM auction WHERE userName <> '$userName' AND itemName LIKE '$title2[$x]'";
+    $query3 = "SELECT userName, saleItemID, itemName, description, startPrice, endDate FROM Auction WHERE userName <> '$userName' AND itemName LIKE '$title2[$x]'";
     $result3 = mysqli_query($connection, $query3) or die('Error making select users query' . mysqli_error());
     $queryRes3 = mysqli_num_rows($result3);
     if ($queryRes3 == 0) {

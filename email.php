@@ -5,16 +5,14 @@ Refresh to send outcome to database and email results
 
 <?php
 
-
-$query = "SELECT * FROM auction WHERE endDate < NOW()";
+$query = "SELECT * FROM Auction WHERE endDate < NOW()";
 $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
 $queryRes = mysqli_num_rows($result);
 while ($row = mysqli_fetch_assoc($result)) {
 	$saleItemID = $row['saleItemID'];
 	$sellerUsername = $row['userName'];
 
-
-	$query2 = "SELECT MAX(bidAmount), userName FROM bid WHERE saleItemID = '$saleItemID' GROUP BY userName";
+	$query2 = "SELECT MAX(bidAmount), userName FROM Bid WHERE saleItemID = '$saleItemID' GROUP BY userName";
 	$result2 = mysqli_query($connection, $query2) or die('Error making select users query' . mysqli_error($connection));
 	$queryRes2 = mysqli_num_rows($result2);
 	$row2 = mysqli_fetch_assoc($result2);
@@ -22,24 +20,24 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$endBid = $row2['MAX(bidAmount)'];
 
 	if ($endBid == '') {
-		$query3 = "SELECT * FROM outcome WHERE saleItemID=$saleItemID";
+		$query3 = "SELECT * FROM Outcome WHERE saleItemID=$saleItemID";
 		$result3 = mysqli_query($connection, $query3) or die('Error making select outcome query' . mysqli_error($connection));
 		$row3 = mysqli_fetch_assoc($result3);
 
 		if ($row3['saleItemID'] != $saleItemID) {
-			$query4 = "INSERT INTO outcome (saleItemID, sold, endBid, sellerUsername, buyerUsername, sellerEmailSent, buyerEmailSent) 
+			$query4 = "INSERT INTO Outcome (saleItemID, sold, endBid, sellerUsername, buyerUsername, sellerEmailSent, buyerEmailSent) 
 	VALUES ('$saleItemID', '0', '0.0', '$sellerUsername', '', '0', '0')";
 			if (!mysqli_query($connection, $query4)) {
 				die('Error: making insert into outcome query' . mysqli_error($connection));
 			}
 		}
 	} else {
-		$query3 = "SELECT * FROM outcome WHERE saleItemID=$saleItemID";
+		$query3 = "SELECT * FROM Outcome WHERE saleItemID=$saleItemID";
 		$result3 = mysqli_query($connection, $query3) or die('Error making select outcome query' . mysqli_error($connection));
 		$row3 = mysqli_fetch_assoc($result3);
 		if ($row3['saleItemID'] != $saleItemID) {
 
-			$query5 = "INSERT INTO outcome (saleItemID, sold, endBid, sellerUsername, buyerUsername, sellerEmailSent, buyerEmailSent) 
+			$query5 = "INSERT INTO Outcome (saleItemID, sold, endBid, sellerUsername, buyerUsername, sellerEmailSent, buyerEmailSent) 
 	VALUES ('$saleItemID', '1', '$endBid', '$sellerUsername', '$buyerUsername', '0', '0')";
 			if (!mysqli_query($connection, $query5)) {
 				die('Error: making insert into outcome query' . mysqli_error($connection));
@@ -48,13 +46,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 	}
 }
 
-// // seller email
-// // if sold
+// Seller email if sold
 
-
-$emailquery = "SELECT outcome.saleItemID, outcome.sold, outcome.sellerUsername,
- outcome.endBid, user.email, auction.itemName FROM outcome, user, auction 
-WHERE outcome.sellerUsername=user.userName and outcome.saleItemID=auction.saleItemID and outcome.sellerEmailSent = '0' ";
+$emailquery = "SELECT Outcome.saleItemID, Outcome.sold, Outcome.sellerUsername,
+ Outcome.endBid, User.email, Auction.itemName FROM Outcome, User, Auction 
+WHERE Outcome.sellerUsername=User.userName and Outcome.saleItemID=Auction.saleItemID and Outcome.sellerEmailSent = '0' ";
 $emailresult = mysqli_query($connection, $emailquery) or die('Error making select users query' . mysqli_error($connection));
 $emailqueryRes = mysqli_num_rows($emailresult);
 while ($row = mysqli_fetch_assoc($emailresult)) {
@@ -64,7 +60,6 @@ while ($row = mysqli_fetch_assoc($emailresult)) {
 	$itemName = $row['itemName'];
 	$endBid = $row['endBid'];
 	$sellerEmail = $row['email'];
-
 
 	if ($sold == '1') {
 
@@ -78,8 +73,7 @@ while ($row = mysqli_fetch_assoc($emailresult)) {
 		mail($to, $subject, $message, implode('\r\n', $headers));
 	}
 
-	// // seller email
-	// // if not sold 
+	// Seller email if not sold
 
 	if ($sold == '0') {
 		$from = "ariannabourke@gmail.com";
@@ -90,17 +84,14 @@ while ($row = mysqli_fetch_assoc($emailresult)) {
 
 		mail($to, $subject, $message, implode('\r\n', $headers));
 	}
-	$sentemailquery = "UPDATE outcome SET sellerEmailSent = '1' WHERE saleItemID = $saleItemID";
+	$sentemailquery = "UPDATE Outcome SET sellerEmailSent = '1' WHERE saleItemID = $saleItemID";
 	$emailresults = mysqli_query($connection, $sentemailquery) or die('Error making select users query' . mysqli_error($connection));
 }
 
+// Buyer email if won 
 
-// // buyer email
-// // if won  
-
-
-$query7 = "SELECT outcome.saleItemID, outcome.sold, outcome.endBid, outcome.buyerUsername, user.email, auction.itemName FROM outcome, user, auction 
-WHERE outcome.buyerUsername=user.userName and outcome.saleItemID=auction.saleItemID and outcome.buyerEmailSent = '0' ";
+$query7 = "SELECT Outcome.saleItemID, Outcome.sold, Outcome.endBid, Outcome.buyerUsername, User.email, Auction.itemName FROM Outcome, User, Auction 
+WHERE Outcome.buyerUsername=User.userName and Outcome.saleItemID=Auction.saleItemID and Outcome.buyerEmailSent = '0' ";
 $result7 = mysqli_query($connection, $query7) or die('Error making select users query' . mysqli_error($connection));
 $queryRes7 = mysqli_num_rows($result7);
 while ($row7 = mysqli_fetch_assoc($result7)) {
@@ -123,7 +114,7 @@ while ($row7 = mysqli_fetch_assoc($result7)) {
 		mail($to, $subject, $message, implode('\r\n', $headers));
 	}
 
-	$sentemailquery = "UPDATE outcome SET buyerEmailSent = '1' WHERE saleItemID = $saleItemID";
+	$sentemailquery = "UPDATE Outcome SET buyerEmailSent = '1' WHERE saleItemID = $saleItemID";
 	$emailresults = mysqli_query($connection, $sentemailquery) or die('Error making select users query' . mysqli_error($connection));
 }
 ?>

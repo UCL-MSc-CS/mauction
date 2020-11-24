@@ -7,7 +7,7 @@ include 'connection.php';
 
 <div class="container">
 
-  <h2 class="my-3">My listings</h2>
+  <h2 class="my-3">My Listings</h2>
 
   <?php
   // This page is for showing a user the auction listings they've made.
@@ -31,8 +31,8 @@ include 'connection.php';
   // also your database may need to only have a single endDate column as DATETIME type, rather than split into 2, but we can look at this on Sunday :) :) :)
 
 
-  $listingquery = "SELECT MAX(bidAmount), COUNT(bidID), auction.*
-	  FROM auction, bid WHERE auction.saleItemID= '1' and bid.saleItemID= '1' ORDER BY itemName ASC"; // need to add WHERE userID IN (SELECT userID WHERE userName = '$listusername' AND password = '$listpassword'FROM users)
+  $listingquery = "SELECT MAX(bidAmount), COUNT(bidID), Auction.*
+	  FROM Auction, Bid WHERE Auction.saleItemID= '1' and Bid.saleItemID= '1' ORDER BY itemName ASC"; // need to add WHERE userID IN (SELECT userID WHERE userName = '$listusername' AND password = '$listpassword'FROM users)
   $listresult = mysqli_query($connection, $listingquery) or die('Error selecting user query' . mysqli_error());
   $listqueryRes = mysqli_num_rows($listresult);
   while ($listrow = mysqli_fetch_assoc($listresult)) {

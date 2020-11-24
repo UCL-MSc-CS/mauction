@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <div class="container">
 	<div style="max-width: 1000px; margin: 10px auto">
-		<h2 class="my-3">Register new account</h2>
+		<h2 class="my-3">Register New Account</h2>
 		<div class="card">
 			<div class="card-body">
 
@@ -186,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</form>
 			</div>
 			<?php
-			if (isset($_POST['submit'])) { // if submit clicked, assign post variables
+			if (isset($_POST['submit'])) {
 				$accountType = mysqli_real_escape_string($connection, $_POST['accountType']);
 				$userName = mysqli_real_escape_string($connection, $_POST['userName']);
 				$firstName = mysqli_real_escape_string($connection, $_POST['firstName']);
@@ -203,21 +203,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$postcode = mysqli_real_escape_string($connection, $_POST['postcode']);
 
 
-				$query = "SELECT userName FROM user WHERE userName='$userName'";
+				$query = "SELECT userName FROM User WHERE userName='$userName'";
 				$result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error($connection));
 				if (mysqli_num_rows($result) != 0) {
 					die("Sorry, this username is already taken, please try again");
 				}
 
 
-				if ($_POST['password'] !== $_POST['confirmpassword']) {	// confirms password and password confirmation match
+				if ($_POST['password'] !== $_POST['confirmpassword']) {
 					die("Passwords do not match! Please try again.");
 				}
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // checks email in valid form
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					echo "' $email ' is not a valid email address. Please try again.";
 				} else {
 
-					$query = "INSERT INTO user (userName, email, firstName, lastName, country, principality, city, addressLine1, 
+					$query = "INSERT INTO User (userName, email, firstName, lastName, country, principality, city, addressLine1, 
 	  addressLine2, postcode, password, accountType) 
                 VALUES ('$userName', '$email', '$firstName', '$lastName', '$country', '$principality', '$city', '$addressLine1', '$addressLine2', '$postcode', SHA('$password'), '$accountType')";
 					if (!mysqli_query($connection, $query)) {

@@ -20,14 +20,14 @@ include 'connection.php';
     }
   }
   ?>
-  <h2 class="my-3">Browse listings</h2>
+  <h2 class="my-3">Browse Listings</h2>
 
   <div id="searchSpecs">
     <form method="get">
       <div class="row">
         <div class="col-md-5 pr-0">
           <div class="form-group">
-            <label for="keyword" class="sr-only">Search keyword:</label>
+            <label for="keyword" class="sr-only">Search Keyword:</label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text bg-transparent pr-0 text-muted">
@@ -47,7 +47,7 @@ include 'connection.php';
         </div>
         <div class="col-md-3 pr-0">
           <div class="form-group">
-            <label for="cat" class="sr-only">Search within:</label>
+            <label for="cat" class="sr-only">Search Within:</label>
             <select class="form-control" id="cat" name="cat">
               <option selected value="none">Category</option>
               <option value="All Categories">All Categories</option>
@@ -67,7 +67,7 @@ include 'connection.php';
         </div>
         <div class="col-md-3 pr-0">
           <div class="form-inline">
-            <label for="order_by" class="sr-only">Sort by:</label>
+            <label for="order_by" class="sr-only">Sort By:</label>
             <select class="form-control" id="order_by" name="order_by">
               <option selected value="none">Sort By</option>
               <option value="Low to High">Price (low to high)</option>
@@ -98,14 +98,14 @@ include 'connection.php';
 
     <?php
     if (!isset($_GET['search'])) {
-      $bidQuery = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
+      $bidQuery = "SELECT Auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
       $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
       $bidQueryRes = mysqli_num_rows($bidResult);
       $arr = array();
       while ($bidRow = mysqli_fetch_assoc($bidResult)) {
         $arr . array_push($arr, $bidRow);
       }
-      $auctionQuery = "SELECT * FROM auction ORDER BY itemName ASC";
+      $auctionQuery = "SELECT * FROM Auction ORDER BY itemName ASC";
       $auctionResult = mysqli_query($connection, $auctionQuery) or die('Error making select users query' . mysqli_error());
       $auctionQueryRes = mysqli_num_rows($auctionResult);
       while ($auctionRow = mysqli_fetch_assoc($auctionResult)) {
@@ -155,14 +155,14 @@ include 'connection.php';
       } else {
         $queryorder = " ORDER BY endDate DESC";
       }
-      $bidQuery2 = "SELECT auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM auction, bid WHERE auction.saleItemID = bid.saleItemID GROUP BY auction.saleItemID ORDER BY itemName ASC";
+      $bidQuery2 = "SELECT Auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
       $bidResult2 = mysqli_query($connection, $bidQuery2) or die('Error making select users query' . mysqli_error());
       $bidQueryRes2 = mysqli_num_rows($bidResult2);
       $arr2 = array();
       while ($bidRow2 = mysqli_fetch_assoc($bidResult2)) {
         $arr2 . array_push($arr2, $bidRow2);
       }
-      $auctionQuery2 = "SELECT * FROM auction WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
+      $auctionQuery2 = "SELECT * FROM Auction WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
       $auctionResult2 = mysqli_query($connection, $auctionQuery2) or die('Error making select users query' . mysqli_error());
       $auctionQueryRes2 = mysqli_num_rows($auctionResult2);
       if ($auctionQueryRes2 == 0) {

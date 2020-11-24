@@ -1,8 +1,4 @@
 <?php
-
-?>
-
-<?php
 include 'connection.php'; ?>
 
 <?php include_once("header.php") ?>

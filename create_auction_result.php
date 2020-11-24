@@ -9,8 +9,8 @@ include 'connection.php';
         <?php
 
         if (isset($_POST['submit'])) {
-                $username = $_SESSION['username']; // hardcoded for now
-                $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']); 
+                $username = $_SESSION['username'];
+                $auctionTitle = mysqli_real_escape_string($connection, $_POST['auctionTitle']);
                 $description = mysqli_real_escape_string($connection, $_POST['auctionDetails']);
                 $condition = mysqli_real_escape_string($connection, $_POST['condition']);
                 $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
@@ -22,8 +22,7 @@ include 'connection.php';
 
                 if (empty($auctionTitle)) {
                         echo "Please provide an auction title";
-                }  
-                elseif (empty($category)) {
+                } elseif (empty($category)) {
                         echo "Please select a category";
                 } elseif (empty($startPrice)) {
                         echo "Please provide a starting price";
@@ -31,13 +30,11 @@ include 'connection.php';
                         echo "Please provide an end date";
                 } elseif (empty($condition)) {
                         echo "Please state the condition of your item";
-                }     
-                elseif (empty($delivery)) {
+                } elseif (empty($delivery)) {
                         echo "Please provide the item's delivery method";
-                }         
-                else {
+                } else {
                         echo '<div class="text-center">Auction successfully created! <a href="mylistings.php">View your new listing.</a></div>';
-                        $query = "INSERT INTO auction (userName, itemName, startPrice, category, description, endDate, itemCondition, delivery) VALUES('$username','$auctionTitle','$startPrice','$category',
+                        $query = "INSERT INTO Auction (userName, itemName, startPrice, category, description, endDate, itemCondition, delivery) VALUES('$username','$auctionTitle','$startPrice','$category',
 			'$description', '$endDate', '$condition', '$delivery')";
                         if (!mysqli_query($connection, $query)) {
                                 die('Error: ' . mysqli_error($connection));
