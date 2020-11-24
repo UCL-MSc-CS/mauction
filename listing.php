@@ -164,7 +164,6 @@ $has_session = "";
                     success: function(obj, textstatus) {
                       console.log("Success");
                       var objT = obj.trim();
-                      console.log("objT " + objT);
                       if (objT == "success") {
                         $("#watch_nowatch").hide();
                         $("#watch_watching").show();
