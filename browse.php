@@ -51,9 +51,10 @@ include 'connection.php';
             <select class="form-control" id="cat" name="cat">
               <option selected value="none">Category</option>
               <option value="All Categories">All Categories</option>
+              <option value="Books">Books</option>
               <option value="Health">Health</option>
-              <option value="Mental Wellbeing">Mental Wellbeing</option>
               <option value="Home Decor">Home Decor</option>
+              <option value="Sports and Fitness">Sports and Fitness</option>
             </select>
             <?php
             if (isset($caterror) && !empty($caterror)) {
