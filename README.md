@@ -8,19 +8,19 @@
 
 * Buyers can then create auctions and view their auction listings.
 
-<!-- ![](images/mAuction.gif) -->
+![](images/Auction.gif)
 
 * Sellers can browse for auctions they might like to bid on. They can watch an item they wish to bid on later. Sellers can also look for recommendations based on their bidding history.
 
-<!-- ![](images/mAuction.gif) -->
+![](images/Browse.gif)
 
 * When an auction has ended, an email is sent to the seller and the highest bidder to inform them that the item has sold.
 
-<!-- ![](images/mAuction.gif) -->
+<!-- ![](images/Email.gif) -->
 
 **Deployed Link**
 
-<a href="#">Link</a>
+<a href="#" target="_blank">Link</a>
 
 **Technologies Used**
 
