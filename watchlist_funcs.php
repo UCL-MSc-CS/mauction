@@ -1,10 +1,10 @@
 <?php include("connection.php") ?>
 
  <?php
+  session_start();
   $array = $_POST['arguments'];
-  $array2 = $_POST['name'];
   $item_id = $array[0];
-  $userName = $array2[0];
+  $userName = $_SESSION['username'];
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
   }

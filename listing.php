@@ -150,7 +150,7 @@ $has_session = "";
               </div>
 
               <?php include_once("footer.php") ?>
-
+            
               <script>
                 function addToWatchlist(button) {
                   console.log("These print statements are helpful for debugging");
@@ -158,8 +158,7 @@ $has_session = "";
                     type: "POST",
                     data: {
                       "functionname": 'add_to_watchlist',
-                      "arguments": [<?php echo ($item_id); ?>],
-                      "name": [<?php echo ($user); ?>]
+                      "arguments": [<?php echo ($item_id); ?>]
                     },
 
                     success: function(obj, textstatus) {
