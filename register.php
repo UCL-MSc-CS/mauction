@@ -30,17 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["email"])) {
-		$emailError = ": email is required";
+		$emailError = ": Email is required";
 	}
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["password"])) {
-		$passwordError = ": password is required";
+		$passwordError = ": Password is required";
 	}
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["confirmpassword"])) {
-		$confirmpasswordError = ": password confirmation is required";
+		$confirmpasswordError = ": Password confirmation is required";
 	}
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -50,17 +50,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["city"])) {
-		$cityError = ": city is required";
+		$cityError = ": City is required";
 	}
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["country"])) {
-		$countryError = ": country is required";
+		$countryError = ": Country is required";
 	}
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["postcode"])) {
-		$postcodeError = ": postcode is required";
+		$postcodeError = ": Postcode is required";
 	}
 }
 ?>

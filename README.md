@@ -1,33 +1,26 @@
-## Mauction
-
-<!-- ![](images/mauction.gif) -->
+## mAuction
 
 **What does this application do and why?**
 
-- Mauction operates similarly to eBay.
-- Users can sell items or bid on items to purchase.
+* Users can create an account as a buyer or seller. If they provide incorrect or no information, the page will display an error. Users can then login with their credentials.
 
-**How the application is organized**
+![](images/Register.gif)
 
-Mauction is organized into the following files:
+* Buyers can then create auctions and view their auction listings.
 
-![root folder](images/rootFolder.png)
+<!-- ![](images/mAuction.gif) -->
 
-- _README_ - this file contains all information about Mauction.
+* Sellers can browse for auctions they might like to bid on. They can watch an item they wish to bid on later. Sellers can also look for recommendations based on their bidding history.
 
-- _images folder_ - stores all of the images for this README file.
+<!-- ![](images/mAuction.gif) -->
 
-- <div>This browser does not support PDFs. Please view our ER Diagram <a href="images/ERDiagram.pdf" target="_blank">here</a>.</div>
+* When an auction has ended, an email is sent to the seller and the highest bidder to inform them that the item has sold.
 
-**Step-by-Step on how to run the application**
-<a href="localhost:8888/mauction/browse.php">
+<!-- ![](images/mAuction.gif) -->
 
-```js
-localhost: 8888 / mauction / browse.php;
-```
+**Deployed Link**
 
-</a>
-* On the homepage, the user is prompted to sign up or login.
+<a href="#">Link</a>
 
 **Technologies Used**
 
