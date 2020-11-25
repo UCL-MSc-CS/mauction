@@ -17,20 +17,19 @@ include 'connection.php';
     while ($bidRow = mysqli_fetch_assoc($bidResult)) {
         $arr . array_push($arr, $bidRow);
     }
-    $query = "SELECT * FROM Watchlist WHERE userName = '$userName'";
+    $query = "SELECT Auction.*, Watchlist.* FROM Auction, Watchlist WHERE userName = '$userName' AND Auction.saleItemID = Watchlist.saleItemID";
     $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
     $queryRes = mysqli_num_rows($result);
 
     while ($row = mysqli_fetch_assoc($result)) {
-        $item_id = $row['userName'];
         $saleItemID = $row['saleItemID'];
+        $title = $row['itemName'];
+        $description = $row['description'];
+        $end_date = $row['endDate'];
         for ($y = 0; $y <= count($arr) - 1; $y++) {
             if ($saleItemID == $arr[$y]['saleItemID']) {
                 $current_price = $arr[$y]['maxBid'];
                 $num_bids = $arr[$y]['countBid'];
-                $title = $arr[$y]['itemName'];
-                $description = $arr[$y]['description'];
-                $end_date = $arr[$y]['endDate'];
             }
         }
         print_listing_li($saleItemID, $title, $description, $current_price, $num_bids, $end_date);

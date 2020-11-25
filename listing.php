@@ -130,7 +130,7 @@ $has_session = "";
                       ?>
                     </div>
 
-                    <form method="POST" action="place_bid_result.php?item_id=<?= $item_id ?>">
+                    <form method="POST" action="place_bid_result.php?item_id=<?= $item_id ?>&startPrice=<?= $startPrice?>">
                       <div class="form-group row">
                         <div class="col-sm-10">
                           <div class="input-group">
