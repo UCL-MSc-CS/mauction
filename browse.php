@@ -98,28 +98,20 @@ include 'connection.php';
 
     <?php
     if (!isset($_GET['search'])) {
-      $bidQuery = "SELECT Auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
-      $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
-      $bidQueryRes = mysqli_num_rows($bidResult);
-      $arr = array();
-      while ($bidRow = mysqli_fetch_assoc($bidResult)) {
-        $arr . array_push($arr, $bidRow);
-      }
-      $auctionQuery = "SELECT * FROM Auction ORDER BY itemName ASC";
-      $auctionResult = mysqli_query($connection, $auctionQuery) or die('Error making select users query' . mysqli_error());
-      $auctionQueryRes = mysqli_num_rows($auctionResult);
-      while ($auctionRow = mysqli_fetch_assoc($auctionResult)) {
-        $item_id = $auctionRow['saleItemID'];
-        $current_price = $auctionRow['startPrice'];
-        $title = $auctionRow['itemName'];
-        $description = $auctionRow['description'];
-        $num_bids = 0;
-        $end_date = $auctionRow['endDate'];
-        for ($x = 0; $x <= count($arr) - 1; $x++) {
-          if ($item_id == $arr[$x]['saleItemID']) {
-            $current_price = $arr[$x]['maxBid'];
-            $num_bids = $arr[$x]['countBid'];
-          }
+      $query = "SELECT Auction.saleItemID, Auction.startPrice, Auction.itemName, Auction.description, Auction.endDate, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction LEFT JOIN Bid ON Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
+      $result = mysqli_query($connection, $query) or die('Error making select users query' . mysqli_error());
+      $queryres = mysqli_num_rows($result);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $item_id = $row['saleItemID'];
+        $title = $row['itemName'];
+        $description = $row['description'];
+        $end_date = $row['endDate'];
+        if ($row['maxBid'] == null) {
+          $current_price = $row['startPrice'];
+          $num_bids = 0;
+        } else {
+          $current_price = $row['maxBid'];
+          $num_bids = $row['countBid'];
         }
         print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
       }
@@ -155,36 +147,29 @@ include 'connection.php';
       } else {
         $queryorder = " ORDER BY endDate DESC";
       }
-      $bidQuery2 = "SELECT Auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
-      $bidResult2 = mysqli_query($connection, $bidQuery2) or die('Error making select users query' . mysqli_error());
-      $bidQueryRes2 = mysqli_num_rows($bidResult2);
-      $arr2 = array();
-      while ($bidRow2 = mysqli_fetch_assoc($bidResult2)) {
-        $arr2 . array_push($arr2, $bidRow2);
-      }
-      $auctionQuery2 = "SELECT * FROM Auction WHERE itemName LIKE '%$keyword%'$querycat$queryorder";
-      $auctionResult2 = mysqli_query($connection, $auctionQuery2) or die('Error making select users query' . mysqli_error());
-      $auctionQueryRes2 = mysqli_num_rows($auctionResult2);
-      if ($auctionQueryRes2 == 0) {
+
+      $query2 = "SELECT Auction.saleItemID, Auction.startPrice, Auction.itemName, Auction.description, Auction.endDate, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction LEFT JOIN Bid ON Auction.saleItemID = Bid.saleItemID WHERE Auction.itemName LIKE '%$keyword%'$querycat GROUP BY Auction.saleItemID $queryorder";
+      $result2 = mysqli_query($connection, $query2) or die('Error making select users query' . mysqli_error());
+      $queryres2 = mysqli_num_rows($result2);
+      if ($queryres2 == 0) {
         echo ('<div class="error" style="color: red">Sorry, no results.</div>');
       } else {
-        while ($auctionRow2 = mysqli_fetch_assoc($auctionResult2)) {
-          $item_id2 = $auctionRow2['saleItemID'];
-          $current_price2 = $auctionRow2['startPrice'];
-          $title2 = $auctionRow2['itemName'];
-          $description2 = $auctionRow2['description'];
-          $num_bids2 = 0;
-          $end_date2 = $auctionRow2['endDate'];
-          for ($x = 0; $x <= count($arr2) - 1; $x++) {
-            if ($item_id2 == $arr2[$x]['saleItemID']) {
-              $current_price2 = $arr2[$x]['maxBid'];
-              $num_bids2 = $arr2[$x]['countBid'];
-            }
+        while ($row2 = mysqli_fetch_assoc($result2)) {
+          $item_id = $row2['saleItemID'];
+          $title = $row2['itemName'];
+          $description = $row2['description'];
+          $end_date = $row2['endDate'];
+          if ($row2['maxBid'] == null) {
+            $current_price = $row2['startPrice'];
+            $num_bids = 0;
+          } else {
+            $current_price = $row2['maxBid'];
+            $num_bids = $row2['countBid'];
           }
-          print_listing_li($item_id2, $title2, $description2, $current_price2, $num_bids2, $end_date2);
+          print_listing_li($item_id, $title, $description, $current_price, $num_bids, $end_date);
         }
         global $max_page;
-        $num_results = $auctionQueryRes2;
+        $num_results = $queryres2;
         $results_per_page = 2;
         $max_page = ceil($num_results / $results_per_page);
       }
