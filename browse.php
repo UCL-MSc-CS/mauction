@@ -122,7 +122,7 @@ include 'connection.php';
       $curr_page = $_GET['page'];
     }
     global $max_page;
-    $num_results = $auctionQueryRes;
+    $num_results = $queryres;
     $results_per_page = 2;
     $max_page = ceil($num_results / $results_per_page);
     if (isset($_GET['search'])) {
