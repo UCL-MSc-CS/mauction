@@ -157,8 +157,9 @@ $has_session = "";
                   $.ajax('watchlist_funcs.php', {
                     type: "POST",
                     data: {
-                      functionname: 'add_to_watchlist',
-                      arguments: [<?php echo ($item_id); ?>]
+                      "functionname": 'add_to_watchlist',
+                      "arguments": [<?php echo ($item_id); ?>],
+                      "name": [<?php echo ($user); ?>]
                     },
 
                     success: function(obj, textstatus) {

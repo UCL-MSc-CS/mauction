@@ -2,8 +2,9 @@
 
  <?php
   $array = $_POST['arguments'];
+  $array2 = $_POST['name'];
   $item_id = $array[0];
-  $userName = $_SESSION['username'];
+  $userName = $array2[0];
   if (!isset($_POST['functionname']) || !isset($_POST['arguments'])) {
     return;
   }
