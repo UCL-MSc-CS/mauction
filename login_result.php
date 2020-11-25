@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
       header("refresh:5;url=register.php");
     }
   } else {
-    echo ('<div class="text-center">Please enter your email address and password to log in</div>');
+    echo ('<div class="text-center">Please enter your username and password to log in</div>');
     header("refresh:5;url=register.php");
   }
 }
