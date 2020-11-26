@@ -12,6 +12,7 @@
   $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
   $bidQueryRes = mysqli_num_rows($bidResult);
   $arr = array();
+  // array_push brings up a notice on Windows computers, but not MacOS
   while ($bidRow = mysqli_fetch_assoc($bidResult)) {
     $arr . array_push($arr, $bidRow);
   }
