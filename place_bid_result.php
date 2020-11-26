@@ -1,8 +1,5 @@
-<?php
-include 'connection.php';
-?>
-
-<?php include_once("header.php") ?>
+<?php include 'connection.php'; ?>
+<?php include ("header.php") ?>
 
 <div class="container my-5">
 

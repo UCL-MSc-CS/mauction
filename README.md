@@ -2,17 +2,13 @@
 
 **What does this application do and why?**
 
-* Users can create an account as a buyer or seller. If they provide incorrect or no information, the page will display an error. Users can then login with their credentials.
+<!-- ![](images/mAuction.gif) -->
 
-![](images/Register.gif)
+* Users can create an account as a buyer or seller. If they provide incorrect or no information, the page will display an error. Users can then login with their credentials.
 
 * Buyers can then create auctions and view their auction listings.
 
-![](images/Auction.gif)
-
 * Sellers can browse for auctions they might like to bid on. They can watch an item they wish to bid on later. Sellers can also look for recommendations based on their bidding history.
-
-![](images/Browse.gif)
 
 * When an auction has ended, an email is sent to the seller and the highest bidder to inform them that the item has sold.
 

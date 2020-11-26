@@ -1,5 +1,5 @@
 <?php include 'connection.php'; ?>
-<?php include_once("header.php") ?>
+<?php include ("header.php") ?>
 <?php
 // https://www.w3schools.com/php/php_form_required.asp (reference)
 $usernameError = "";

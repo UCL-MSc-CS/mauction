@@ -1,9 +1,5 @@
-<?php
-include 'connection.php';
-?>
-<?php
-include 'header.php';
-?>
+<?php include 'connection.php'; ?>
+<?php include ("header.php") ?>
 
 <?php
 
