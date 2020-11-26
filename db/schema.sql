@@ -95,7 +95,7 @@ INSERT INTO Auction (itemName, userName, category, startPrice, description, endD
 VALUES ("Dumbbell 10kg", "cecrandell", "Sports and Fitness", 50, "Perfect for home workout", '21-6-1', "Mail-First Class", "New");
 
 INSERT INTO Auction (itemName, userName, category, startPrice, description, endDate, delivery, itemCondition)
-VALUES ("Dumbbell 15kg", "AriannaBourke", "Sports and Fitness", 55, "Perfect for home workout", '21-6-1', "Pick-up in person", "New");
+VALUES ("Dumbbell 15kg", "AriannaBourke", "Sports and Fitness", 65, "Perfect for home workout", '21-5-1', "Pick-up in person", "New");
 
 INSERT INTO Bid (userName, saleItemID, bidAmount)
 VALUES ("mattShorvon",1,3);
@@ -119,7 +119,7 @@ INSERT INTO Bid (userName, saleItemID, bidAmount)
 VALUES ("erinuclkwon",6,80);
 
 INSERT INTO Bid (userName, saleItemID, bidAmount)
-VALUES ("mattShorvon",7,55);
+VALUES ("mattShorvon",7,60);
 
 INSERT INTO Watchlist (userName, saleItemID)
 VALUES ("erinuclkwon",3);
