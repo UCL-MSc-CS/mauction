@@ -15,12 +15,15 @@ include 'connection.php';
                 $condition = mysqli_real_escape_string($connection, $_POST['condition']);
                 $category = mysqli_real_escape_string($connection, $_POST['auctionCategory']);
                 $startPrice = mysqli_real_escape_string($connection, $_POST['auctionStartPrice']);
+                $reservePrice = mysqli_real_escape_string($connection, $_POST['auctionReservePrice']);
                 $htmlDate = mysqli_real_escape_string($connection, $_POST['auctionEndDate']);
                 $strDate = strtotime($htmlDate);
                 $endDate = date("Y-m-d H:i:s", $strDate);
                 $delivery = mysqli_real_escape_string($connection, $_POST['delivery']);
 
-                if (empty($auctionTitle)) {
+                if ($reservePrice == '') {
+                        $reservePrice = 0;
+                } if (empty($auctionTitle)) {
                         echo "Please provide an auction title";
                 } elseif (empty($category)) {
                         echo "Please select a category";

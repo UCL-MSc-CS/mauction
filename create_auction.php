@@ -38,7 +38,6 @@
             <div class="col-sm-10">
               <select class="form-control" name="auctionCategory" id="auctionCategory">
                 <option value=""> </option>
-                <option value="All Categories">All Categories</option>
                 <option value="Books">Books</option>
                 <option value="Health">Health</option>
                 <option value="Home Decor">Home Decor</option>
@@ -59,6 +58,18 @@
               <small id="startBidHelp" class="form-text text-muted"><span class="text-danger">* Required.</span> Initial bid amount.</small>
             </div>
           </div>
+          <div class="form-group row">
+          <label for="auctionReservePrice" class="col-sm-2 col-form-label text-right">Reserve Price</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">£</span>
+              </div>
+              <input type="number" class="form-control" name="auctionReservePrice" id="auctionReservePrice">
+            </div>
+            <small id="reservePriceHelp" class="form-text text-muted">Optional. Auctions that end below this price will not go through. This value is not displayed in the auction listing.</small>
+          </div>
+        </div>
           <div class="form-group row">
             <label for="auctionEndDate" class="col-sm-2 col-form-label text-right">End date</label>
             <div class="col-sm-10">

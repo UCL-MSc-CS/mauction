@@ -1,7 +1,7 @@
-<?php include_once("header.php") ?>
 <?php
 include 'connection.php';
 ?>
+<?php include_once("header.php") ?>
 <?php require("utilities.php") ?>
 
 <div class="container">

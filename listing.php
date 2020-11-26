@@ -1,6 +1,6 @@
+<?php include("connection.php") ?>
 <?php include_once("header.php") ?>
 <?php require("utilities.php") ?>
-<?php include("connection.php") ?>
 
 <?php
 $item_id = $_GET['item_id'];
@@ -14,6 +14,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $userID = $row['userName'];
   $itemName = $row['itemName'];
   $description = $row['description'];
+  $reservePrice = $row['reservePrice'];
   $category = $row['category'];
   $condition = $row['itemCondition'];
   $delivery = $row['delivery'];
@@ -107,7 +108,7 @@ $has_session = "";
                 <?php if ($now > $end_time) : ?>
                   This auction ended on: <?php echo (date_format($end_time, 'j M H:i')) ?></p>
               <div>
-                <?php if ($current_price == 0) {  ?>
+                <?php if ($current_price < $reservePrice || $current_price == 0) {  ?>
                   This item was not sold
                 <?php } else { ?>
                   The winning bid was: £<?php echo number_format($current_price, 2) ?>
