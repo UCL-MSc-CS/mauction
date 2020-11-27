@@ -11,6 +11,7 @@ $queryRes = mysqli_num_rows($result);
 while ($row = mysqli_fetch_assoc($result)) {
 	$saleItemID = $row['saleItemID'];
 	$sellerUsername = $row['userName'];
+	$reservePrice = $row['reservePrice'];
 
 	$query2 = "SELECT MAX(bidAmount), userName FROM Bid WHERE saleItemID = '$saleItemID' GROUP BY userName";
 	$result2 = mysqli_query($connection, $query2) or die('Error making select users query' . mysqli_error($connection));
@@ -19,7 +20,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$buyerUsername = $row2['userName'];
 	$endBid = $row2['MAX(bidAmount)'];
 
-	if ($endBid == '') {
+	if ($endBid == '' || $endBid < $reservePrice) {
 		$query3 = "SELECT * FROM Outcome WHERE saleItemID=$saleItemID";
 		$result3 = mysqli_query($connection, $query3) or die('Error making select outcome query' . mysqli_error($connection));
 		$row3 = mysqli_fetch_assoc($result3);
