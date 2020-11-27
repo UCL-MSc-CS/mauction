@@ -7,6 +7,7 @@
   <h2 class="my-3">Recommendations For You</h2>
 
   <?php
+   $newQuery = "SELECT au.itemName, au.description, au.endDate, maxBid, countBid FROM Auction au INNER JOIN (SELECT DISTINCT d.saleItemID, MAX(d.bidAmount) as maxBid, COUNT(DISTINCT d.bidID) as countBid FROM (SELECT a.userName as myUserName, Bid.bidAmount, Bid.bidID, Bid.userName as otherUserName, a.saleItemID FROM (SELECT * FROM Bid WHERE Bid.userName = 'Rachel123') a INNER JOIN Bid ON a.saleItemID = Bid.saleItemID WHERE Bid.userName <> 'Rachel123') c LEFT JOIN Bid d ON c.otherUserName = d.userName WHERE d.saleItemID NOT IN (SELECT saleItemID FROM Bid WHERE Bid.userName = 'Rachel123') GROUP BY d.saleItemID) e ON e.saleItemID = au.saleItemID"; 
   $userName = $_SESSION['username'];
   $bidQuery = "SELECT Auction.saleItemID, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction, Bid WHERE Auction.saleItemID = Bid.saleItemID GROUP BY Auction.saleItemID ORDER BY itemName ASC";
   $bidResult = mysqli_query($connection, $bidQuery) or die('Error making select users query' . mysqli_error());
