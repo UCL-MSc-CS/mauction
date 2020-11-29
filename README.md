@@ -2,7 +2,7 @@
 
 **What does this application do and why?**
 
-<!-- ![](images/mAuction.gif) -->
+![](images/mAuction.gif)
 
 * Users can create an account as a buyer or seller. If they provide incorrect or no information, the page will display an error. Users can then login with their credentials.
 
@@ -12,11 +12,13 @@
 
 * When an auction has ended, an email is sent to the seller and the highest bidder to inform them that the item has sold.
 
-<!-- ![](images/Email.gif) -->
-
 **Deployed Link**
 
 <a href="#" target="_blank">Link</a>
+
+**YouTube Presentation**
+
+<a href="https://youtu.be/XCsYgKizFlM" target="_blank">https://youtu.be/XCsYgKizFlM</a>
 
 **Technologies Used**
 
