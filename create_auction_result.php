@@ -34,7 +34,7 @@
                         echo "Please provide the item's delivery method";
                 } else {
                         echo '<div class="text-center">Auction successfully created! <a href="mylistings.php">View your new listing.</a></div>';
-                        $query = "INSERT INTO Auction (userName, itemName, startPrice, category, description, endDate, itemCondition, delivery) VALUES('$username','$auctionTitle','$startPrice','$category',
+                        $query = "INSERT INTO Auction (userName, itemName, startPrice, reservePrice, category, description, endDate, itemCondition, delivery) VALUES('$username','$auctionTitle','$startPrice', '$reservePrice', $category',
 			'$description', '$endDate', '$condition', '$delivery')";
                         if (!mysqli_query($connection, $query)) {
                                 die('Error: ' . mysqli_error($connection));
