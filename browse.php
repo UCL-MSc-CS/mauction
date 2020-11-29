@@ -143,10 +143,10 @@
       } elseif ($order_by == "High to Low") {
         $queryorder = " ORDER BY startPrice DESC";
       } else {
-        $queryorder = " ORDER BY endDate DESC";
+        $queryorder = " ORDER BY endDate ASC";
       }
-
-      $query2 = "SELECT Auction.saleItemID, Auction.startPrice, Auction.itemName, Auction.description, Auction.endDate, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction LEFT JOIN Bid ON Auction.saleItemID = Bid.saleItemID WHERE Auction.itemName LIKE '%$keyword%'$querycat GROUP BY Auction.saleItemID $queryorder";
+      $chopped = substr($keyword, 0, 3);
+      $query2 = "SELECT Auction.saleItemID, Auction.startPrice, Auction.itemName, Auction.description, Auction.endDate, MAX(bidAmount) as maxBid, COUNT(bidID) as countBid FROM Auction LEFT JOIN Bid ON Auction.saleItemID = Bid.saleItemID WHERE Auction.itemName LIKE '%$chopped%'$querycat GROUP BY Auction.saleItemID $queryorder";
       $result2 = mysqli_query($connection, $query2) or die('Error making select users query' . mysqli_error());
       $queryres2 = mysqli_num_rows($result2);
       if ($queryres2 == 0) {
