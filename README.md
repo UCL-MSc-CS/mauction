@@ -12,10 +12,6 @@
 
 * When an auction has ended, an email is sent to the seller and the highest bidder to inform them that the item has sold.
 
-**Deployed Link**
-
-<a href="#" target="_blank">Link</a>
-
 **YouTube Presentation**
 
 <a href="https://youtu.be/XCsYgKizFlM" target="_blank">https://youtu.be/XCsYgKizFlM</a>
