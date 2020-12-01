@@ -14,7 +14,7 @@
 
 **Deployed Link**
 
-<a href="mauction.herokuapp.com" target="_blank">mauction.herokuapp.com</a>
+<a href="https://mauction.herokuapp.com/" target="_blank">https://mauction.herokuapp.com/</a>
 
 **YouTube Presentation**
 
